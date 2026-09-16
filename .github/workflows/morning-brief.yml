@@ -1,0 +1,36 @@
+name: Morning brief
+
+on:
+  schedule:
+    - cron: "0 3 * * 1-5"   # 08:30 IST, weekdays
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  brief:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+
+      - name: Build brief and team digests
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_MODEL: ${{ vars.CLAUDE_MODEL || 'claude-sonnet-5' }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_PLATFORM: ${{ secrets.SLACK_WEBHOOK_PLATFORM }}
+          SLACK_WEBHOOK_MOBILE: ${{ secrets.SLACK_WEBHOOK_MOBILE }}
+          SLACK_WEBHOOK_DATA: ${{ secrets.SLACK_WEBHOOK_DATA }}
+        run: python scripts/brief.py >> $GITHUB_STEP_SUMMARY
+
+      - name: Commit briefs
+        run: |
+          git config user.name "ai-employee"
+          git config user.email "ai-employee@users.noreply.github.com"
+          git add briefs
+          git diff --cached --quiet || git commit -m "brief: $(date -u +%F)"
+          git push
