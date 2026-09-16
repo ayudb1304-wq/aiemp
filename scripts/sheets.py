@@ -3,10 +3,13 @@
 The repo's Excel file stays the source of truth for the scripts. The Google Sheet is
 where you look at and edit items. Two commands:
 
-  python scripts/sheets.py pull            # copy status/owner/due/priority/notes edits
-                                           # made in the Sheet back into actions.xlsx
+  python scripts/sheets.py pull            # copy edits made in the Sheet back into actions.xlsx
+                                           # and log each changed cell to memory/corrections.jsonl
   python scripts/sheets.py push            # overwrite the "Actions" tab from actions.xlsx
   python scripts/sheets.py brief FILE.md   # write a brief into the "Morning Brief" tab
+
+Rows deleted in the Sheet are not removed from the tracker: they are set to status `rejected`
+and logged as a correction with field "deleted".
 
 Needs env GOOGLE_SERVICE_ACCOUNT_JSON (service account key file contents) or
 GOOGLE_OAUTH_TOKEN_JSON (from scripts/google_login.py). Optional env GSHEET_ID overrides the
@@ -18,9 +21,10 @@ import os
 import sys
 from pathlib import Path
 
-from common import COLUMNS, GSHEET_ID, today
+from common import COLUMNS, CORRECTIONS, GSHEET_ID, append_jsonl, today
 
-EDITABLE = ("status", "owner", "due", "priority", "notes", "blocked_by")
+EDITABLE = ("status", "owner", "due", "priority", "notes", "blocked_by", "project", "task",
+            "unblocker", "next_step", "type", "effort")
 ACTIONS_TAB = "Actions"
 BRIEF_TAB = "Morning Brief"
 
@@ -48,7 +52,7 @@ def _sheet(gc):
     return gc.open_by_key(os.environ.get("GSHEET_ID") or GSHEET_ID)
 
 
-def _tab(sh, title: str, rows: int = 1000, cols: int = 20):
+def _tab(sh, title: str, rows: int = 1000, cols: int = 30):
     for ws in sh.worksheets():
         if ws.title == title:
             return ws
@@ -80,6 +84,47 @@ def push() -> None:
     print(f"sheets push: {len(rows)} rows -> {ACTIONS_TAB}")
 
 
+def apply_records(rows: list[dict], records: list[dict], log=append_jsonl) -> int:
+    """Merge Sheet records into tracker rows in place. Returns the number of rows changed.
+    Deterministic and network-free so selftest can exercise it."""
+    by_id = {r["id"]: r for r in rows}
+    seen = set()
+    changed = 0
+    for rec in records:
+        rid = str(rec.get("id", "")).strip()
+        r = by_id.get(rid)
+        if not r:
+            continue
+        seen.add(rid)
+        diff = {k: str(rec.get(k, "")).strip() for k in EDITABLE
+                if k in rec and str(rec.get(k, "")).strip() != str(r.get(k, "")).strip()}
+        if not diff:
+            continue
+        for k, v in diff.items():
+            log(CORRECTIONS, {"date": today(), "id": rid, "field": k, "from": r.get(k, ""),
+                              "to": v, "project": r.get("project", "")})
+            if k == "due":
+                tracker_note = f"{today()}: due {r.get('due') or 'none'} -> {v or 'none'} (sheet)"
+                r["notes"] = (r["notes"] + " | " if r["notes"] else "") + tracker_note
+        r.update(diff)
+        r["updated"] = today()
+        changed += 1
+    # Present in xlsx, absent in the Sheet: rejected, kept, logged. Only rows that have been
+    # through a push cycle (updated before today) count, and never more than half the tracker
+    # at once, so a stale or wiped tab cannot reject everything.
+    missing = [r for r in rows if r["id"] not in seen and r["status"] != "rejected"
+               and r.get("updated", "") < today()]
+    if len(missing) > len(rows) // 2:
+        print(f"sheets pull: {len(missing)} rows missing from the Sheet, more than half; not rejecting any")
+        missing = []
+    for r in missing:
+        log(CORRECTIONS, {"date": today(), "id": r["id"], "field": "deleted",
+                          "from": r["status"], "to": "rejected", "project": r.get("project", "")})
+        r["status"], r["updated"] = "rejected", today()
+        changed += 1
+    return changed
+
+
 def pull() -> None:
     gc = _client()
     if gc is None:
@@ -93,18 +138,7 @@ def pull() -> None:
         print("sheets pull: sheet is empty, nothing to pull")
         return
     rows = tracker.load_rows()
-    by_id = {r["id"]: r for r in rows}
-    changed = 0
-    for rec in records:
-        r = by_id.get(str(rec.get("id", "")).strip())
-        if not r:
-            continue
-        diff = {k: str(rec.get(k, "")).strip() for k in EDITABLE
-                if str(rec.get(k, "")).strip() != str(r.get(k, "")).strip()}
-        if diff:
-            r.update(diff)
-            r["updated"] = today()
-            changed += 1
+    changed = apply_records(rows, records)
     if changed:
         tracker.save_rows(rows)
     print(f"sheets pull: {changed} rows updated from {ACTIONS_TAB}")

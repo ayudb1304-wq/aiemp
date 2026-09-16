@@ -1,8 +1,9 @@
-name: Process transcripts
+name: Process inbox
 
 on:
   push:
-    paths: ["transcripts/**", "context/**", "scripts/**"]
+    branches: [main]
+    paths: ["inbox/**", "context/**", "scripts/**"]
   workflow_dispatch:
 
 permissions:
@@ -23,19 +24,24 @@ jobs:
         with: { python-version: "3.12" }
       - run: pip install -r requirements.txt
 
+      - name: Self-test (no API key needed)
+        run: python scripts/selftest.py
+
       - name: Pull edits made in the Google Sheet
         run: python scripts/sheets.py pull
 
-      - name: Extract action cards and update tracker
+      # Exits non-zero if ANY file failed. The steps below still run (they are not cancelled),
+      # so the successes are committed and pushed, and the job shows red in the Actions UI.
+      - name: Extract cards, decisions and threads; update tracker
         run: python scripts/extract.py
 
-      - name: Commit cards and tracker
+      - name: Commit cards, tracker, memory, drafts and logs
         if: ${{ !cancelled() }}
         run: |
           git config user.name "ai-employee"
           git config user.email "ai-employee@users.noreply.github.com"
-          git add cards tracker
-          git diff --cached --quiet || git commit -m "cards: process new transcripts"
+          git add cards tracker memory drafts logs
+          git diff --cached --quiet || git commit -m "cards: process inbox"
           git push
 
       - name: Push tracker to the Google Sheet

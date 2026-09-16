@@ -39,5 +39,8 @@
     }
   ],
   "date": "2026-09-15",
-  "source": "2026-09-15-activity-tracker-sync.md"
+  "source": "2026-09-15-activity-tracker-sync.md",
+  "kind": "transcript",
+  "origin": "planned",
+  "project": "intelligent-tracker"
 }
