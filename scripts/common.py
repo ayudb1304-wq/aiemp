@@ -46,19 +46,21 @@ def ask(system: str, user: str, max_tokens: int = 4000) -> str:
     return "".join(b.text for b in resp.content if b.type == "text")
 
 
-def ask_json(system: str, user: str, schema: dict, max_tokens: int = 4000) -> dict:
+def ask_json(system: str, user: str, schema: dict, max_tokens: int = 32000) -> dict:
     """Single Claude call constrained to a JSON schema. The API guarantees the reply text is
-    valid JSON matching the schema, so unescaped quotes in transcript excerpts cannot break it."""
+    valid JSON matching the schema, so unescaped quotes in transcript excerpts cannot break it.
+    Streams because long transcripts produce long replies (thinking tokens count too)."""
     import anthropic
 
     client = anthropic.Anthropic()
-    resp = client.messages.create(
+    with client.messages.stream(
         model=MODEL,
         max_tokens=max_tokens,
         system=system,
         messages=[{"role": "user", "content": user}],
         output_config={"format": {"type": "json_schema", "schema": schema}},
-    )
+    ) as stream:
+        resp = stream.get_final_message()
     if resp.stop_reason == "max_tokens":
         raise RuntimeError(f"Model reply truncated at {max_tokens} tokens; raise max_tokens")
     text = "".join(b.text for b in resp.content if b.type == "text")

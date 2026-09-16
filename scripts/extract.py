@@ -93,7 +93,7 @@ def process(path: Path) -> Path:
     text = read_transcript(path)
     meeting_date = date_from_filename(path, text)
     try:
-        data = ask_json(SYSTEM, build_prompt(text, meeting_date), CARD_SCHEMA, max_tokens=8000)
+        data = ask_json(SYSTEM, build_prompt(text, meeting_date), CARD_SCHEMA)
     except ValueError as e:  # includes JSONDecodeError; keep the raw text for debugging
         (CARDS / f"{path.stem}.raw.txt").write_text(str(e), encoding="utf-8")
         raise
@@ -116,5 +116,13 @@ if __name__ == "__main__":
     targets = [Path(a) for a in sys.argv[1:]] or pending()
     if not targets:
         print("nothing to process")
+    failed = []
     for t in targets:
-        process(t)
+        try:
+            process(t)
+        except Exception as e:  # keep going so one bad transcript does not block the rest
+            failed.append(t.name)
+            print(f"{t.name}: FAILED: {e}")
+    if failed:
+        print(f"{len(failed)} transcript(s) failed, will retry next run: {', '.join(failed)}")
+        sys.exit(1)

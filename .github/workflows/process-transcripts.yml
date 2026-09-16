@@ -30,6 +30,7 @@ jobs:
         run: python scripts/extract.py
 
       - name: Commit cards and tracker
+        if: ${{ !cancelled() }}
         run: |
           git config user.name "ai-employee"
           git config user.email "ai-employee@users.noreply.github.com"
@@ -38,4 +39,5 @@ jobs:
           git push
 
       - name: Push tracker to the Google Sheet
+        if: ${{ !cancelled() }}
         run: python scripts/sheets.py push
