@@ -2,7 +2,7 @@ name: Process transcripts
 
 on:
   push:
-    paths: ["transcripts/**", "context/**"]
+    paths: ["transcripts/**", "context/**", "scripts/**"]
   workflow_dispatch:
 
 permissions:

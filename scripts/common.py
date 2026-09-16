@@ -46,6 +46,25 @@ def ask(system: str, user: str, max_tokens: int = 4000) -> str:
     return "".join(b.text for b in resp.content if b.type == "text")
 
 
+def ask_json(system: str, user: str, schema: dict, max_tokens: int = 4000) -> dict:
+    """Single Claude call constrained to a JSON schema. The API guarantees the reply text is
+    valid JSON matching the schema, so unescaped quotes in transcript excerpts cannot break it."""
+    import anthropic
+
+    client = anthropic.Anthropic()
+    resp = client.messages.create(
+        model=MODEL,
+        max_tokens=max_tokens,
+        system=system,
+        messages=[{"role": "user", "content": user}],
+        output_config={"format": {"type": "json_schema", "schema": schema}},
+    )
+    if resp.stop_reason == "max_tokens":
+        raise RuntimeError(f"Model reply truncated at {max_tokens} tokens; raise max_tokens")
+    text = "".join(b.text for b in resp.content if b.type == "text")
+    return parse_json(text)
+
+
 def parse_json(text: str):
     """Tolerate ```json fences and leading prose around a JSON object."""
     text = text.strip()

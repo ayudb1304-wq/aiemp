@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 import tracker
-from common import CARDS, TRANSCRIPTS, TRANSCRIPT_EXTS, ask, date_from_filename, load_context, parse_json, read_transcript
+from common import CARDS, TRANSCRIPTS, TRANSCRIPT_EXTS, ask_json, date_from_filename, load_context, read_transcript
 
 SYSTEM = """You are the AI employee of the person described in CONTEXT. You read their meeting
 transcripts and extract action items exactly the way they would, applying their priority rules,
@@ -37,11 +37,43 @@ Reply with ONE JSON object and nothing else:
 }
 
 Rules:
+- Evidence must be a short excerpt; never include double quotes inside it.
 - One card per commitment. Do not invent tasks. Do not include decisions with no follow-up.
 - Use matches_existing_id whenever the transcript refers to an item already in OPEN ITEMS, even
   if worded differently. In that case only fill the fields that changed, plus update_note.
 - Relative dates ("Friday", "end of week") must be resolved using the meeting date.
 - If nothing actionable was said, return {"meeting": "...", "cards": []}."""
+
+_STR_OR_NULL = {"anyOf": [{"type": "string"}, {"type": "null"}]}
+CARD_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "meeting": {"type": "string"},
+        "cards": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "team": {"type": "string"},
+                    "owner": {"type": "string"},
+                    "task": {"type": "string"},
+                    "due": _STR_OR_NULL,
+                    "priority": {"type": "string", "enum": ["P1", "P2", "P3"]},
+                    "status": {"type": "string", "enum": ["open", "in_progress", "blocked"]},
+                    "blocked_by": _STR_OR_NULL,
+                    "evidence": {"type": "string"},
+                    "matches_existing_id": _STR_OR_NULL,
+                    "update_note": _STR_OR_NULL,
+                },
+                "required": ["team", "owner", "task", "due", "priority", "status", "blocked_by",
+                             "evidence", "matches_existing_id", "update_note"],
+                "additionalProperties": False,
+            },
+        },
+    },
+    "required": ["meeting", "cards"],
+    "additionalProperties": False,
+}
 
 
 def build_prompt(transcript: str, meeting_date: str) -> str:
@@ -60,8 +92,11 @@ def build_prompt(transcript: str, meeting_date: str) -> str:
 def process(path: Path) -> Path:
     text = read_transcript(path)
     meeting_date = date_from_filename(path, text)
-    reply = ask(SYSTEM, build_prompt(text, meeting_date), max_tokens=6000)
-    data = parse_json(reply)
+    try:
+        data = ask_json(SYSTEM, build_prompt(text, meeting_date), CARD_SCHEMA, max_tokens=8000)
+    except ValueError as e:  # includes JSONDecodeError; keep the raw text for debugging
+        (CARDS / f"{path.stem}.raw.txt").write_text(str(e), encoding="utf-8")
+        raise
     data.update({"date": meeting_date, "source": path.name})
     out = CARDS / f"{path.stem}.json"
     out.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
