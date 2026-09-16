@@ -1,6 +1,7 @@
 # Who I am and how I work
 
 This file is the AI employee's memory. It is read on every run. Keep it current: one edit here changes every card and every brief.
+Last reviewed: 2026-09-16.
 
 ## Me
 - Name: Ayush Dhanraj Bhiogade. Role: technical lead and solution owner for the Intelligent Tracker build (edit if this is wrong).
