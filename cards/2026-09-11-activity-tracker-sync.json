@@ -1,0 +1,103 @@
+{
+  "meeting": "Activity Tracker internal sync-up",
+  "cards": [
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Ashwini",
+      "task": "Sign off on the reviewed database design after today's walkthrough.",
+      "due": "2026-09-11",
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "I will be signing off on the Debi after the review",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Johan",
+      "task": "Log detailed CR module tasks for today in Zoho and send the task ID to Ashwini.",
+      "due": "2026-09-11",
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "they will be noting down their detailed task in Zoho and giving a Task ID to Ashwini",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Samuel",
+      "task": "Log detailed Issues module tasks for today in Zoho and send the task ID to Ashwini.",
+      "due": "2026-09-11",
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "they will be noting down their detailed task in Zoho and giving a Task ID to Ashwini",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Laxmikant",
+      "task": "Work with Ashwini on the overall workflow solution design document.",
+      "due": "2026-09-11",
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "Lakshmi and I will be working on the proper workflow solution design",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Johan",
+      "task": "Change the CR Notes field UI from a single-line text box to a multi-line text box as Sreekumar requested.",
+      "due": "2026-09-11",
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "Change the UI. I'll change it.",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Johan",
+      "task": "Write detailed user stories for the Change Request module workflow and share them with Ashwini and Laxmikant.",
+      "due": "2026-09-11",
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "you share it to Ashwini B and Lakshmi Lakshmi",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Samuel",
+      "task": "Write detailed user stories for the Issues module workflow and present them to Ayush.",
+      "due": "2026-09-11",
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "user stories you figure out and you show me",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Ayush",
+      "task": "Speak with Laxmikant to plan the development plan and model for the build.",
+      "due": "2026-09-11",
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "I will speak to Lakshmi, plan development plan with model that's it",
+      "matches_existing_id": null,
+      "update_note": null
+    }
+  ],
+  "date": "2026-09-11",
+  "source": "2026-09-11-activity-tracker-sync.md"
+}

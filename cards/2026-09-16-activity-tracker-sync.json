@@ -1,0 +1,103 @@
+{
+  "meeting": "Activity Tracker internal sync-up",
+  "cards": [
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Samuel",
+      "task": "Discuss with Laxmikant the feasibility and structural changes needed for the new issue fields from Sreekumar's design before building them.",
+      "due": "2026-09-16",
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "I wanted Sam to talk to you regarding the feasibility of that. I know it will work, but what is the structure change?",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Ashwini",
+      "task": "Review how developers close issues in Zoho (root cause, resolution, attachments) and identify fields to replicate in the Issues module UI.",
+      "due": "2026-09-16",
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "Ashwini, how a developer is closing a task? Just look at that once again in Zoho.",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Samuel",
+      "task": "Add root cause, resolution and attachment capture plus a status dropdown to the Issues module UI, then finish the design and start Canvas development.",
+      "due": "2026-09-16",
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "I want the root cause because tomorrow somebody sees that they know that this was the root cause.",
+      "matches_existing_id": "2026-09-15-intelligent-tracker-02",
+      "update_note": "Sreekumar added new review points (root cause, resolution, attachment capture, status dropdown) that must be incorporated before this task is complete; due date extended to today."
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Johan",
+      "task": "Add the currency selector column to the CR entry screen UI (currently only present in the impact analysis view).",
+      "due": "2026-09-16",
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "you'll be adding that column in that entry screen, CR entry screen. It is not there now.",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Laxmikant",
+      "task": "Add phase-level delay visibility (green/red per stage, payment milestone impact) and a morning alert for predicted delays to the project screen.",
+      "due": "2026-09-16",
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "Every day morning they should know that what is a predicted problem that can happen in the future.",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Laxmikant",
+      "task": "Add separate flags for CR effort-vs-estimate overrun and schedule slip in the time tracker.",
+      "due": "2026-09-16",
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "there will be definitely a flat. Yes, estimated hours versus total hours will be there, sir.",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Ashwini",
+      "task": "Post today's review comments for Issues, CR and Plan Tree in the group chat so Sreekumar can give sign-off.",
+      "due": "2026-09-16",
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "make sure that we put those review comments in the group. Based on that, I will give you the sign off in the chat.",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Ayush",
+      "task": "Review Laxmikant's updated solution design document and sign off if it is acceptable.",
+      "due": "2026-09-16",
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "He sent it to me. I'll review it and I'll sign off on that if it is okay.",
+      "matches_existing_id": null,
+      "update_note": null
+    }
+  ],
+  "date": "2026-09-16",
+  "source": "2026-09-16-activity-tracker-sync.md"
+}

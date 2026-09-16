@@ -1,0 +1,43 @@
+{
+  "meeting": "Activity Tracker internal sync-up",
+  "cards": [
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Laxmikant",
+      "task": "Complete the SharePoint list configuration for the DB changes made last Friday and update the UI design to match.",
+      "due": "2026-09-15",
+      "priority": "P1",
+      "status": "in_progress",
+      "blocked_by": null,
+      "evidence": "Lakshmi will be doing the SharePoint configuration, whatever related to DB changes last Friday we did.",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Samuel",
+      "task": "Update the Issues module UI design and start Canvas development once it is complete.",
+      "due": "2026-09-15",
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "Samuel also, he will update the UI design. So if it is done, so he will start with the development.",
+      "matches_existing_id": null,
+      "update_note": null
+    },
+    {
+      "team": "Intelligent Tracker",
+      "owner": "Ashwini",
+      "task": "Show Sreekumar in the application how CR items and issues resolve into work-item tasks.",
+      "due": null,
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "Yeah, that we will show you on the website.",
+      "matches_existing_id": null,
+      "update_note": null
+    }
+  ],
+  "date": "2026-09-15",
+  "source": "2026-09-15-activity-tracker-sync.md"
+}
