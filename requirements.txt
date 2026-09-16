@@ -1,3 +1,4 @@
 anthropic>=0.40
 openpyxl>=3.1
-requests>=2.31
+gspread>=6.0
+python-docx>=1.1

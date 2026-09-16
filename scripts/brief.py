@@ -1,7 +1,7 @@
 """Morning brief: what each team is on today, and what needs your attention.
 
-Writes briefs/YYYY-MM-DD.md plus briefs/teams/<team>.md, and posts to Slack if
-SLACK_WEBHOOK_URL (whole brief) or SLACK_WEBHOOK_<TEAM> (team digest) is set.
+Writes briefs/YYYY-MM-DD.md plus briefs/teams/<team>.md. The workflow then copies the
+brief into the "Morning Brief" tab of the Google Sheet (scripts/sheets.py brief).
 
 Usage: python scripts/brief.py
 """
@@ -9,8 +9,6 @@ import json
 import os
 from collections import defaultdict
 from datetime import date
-
-import requests
 
 import tracker
 from common import BRIEFS, ask, load_context, slug, today
@@ -35,7 +33,7 @@ def _line(r: dict, t: date) -> str:
         tag = f" **({(t - due).days}d overdue)**"
     elif due == t:
         tag = " **(due today)**"
-    blk = f" — blocked by {r['blocked_by']}" if r["status"] == "blocked" else ""
+    blk = f", blocked by {r['blocked_by']}" if r["status"] == "blocked" else ""
     return f"- `{r['id']}` {r['priority']} **{r['owner']}**: {r['task']}{tag}{blk}"
 
 
@@ -43,7 +41,7 @@ def team_digest(team: str, items: list[dict], t: date) -> str:
     items = sorted(items, key=lambda r: _score(r, t))
     due_soon = [r for r in items if (d := tracker.parse_date(r["due"])) and (d - t).days <= 2]
     rest = [r for r in items if r not in due_soon]
-    out = [f"# {team} — {t.isoformat()}", ""]
+    out = [f"# {team}: {t.isoformat()}", ""]
     if due_soon:
         out += ["## Due today / overdue"] + [_line(r, t) for r in due_soon] + [""]
     if rest:
@@ -71,7 +69,7 @@ def build() -> tuple[str, dict[str, str]]:
         attention = "\n".join(_line(r, t) for r in sorted(items, key=lambda r: _score(r, t))[:6]) or "_Nothing open._"
 
     counts = ", ".join(f"{k}: {len(v)}" for k, v in sorted(by_team.items()))
-    brief = [f"# Morning brief — {t.strftime('%A %d %b %Y')}", "",
+    brief = [f"# Morning brief: {t.strftime('%A %d %b %Y')}", "",
              f"_{len(items)} open items ({counts})_", "",
              "## Needs your attention", attention, ""]
     digests = {}
@@ -81,18 +79,9 @@ def build() -> tuple[str, dict[str, str]]:
     return "\n".join(brief), digests
 
 
-def post_slack(url: str, text: str) -> None:
-    requests.post(url, json={"text": text}, timeout=15).raise_for_status()
-
-
 if __name__ == "__main__":
     brief, digests = build()
     (BRIEFS / f"{today()}.md").write_text(brief, encoding="utf-8")
     for team, text in digests.items():
         (BRIEFS / "teams" / f"{slug(team)}.md").write_text(text, encoding="utf-8")
-        hook = os.environ.get(f"SLACK_WEBHOOK_{slug(team).upper().replace('-', '_')}")
-        if hook:
-            post_slack(hook, text)
-    if os.environ.get("SLACK_WEBHOOK_URL"):
-        post_slack(os.environ["SLACK_WEBHOOK_URL"], brief)
     print(brief)

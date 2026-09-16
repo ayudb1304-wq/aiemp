@@ -13,6 +13,9 @@ TRACKER = ROOT / "tracker" / "actions.xlsx"
 BRIEFS = ROOT / "briefs"
 
 MODEL = os.environ.get("CLAUDE_MODEL", "claude-sonnet-5")
+# "AI EMP Action Point Tracker" sheet in the AI-Employee Drive folder. Override with env GSHEET_ID.
+GSHEET_ID = "14MAhqV3RLDo5BYRiULRjRj8h9II8i0TENHEf4Ch1bg8"
+TRANSCRIPT_EXTS = {".txt", ".md", ".vtt", ".srt", ".docx"}
 
 COLUMNS = [
     "id", "created", "meeting", "team", "owner", "task", "due",
@@ -54,9 +57,25 @@ def parse_json(text: str):
     return json.loads(text[start:end + 1])
 
 
-def date_from_filename(path: Path) -> str:
+def read_transcript(path: Path) -> str:
+    """Plain text of a transcript. Teams exports (.docx) are read paragraph by paragraph."""
+    if path.suffix.lower() == ".docx":
+        import docx  # python-docx
+
+        return "\n".join(p.text for p in docx.Document(str(path)).paragraphs)
+    return path.read_text(encoding="utf-8")
+
+
+def date_from_filename(path: Path, text: str = "") -> str:
+    """YYYY-MM-DD prefix of the filename, else a YYYYMMDD stamp in the first lines
+    (Teams names recordings like '...-20260916_110406-Meeting Recording'), else today."""
     m = re.match(r"(\d{4}-\d{2}-\d{2})", path.name)
-    return m.group(1) if m else today()
+    if m:
+        return m.group(1)
+    m = re.search(r"(20\d{2})(\d{2})(\d{2})_\d{6}", path.name + "\n" + text[:500])
+    if m:
+        return "-".join(m.groups())
+    return today()
 
 
 def slug(s: str) -> str:

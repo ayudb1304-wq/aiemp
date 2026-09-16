@@ -2,14 +2,16 @@
 
 Usage:
   python scripts/extract.py                      # every transcript without a card yet
-  python scripts/extract.py transcripts/2026-09-16-platform-sync.md
+  python scripts/extract.py transcripts/2026-09-16-activity-tracker-sync.md
+
+Accepts .md, .txt, .vtt, .srt and Teams .docx exports.
 """
 import json
 import sys
 from pathlib import Path
 
 import tracker
-from common import CARDS, TRANSCRIPTS, ask, date_from_filename, load_context, parse_json
+from common import CARDS, TRANSCRIPTS, TRANSCRIPT_EXTS, ask, date_from_filename, load_context, parse_json, read_transcript
 
 SYSTEM = """You are the AI employee of the person described in CONTEXT. You read their meeting
 transcripts and extract action items exactly the way they would, applying their priority rules,
@@ -56,8 +58,9 @@ def build_prompt(transcript: str, meeting_date: str) -> str:
 
 
 def process(path: Path) -> Path:
-    meeting_date = date_from_filename(path)
-    reply = ask(SYSTEM, build_prompt(path.read_text(encoding="utf-8"), meeting_date), max_tokens=6000)
+    text = read_transcript(path)
+    meeting_date = date_from_filename(path, text)
+    reply = ask(SYSTEM, build_prompt(text, meeting_date), max_tokens=6000)
     data = parse_json(reply)
     data.update({"date": meeting_date, "source": path.name})
     out = CARDS / f"{path.stem}.json"
@@ -68,10 +71,9 @@ def process(path: Path) -> Path:
 
 
 def pending() -> list[Path]:
-    exts = {".txt", ".md", ".vtt", ".srt"}
     return sorted(
         p for p in TRANSCRIPTS.iterdir()
-        if p.suffix.lower() in exts and not (CARDS / f"{p.stem}.json").exists()
+        if p.suffix.lower() in TRANSCRIPT_EXTS and not (CARDS / f"{p.stem}.json").exists()
     )
 
 
