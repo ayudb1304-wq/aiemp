@@ -1,0 +1,61 @@
+{
+  "run_id": "2026-09-16T122706-cr-distributor-line-item-visibility-revised-1",
+  "source": "CR_DISTRIBUTOR_LINE_ITEM_VISIBILITY_Revised (1).docx",
+  "triage": "claude",
+  "reply": {
+    "project": "lsp",
+    "people": []
+  },
+  "project": "lsp",
+  "people": [],
+  "date": "2026-09-16",
+  "note": false,
+  "context": {
+    "budget_tokens": 60000,
+    "document_tokens": 3685,
+    "document_counted": 3685,
+    "project": "lsp",
+    "people": [],
+    "layers": {
+      "1:company+project": {
+        "tokens": 1584,
+        "loaded": true
+      },
+      "2:open_items": {
+        "tokens": 7,
+        "loaded": true
+      },
+      "3:people": {
+        "tokens": 0,
+        "loaded": false
+      },
+      "4:history": {
+        "tokens": 0,
+        "loaded": false
+      },
+      "5:briefs": {
+        "tokens": 0,
+        "loaded": false
+      }
+    },
+    "dropped": [],
+    "warnings": [],
+    "context_tokens": 1591
+  },
+  "chunks": 1,
+  "cards": 3,
+  "created": [
+    "2026-09-16-lsp-01",
+    "2026-09-16-lsp-02",
+    "2026-09-16-lsp-03"
+  ],
+  "updated": [],
+  "decisions": [],
+  "threads": [
+    "T-2026-09-16-01",
+    "T-2026-09-16-02"
+  ],
+  "drafts": [
+    "2026-09-16-lsp-01"
+  ]
+}

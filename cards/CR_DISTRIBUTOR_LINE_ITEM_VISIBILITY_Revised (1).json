@@ -1,0 +1,91 @@
+{
+  "meeting": "CR: Distributor Line-Item Visibility and Claim Status Sync",
+  "kind": "doc",
+  "cards": [
+    {
+      "team": "unassigned",
+      "project": "lsp",
+      "owner": "Ayush",
+      "task": "Review the new lsp_claim_line_items table and added claim-table columns against the no-further-master-data-changes position agreed with Adwaith.",
+      "due": null,
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "Existing claim table: add lsp_fy, lsp_totalnrclaimwithsr, lsp_totalpoclaimwithsr, plus the status-sync fields",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "review",
+      "next_step": "Ayush compares the new tables and columns against the sign-off position and flags any conflicts to Adwaith.",
+      "prerequisites": [
+        "List of new columns/tables from this CR"
+      ],
+      "unblocker": null,
+      "effort": "half-day",
+      "basis": "No further master data or DB column changes after sign-off (told to Adwaith on 2026-09-16)."
+    },
+    {
+      "team": "unassigned",
+      "project": "lsp",
+      "owner": "Adwaith",
+      "task": "Populate lsp_distributoremail for every distributor before the claim-status notification feature rolls out.",
+      "due": null,
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "lsp_distributoremail is not populated for every distributor. Populate it before rollout or the notification silently sends to nobody.",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "other",
+      "next_step": "Adwaith supplies the missing distributor email addresses for all distributor master records.",
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "unknown",
+      "basis": "CR section 7.4 Notifications"
+    },
+    {
+      "team": "unassigned",
+      "project": "lsp",
+      "owner": "Ayush",
+      "task": "Agree and document a retention or archival policy for closed periodic closure line-item data.",
+      "due": null,
+      "priority": "P3",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "Agree a retention or archival policy for closed periodic closures.",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "decide",
+      "next_step": "Ayush proposes a retention window and confirms it with the DMS side.",
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "unknown",
+      "basis": "CR section 8.6 Sizing"
+    }
+  ],
+  "decisions": [],
+  "threads": [
+    {
+      "topic": "Multi-claim payload support",
+      "note": "Schema accepts a JSON array of claim objects for a future multi-claim send, though not used at launch.",
+      "evidence": "Not used at launch, it keeps a future multi-claim send from needing a contract change.",
+      "matches_thread_id": null
+    },
+    {
+      "topic": "Excel export tamper risk",
+      "note": "Excel protection on line-item downloads is only a deterrent; DB remains source of truth and edited workbooks are never accepted.",
+      "evidence": "Excel protection is a deterrent, not cryptography, and can be stripped by a determined user.",
+      "matches_thread_id": null
+    }
+  ],
+  "date": "2026-09-16",
+  "source": "CR_DISTRIBUTOR_LINE_ITEM_VISIBILITY_Revised (1).docx",
+  "project": "lsp",
+  "people": [],
+  "origin": "planned",
+  "run_id": "2026-09-16T122706-cr-distributor-line-item-visibility-revised-1",
+  "decision_ids": [],
+  "thread_ids": [
+    "T-2026-09-16-01",
+    "T-2026-09-16-02"
+  ]
+}
