@@ -24,14 +24,32 @@ scripts/       extract.py -> tracker.py -> brief.py, plus sheets.py for the Goog
    "Read and write permissions".
 2. **Settings > Secrets and variables > Actions > New repository secret**:
    - `ANTHROPIC_API_KEY`: your key from https://console.anthropic.com/settings/keys
-   - `GOOGLE_SERVICE_ACCOUNT_JSON`: the full contents of the service account key file (step 3)
-3. Google Sheet access (service account, no OAuth pop-ups in CI):
-   1. https://console.cloud.google.com, create a project (any name).
-   2. **APIs & Services > Library**: enable **Google Sheets API** and **Google Drive API**.
+   - one Google credential from step 3: `GOOGLE_SERVICE_ACCOUNT_JSON` or `GOOGLE_OAUTH_TOKEN_JSON`
+3. Google Sheet access. Pick ONE of the two options.
+
+   **Option A, service account (personal Gmail account).** Sign in to
+   https://console.cloud.google.com as the Gmail account that owns the sheet. A personal account
+   has no organisation, so key creation is allowed. If the project picker shows an organisation
+   name instead of "No organisation", you are on a work account: switch accounts or use Option B.
+   1. Create a project (any name).
+   2. **APIs & Services > Library**: enable **Google Sheets API**.
    3. **IAM & Admin > Service Accounts > Create service account**, then **Keys > Add key > JSON**.
-      The downloaded file is the value for `GOOGLE_SERVICE_ACCOUNT_JSON`.
-   4. Open the Google Sheet, click **Share**, add the service account email
-      (`something@<project>.iam.gserviceaccount.com`) as **Editor**.
+      Save the downloaded file contents as the repo secret `GOOGLE_SERVICE_ACCOUNT_JSON`.
+   4. Open the sheet, **Share**, add the service account email
+      (`...@<project>.iam.gserviceaccount.com`) as **Editor**.
+
+   **Option B, your own login, no keys (works when the organisation blocks service account
+   keys, error `iam.disableServiceAccountKeyCreation`).**
+   1. In Cloud Console, create a project and enable **Google Sheets API**.
+   2. **Google Auth Platform > Branding**: fill app name and your email. **Audience**: External,
+      then **Publish app** (unverified is fine, it is only you). Publishing matters: a token from
+      an app left in "Testing" expires after 7 days.
+   3. **Clients > Create client**: type **Desktop app**. Download the JSON.
+   4. Locally: `pip install -r requirements.txt` then
+      `python scripts/google_login.py C:/Downloads/client_secret.json`. A browser opens; sign in as
+      the account that owns the sheet (click Advanced > Go to app on the unverified warning).
+   5. Paste the printed JSON as the repo secret `GOOGLE_OAUTH_TOKEN_JSON`.
+
    The spreadsheet id is set in `scripts/common.py` (`GSHEET_ID`). To point at another sheet,
    add a repository variable `GSHEET_ID`.
 4. Edit `context/CONTEXT.md`. This is what makes it work like *you*.
@@ -51,4 +69,4 @@ $env:ANTHROPIC_API_KEY="..."        # PowerShell
 python scripts/extract.py
 python scripts/brief.py
 ```
-Set `GOOGLE_SERVICE_ACCOUNT_JSON` too if you want `python scripts/sheets.py push` to work locally.
+Set `GOOGLE_SERVICE_ACCOUNT_JSON` or `GOOGLE_OAUTH_TOKEN_JSON` too if you want `python scripts/sheets.py push` to work locally.

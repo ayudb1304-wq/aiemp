@@ -8,9 +8,10 @@ where you look at and edit items. Two commands:
   python scripts/sheets.py push            # overwrite the "Actions" tab from actions.xlsx
   python scripts/sheets.py brief FILE.md   # write a brief into the "Morning Brief" tab
 
-Needs env GOOGLE_SERVICE_ACCOUNT_JSON (the service account key file contents). Optional
-env GSHEET_ID overrides the default spreadsheet. If the key is not set, every command
-prints "skipped" and exits 0, so local runs and workflows without the secret still work.
+Needs env GOOGLE_SERVICE_ACCOUNT_JSON (service account key file contents) or
+GOOGLE_OAUTH_TOKEN_JSON (from scripts/google_login.py). Optional env GSHEET_ID overrides the
+default spreadsheet. If neither is set, every command prints "skipped" and exits 0, so local
+runs and workflows without the secret still work.
 """
 import json
 import os
@@ -24,13 +25,23 @@ ACTIONS_TAB = "Actions"
 BRIEF_TAB = "Morning Brief"
 
 
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+
+
 def _client():
-    raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON", "").strip()
-    if not raw:
+    """Service account key (GOOGLE_SERVICE_ACCOUNT_JSON) or a user token from
+    scripts/google_login.py (GOOGLE_OAUTH_TOKEN_JSON). None if neither is set."""
+    sa = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON", "").strip()
+    user = os.environ.get("GOOGLE_OAUTH_TOKEN_JSON", "").strip()
+    if not sa and not user:
         return None
     import gspread
 
-    return gspread.service_account_from_dict(json.loads(raw))
+    if sa:
+        return gspread.service_account_from_dict(json.loads(sa), scopes=SCOPES)
+    from google.oauth2.credentials import Credentials
+
+    return gspread.authorize(Credentials.from_authorized_user_info(json.loads(user), SCOPES))
 
 
 def _sheet(gc):
@@ -52,7 +63,7 @@ def _tab(sh, title: str, rows: int = 1000, cols: int = 20):
 def push() -> None:
     gc = _client()
     if gc is None:
-        print("sheets push: skipped (GOOGLE_SERVICE_ACCOUNT_JSON not set)")
+        print("sheets push: skipped (no Google credentials set)")
         return
     import tracker
 
@@ -72,7 +83,7 @@ def push() -> None:
 def pull() -> None:
     gc = _client()
     if gc is None:
-        print("sheets pull: skipped (GOOGLE_SERVICE_ACCOUNT_JSON not set)")
+        print("sheets pull: skipped (no Google credentials set)")
         return
     import tracker
 
@@ -102,7 +113,7 @@ def pull() -> None:
 def brief(path: Path) -> None:
     gc = _client()
     if gc is None:
-        print("sheets brief: skipped (GOOGLE_SERVICE_ACCOUNT_JSON not set)")
+        print("sheets brief: skipped (no Google credentials set)")
         return
     lines = path.read_text(encoding="utf-8").splitlines()
     ws = _tab(_sheet(gc), BRIEF_TAB, cols=2)
