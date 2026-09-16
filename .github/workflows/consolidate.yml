@@ -1,0 +1,48 @@
+name: Weekly consolidation (proposal PR)
+
+on:
+  schedule:
+    - cron: "30 12 * * 0"   # Sunday 18:00 IST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  consolidate:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      CLAUDE_MODEL: ${{ vars.CLAUDE_MODEL || 'claude-sonnet-5' }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+
+      - name: Self-test (no API key needed)
+        run: python scripts/selftest.py
+
+      - name: Rewrite project state files and draft the PR body
+        run: python scripts/consolidate.py
+
+      # Proposal only: a branch and a pull request. Nothing is committed to main.
+      - name: Open the proposal pull request
+        run: |
+          DATE=$(date -u +%F)
+          git config user.name "ai-employee"
+          git config user.email "ai-employee@users.noreply.github.com"
+          git checkout -B "consolidate/$DATE"
+          git add context/projects logs
+          if git diff --cached --quiet; then
+            echo "nothing to consolidate this week"; exit 0
+          fi
+          git commit -m "consolidate: proposed project state for week ending $DATE"
+          git push -u origin "consolidate/$DATE" --force
+          BODY="logs/consolidate-$DATE.md"
+          [ -f "$BODY" ] || echo "Weekly consolidation proposal." > "$BODY"
+          gh pr create --base main --head "consolidate/$DATE" \
+            --title "Consolidation $DATE: proposed project state and rule changes" \
+            --body-file "$BODY" || gh pr edit "consolidate/$DATE" --body-file "$BODY"
