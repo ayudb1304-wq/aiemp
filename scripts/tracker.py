@@ -176,11 +176,17 @@ def _horizon(r: dict, t: date) -> str:
 
 
 def _write_dashboard(ws, rows: list[dict], t: date) -> None:
-    """Summary of the Actions sheet as it was generated. Values are written as numbers, not
-    formulas, so the page reads correctly in every viewer (GitHub preview, Google Sheets import,
-    Excel) without a recalculation; the file is regenerated on every run anyway."""
+    """Summary of the Actions sheet as live formulas (COUNTIFS over the Actions columns), so a
+    status or priority changed in Excel moves the tiles and charts immediately. The owner and
+    project lists are written from the current rows and refresh on the next run. Excel computes
+    the formulas on open (fullCalcOnLoad); GitHub's file preview shows them blank."""
     open_rows = [r for r in rows if r["status"] in OPEN_STATUSES]
     thin = Side(style="thin", color=LINE)
+    S, P, D, O, J = (f"Actions!${_col(c)}$2:${_col(c)}${MAX_ROWS}" for c in ("status", "priority", "due", "owner", "project"))
+    is_open = S + ',{"' + '","'.join(sorted(OPEN_STATUSES)) + '"}'   # array constant: one COUNTIFS per status
+
+    def count(*criteria) -> str:
+        return "=SUMPRODUCT(COUNTIFS(" + ",".join((is_open,) + criteria) + "))"
 
     def put(ref, value, *, bold=False, size=10, colour=INK, fill=None, align="left", fmt=None):
         c = ws[ref]
@@ -199,22 +205,23 @@ def _write_dashboard(ws, rows: list[dict], t: date) -> None:
     for col, w in widths.items():
         ws.column_dimensions[col].width = w
     put("B1", "Action tracker", bold=True, size=20, colour=NAVY)
-    put("B2", f"Snapshot generated {t.isoformat()}. Regenerated on every run from the Actions sheet; "
-              f"edit items in the Google Sheet, not here.", colour=MUTED, size=9)
+    put("B2", f"Live: every number is a formula over the Actions sheet, so a status changed there moves this "
+              f"page at once. Owner and project lists refresh on each run (last {t.isoformat()}). Edits that "
+              f"should stick belong in the Google Sheet.", colour=MUTED, size=9)
     ws.merge_cells("B2:Q2")
 
-    overdue = [r for r in open_rows if (d := parse_date(r["due"])) and d < t]
-    tiles = [("OPEN ITEMS", len(open_rows)), ("P1 OPEN", sum(r["priority"] == "P1" for r in open_rows)),
-             ("OVERDUE", len(overdue)), ("DUE TODAY", sum(parse_date(r["due"]) == t for r in open_rows)),
-             ("TO VERIFY", sum(r["status"] == "to_verify" for r in open_rows)),
-             ("BLOCKED", sum(r["status"] == "blocked" for r in open_rows)),
-             ("DONE", sum(r["status"] == "done" for r in rows))]
+    tiles = [("OPEN ITEMS", count()), ("P1 OPEN", count(P, '"P1"')),
+             ("OVERDUE", count(D, '"<"&TODAY()')), ("DUE TODAY", count(D, "TODAY()")),
+             ("TO VERIFY", f'=COUNTIF({S},"to_verify")'), ("BLOCKED", f'=COUNTIF({S},"blocked")'),
+             ("DONE", f'=COUNTIF({S},"done")')]
     ws.row_dimensions[4].height = 16
     ws.row_dimensions[5].height = 34
     for col, (label, value) in zip("BCDEFGH", tiles):
         put(f"{col}4", label, size=8, bold=True, colour=MUTED, fill=FILL_TILE, align="center")
-        accent = "C0262A" if label in ("OVERDUE", "P1 OPEN") and value else NAVY
-        put(f"{col}5", value, size=22, bold=True, colour=accent, fill=FILL_TILE, align="center")
+        put(f"{col}5", value, size=22, bold=True, colour=NAVY, fill=FILL_TILE, align="center")
+    for col in ("C", "D"):   # P1 open and overdue turn red when non-zero
+        ws.conditional_formatting.add(f"{col}5", FormulaRule(formula=[f"{col}5>0"],
+                                                             font=Font(name=FONT, size=22, bold=True, color="C0262A")))
         ws[f"{col}4"].border = Border(left=thin, right=thin, top=thin)
         ws[f"{col}5"].border = Border(left=thin, right=thin, bottom=thin)
 
@@ -239,9 +246,9 @@ def _write_dashboard(ws, rows: list[dict], t: date) -> None:
     row = r0 + 2
     first_owner_row = row
     for owner, n in owners.most_common():
-        mine = [r for r in open_rows if (r["owner"] or "Unassigned") == owner]
-        vals = [owner, sum(r["priority"] == "P1" for r in mine), sum(r["priority"] == "P2" for r in mine),
-                sum(r["priority"] not in ("P1", "P2") for r in mine), n, sum(r in overdue for r in mine)]
+        who = f"{O},$B{row}"
+        vals = [owner, count(who, P, '"P1"'), count(who, P, '"P2"'), count(who, P, '"P3"'), count(who),
+                count(who, D, '"<"&TODAY()')]
         for col, v in zip("BCDEFG", vals):
             put(f"{col}{row}", v, align="left" if col == "B" else "center", bold=(col == "F"))
             ws[f"{col}{row}"].border = Border(bottom=thin)
@@ -251,10 +258,8 @@ def _write_dashboard(ws, rows: list[dict], t: date) -> None:
         put(f"B{row}", "No open items", colour=MUTED)
         row += 1
     put(f"B{row}", "Total", bold=True)
-    totals = [sum(r["priority"] == "P1" for r in open_rows), sum(r["priority"] == "P2" for r in open_rows),
-              sum(r["priority"] not in ("P1", "P2") for r in open_rows), len(open_rows), len(overdue)]
-    for col, v in zip("CDEFG", totals):
-        put(f"{col}{row}", v, bold=True, align="center")
+    for col in "CDEFG":
+        put(f"{col}{row}", f"=SUM({col}{first_owner_row}:{col}{last_owner_row})", bold=True, align="center")
         ws[f"{col}{row}"].border = Border(top=Side(style="medium", color=NAVY))
     ws[f"B{row}"].border = Border(top=Side(style="medium", color=NAVY))
     total_row = row
@@ -287,12 +292,13 @@ def _write_dashboard(ws, rows: list[dict], t: date) -> None:
     r1 = max(total_row + 3, r0 + 14)
     section(r1, "When is it due", "open items only")
     header(r1 + 1, [(f"B{r1 + 1}", "Horizon"), (f"C{r1 + 1}", "Items"), (f"D{r1 + 1}", "P1")])
-    horizons = ["Overdue", "Due today", "Next 7 days", "Later", "No date"]
-    for i, h in enumerate(horizons):
-        mine = [r for r in open_rows if _horizon(r, t) == h]
+    horizons = [("Overdue", (D, '"<"&TODAY()')), ("Due today", (D, "TODAY()")),
+                ("Next 7 days", (D, '">"&TODAY()', D, '"<="&TODAY()+7')), ("Later", (D, '">"&TODAY()+7')),
+                ("No date", (D, '""'))]
+    for i, (h, crit) in enumerate(horizons):
         put(f"B{r1 + 2 + i}", h)
-        put(f"C{r1 + 2 + i}", len(mine), align="center", bold=True)
-        put(f"D{r1 + 2 + i}", sum(r["priority"] == "P1" for r in mine), align="center")
+        put(f"C{r1 + 2 + i}", count(*crit), align="center", bold=True)
+        put(f"D{r1 + 2 + i}", count(*crit, P, '"P1"'), align="center")
         for col in "BCD":
             ws[f"{col}{r1 + 2 + i}"].border = Border(bottom=thin)
     hz = BarChart()
@@ -320,10 +326,9 @@ def _write_dashboard(ws, rows: list[dict], t: date) -> None:
                     (f"E{r2 + 1}", "Overdue"), (f"F{r2 + 1}", "Done")])
     projects = sorted({r["project"] or UNASSIGNED for r in rows})
     for i, p in enumerate(projects):
-        mine = [r for r in rows if (r["project"] or UNASSIGNED) == p]
-        mine_open = [r for r in mine if r["status"] in OPEN_STATUSES]
-        vals = [p, len(mine_open), sum(r["priority"] == "P1" for r in mine_open),
-                sum(r in overdue for r in mine_open), sum(r["status"] == "done" for r in mine)]
+        here = f"{J},$B{r2 + 2 + i}"
+        vals = [p, count(here), count(here, P, '"P1"'), count(here, D, '"<"&TODAY()'),
+                f'=COUNTIFS({here},{S},"done")']
         for col, v in zip("BCDEF", vals):
             put(f"{col}{r2 + 2 + i}", v, align="left" if col == "B" else "center", bold=(col == "C"))
             ws[f"{col}{r2 + 2 + i}"].border = Border(bottom=thin)
@@ -331,10 +336,9 @@ def _write_dashboard(ws, rows: list[dict], t: date) -> None:
     section(r3, "By status")
     header(r3 + 1, [(f"B{r3 + 1}", "Status"), (f"C{r3 + 1}", "Items")])
     statuses = sorted(OPEN_STATUSES) + ["done", "rejected"]
-    counts = Counter(r["status"] for r in rows)
     for i, st in enumerate(statuses):
         put(f"B{r3 + 2 + i}", st)
-        put(f"C{r3 + 2 + i}", counts.get(st, 0), align="center", bold=True)
+        put(f"C{r3 + 2 + i}", f'=COUNTIF({S},$B{r3 + 2 + i})', align="center", bold=True)
         for col in "BC":
             ws[f"{col}{r3 + 2 + i}"].border = Border(bottom=thin)
     r4 = r3 + 2 + len(statuses) + 1
@@ -360,6 +364,7 @@ def save_rows(rows: list[dict]) -> None:
     _write_actions(actions, rows)
     _write_dashboard(dash, rows, t)
     wb.active = 0
+    wb.calculation.fullCalcOnLoad = True   # the dashboard formulas have no cached values
     TRACKER.parent.mkdir(parents=True, exist_ok=True)
     wb.save(TRACKER)
 

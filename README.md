@@ -90,8 +90,9 @@ scripts/       extract.py -> tracker.py -> brief.py; sheets.py; ask.py; consolid
 `tracker/actions.xlsx` opens on a **Dashboard**: open / P1 / overdue / due today / to verify /
 blocked / done tiles, open items by owner (stacked by priority, with a chart), the due horizon
 (overdue, today, next 7 days, later, no date, with a chart), and per-project and per-status
-tables. The numbers are a snapshot taken when the file was written; the file is regenerated on
-every run, so they are never stale relative to the rows. The **Actions** sheet is an Excel table
+tables. Every number is a formula over the Actions sheet, so a status or priority you change in
+Excel moves the tiles and charts at once (the owner and project lists refresh on the next run).
+GitHub's file preview shows formula cells blank; open the file in Excel. The **Actions** sheet is an Excel table
 (filter and sort from the header, banded rows) with the columns you act on first: task, owner,
 priority, status, due, project, team, then the advisor columns (type, next step, unblocker,
 effort, blocked by, prerequisites, notes, evidence, basis) and provenance last (meeting, origin,

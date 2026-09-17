@@ -134,7 +134,10 @@ def test_tracker():
     check(hasattr(ws[f"{tracker._col('due')}2"].value, "isoformat"), "due is written as a real date")
     check(sum(len(cf.rules) for cf in ws.conditional_formatting) == 10 and len(ws.data_validations.dataValidation) == 5,
           "colour rules and dropdowns are attached")
-    check(len(wb["Dashboard"]._charts) == 2 and wb["Dashboard"]["B1"].value == "Action tracker", "dashboard has two charts")
+    dash = wb["Dashboard"]
+    check(len(dash._charts) == 2 and dash["B1"].value == "Action tracker", "dashboard has two charts")
+    check(str(dash["B5"].value).startswith("=SUMPRODUCT(COUNTIFS(Actions!") and "Actions!" in str(dash["C10"].value)
+          and wb.calculation.fullCalcOnLoad, "dashboard tiles and tables are live formulas over the Actions sheet")
     check(len(tracker.load_rows()) == 2, "rows read back by header name after the reorder")
 
 
