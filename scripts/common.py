@@ -39,11 +39,15 @@ KINDS = ["transcript", "notes", "email", "doc", "chat"]
 UNASSIGNED = "unassigned"
 CHUNK_TOKENS = 20000   # documents larger than this are processed in chunks of this size
 
+# Column order of tracker/actions.xlsx and the Sheet's Actions tab: what you act on first (task,
+# owner, priority, status, due), the advisor columns next, provenance (meeting, source, id) last.
+# Rows are read back by header name, so reordering here is safe for existing files.
 COLUMNS = [
-    "id", "created", "meeting", "team", "project", "owner", "task", "due",
-    "priority", "status", "blocked_by", "evidence", "source", "updated", "notes",
-    "origin", "type", "next_step", "prerequisites", "unblocker", "effort", "basis", "closed",
+    "task", "owner", "priority", "status", "due", "project", "team", "type", "next_step",
+    "unblocker", "effort", "blocked_by", "prerequisites", "notes", "evidence", "basis",
+    "meeting", "origin", "updated", "closed", "created", "source", "id",
 ]
+DATE_COLUMNS = ("created", "due", "updated", "closed")
 OPEN_STATUSES = {"open", "in_progress", "blocked", "to_verify"}
 STATUSES = ["open", "in_progress", "blocked", "to_verify"]   # what extraction may return
 TYPES = ["communicate", "decide", "build", "review", "coordinate", "other"]

@@ -124,6 +124,19 @@ def test_tracker():
     tracker.close("2026-09-10-alpha-02")
     r = {x["id"]: x for x in tracker.load_rows()}["2026-09-10-alpha-02"]
     check(r["status"] == "done" and r["closed"] == common.today(), "close() records the closed date")
+    from openpyxl import load_workbook
+    wb = load_workbook(common.TRACKER)
+    ws = wb["Actions"]
+    check(wb.sheetnames == ["Dashboard", "Actions"] and wb.active.title == "Dashboard", "workbook: Dashboard first, Actions second")
+    check([c.value for c in ws[1]] == common.COLUMNS and common.COLUMNS[0] == "task" and common.COLUMNS[-1] == "id",
+          "Actions header is COLUMNS: task first, provenance (created, source, id) last")
+    check("Actions" in ws.tables and ws.tables["Actions"].ref.endswith(str(ws.max_row)), "Actions is an Excel table over every row")
+    check(hasattr(ws[f"{tracker._col('due')}2"].value, "isoformat"), "due is written as a real date")
+    check(sum(len(cf.rules) for cf in ws.conditional_formatting) == 10 and len(ws.data_validations.dataValidation) == 5,
+          "colour rules and dropdowns are attached")
+    check(len(wb["Dashboard"]._charts) == 2 and wb["Dashboard"]["B1"].value == "Action tracker", "dashboard has two charts")
+    check(len(tracker.load_rows()) == 2, "rows read back by header name after the reorder")
+
 
 
 def test_merge_and_cap():
@@ -214,6 +227,20 @@ def test_brief():
     check(calls and "Alpha" in digests, "LLM stub was called once and team digest built")
     text2, _ = brief.build(ask_fn=None, t=t)
     check("## Do first" in text2, "deterministic brief without LLM")
+    p = brief.plan(ask_fn=stub, t=t)
+    json.dumps(p)
+    check(brief.render_md(p) == text, "render_md(plan) is the brief text")
+    page = brief.render_html(p)
+    check(page.startswith("<!doctype html>") and "Do first" in page and "Decide the CR approval flow" in page
+          and 'class="pill P1"' in page and "1d overdue" in page, "html brief: sections, items, priority and overdue pills")
+    check("<script" not in page and "http" not in page.split("<body>")[0].replace("http-equiv", ""), "html brief is self-contained")
+    rows = brief.sheet_rows(p)
+    kinds = [k for k, _ in rows]
+    check(kinds[:3] == ["title", "subtitle", "header"] and "section" in kinds and "item" in kinds
+          and all(len(c) <= 8 for _, c in rows), "sheet rows: title, subtitle, header, then sections and items")
+    item = next(c for k, c in rows if k == "item")
+    check(item[1] and item[2] and item[7].startswith("2026-"), "sheet item rows carry owner, task and id")
+    json.dumps(sheets.brief_format_requests(1, kinds))
 
 
 def test_sheets():
@@ -240,6 +267,15 @@ def test_sheets():
           and all(isinstance(c, str) for r in thr for c in r), "threads tab flattens lists to strings")
     check(sheets.memory_rows(TMP / "missing.jsonl", sheets.DECISION_COLS) == [list(sheets.DECISION_COLS)],
           "a missing memory file gives a header-only tab")
+    reqs = sheets.actions_format_requests(1, len(rows))
+    json.dumps(reqs)
+    check(sum("addConditionalFormatRule" in r for r in reqs) == 10 and sum("setDataValidation" in r for r in reqs) == 5,
+          "Actions tab formatting: 10 colour rules, 5 dropdowns")
+    values, layout = sheets.dashboard_values(rows)
+    json.dumps(sheets.dashboard_format_requests(1, layout))
+    check(values[4][0].startswith("=COUNTIFS(Actions!") and values[layout["owner_first"]][0] in {r["owner"] for r in rows}
+          and values[layout["owner_header"]] == ["Owner", "P1", "P2", "P3", "Open", "Overdue"],
+          "dashboard tab: live formulas over the Actions tab, one row per owner")
 
 
 def test_readers():
