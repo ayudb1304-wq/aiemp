@@ -30,7 +30,8 @@ scripts/       extract.py -> tracker.py -> brief.py; sheets.py; ask.py; consolid
    truncated) and emits cards, decisions and threads. Cards merge into `actions.xlsx` (updating
    existing items instead of duplicating, at most 3 P1 per document, never setting `done`),
    drafts are written for communicate/review items, everything is committed, and the **Actions**
-   tab of the Sheet is rewritten.
+   tab of the Sheet is rewritten, along with read-only **Decisions** and **Threads** tabs mirrored
+   from `memory/decisions.jsonl` and `memory/threads.jsonl`.
 2. **Every weekday 08:30 IST** the `morning-brief` workflow writes `briefs/<date>.md`: waiting for
    your confirmation, do first, batch, delegate?, recurring threads, then per project. It commits
    and copies the brief into the **Morning Brief** tab.

@@ -232,6 +232,14 @@ def test_sheets():
     rows2 = tracker.load_rows()
     n2 = sheets.apply_records(rows2, [], log=lambda p, rec: None)
     check(n2 == 0 and all(r["status"] != "rejected" for r in rows2), "an empty sheet never rejects half the tracker")
+    dec = sheets.memory_rows(common.DECISIONS, sheets.DECISION_COLS)
+    thr = sheets.memory_rows(common.THREADS, sheets.THREAD_COLS)
+    check(dec[0] == list(sheets.DECISION_COLS) and len(dec) > 1 and all(len(r) == len(dec[0]) for r in dec),
+          f"decisions tab has a header and one row per record: {len(dec) - 1}")
+    check(thr[0] == list(sheets.THREAD_COLS) and len(thr) > 1
+          and all(isinstance(c, str) for r in thr for c in r), "threads tab flattens lists to strings")
+    check(sheets.memory_rows(TMP / "missing.jsonl", sheets.DECISION_COLS) == [list(sheets.DECISION_COLS)],
+          "a missing memory file gives a header-only tab")
 
 
 def test_readers():

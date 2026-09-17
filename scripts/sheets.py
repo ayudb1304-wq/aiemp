@@ -5,11 +5,13 @@ where you look at and edit items. Two commands:
 
   python scripts/sheets.py pull            # copy edits made in the Sheet back into actions.xlsx
                                            # and log each changed cell to memory/corrections.jsonl
-  python scripts/sheets.py push            # overwrite the "Actions" tab from actions.xlsx
+  python scripts/sheets.py push            # overwrite the "Actions" tab from actions.xlsx, and the
+                                           # "Decisions" and "Threads" tabs from memory/*.jsonl
   python scripts/sheets.py brief FILE.md   # write a brief into the "Morning Brief" tab
 
 Rows deleted in the Sheet are not removed from the tracker: they are set to status `rejected`
-and logged as a correction with field "deleted".
+and logged as a correction with field "deleted". Only the Actions tab is pulled back; Decisions
+and Threads are read-only mirrors and are rewritten on every push.
 
 Needs env GOOGLE_SERVICE_ACCOUNT_JSON (service account key file contents) or
 GOOGLE_OAUTH_TOKEN_JSON (from scripts/google_login.py). Optional env GSHEET_ID overrides the
@@ -21,12 +23,17 @@ import os
 import sys
 from pathlib import Path
 
-from common import COLUMNS, CORRECTIONS, GSHEET_ID, append_jsonl, today
+from common import COLUMNS, CORRECTIONS, DECISIONS, GSHEET_ID, THREADS, append_jsonl, today
 
 EDITABLE = ("status", "owner", "due", "priority", "notes", "blocked_by", "project", "task",
             "unblocker", "next_step", "type", "effort")
 ACTIONS_TAB = "Actions"
 BRIEF_TAB = "Morning Brief"
+DECISIONS_TAB = "Decisions"
+THREADS_TAB = "Threads"
+DECISION_COLS = ("id", "date", "project", "decision", "by", "evidence", "source", "supersedes")
+THREAD_COLS = ("id", "date", "last_seen", "mentions", "project", "topic", "note", "evidence",
+               "promoted_to", "sources")
 
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
@@ -64,6 +71,32 @@ def _tab(sh, title: str, rows: int = 1000, cols: int = 30):
     return sh.add_worksheet(title=title, rows=rows, cols=cols)
 
 
+def _write_table(sh, title: str, values: list[list]) -> None:
+    ws = _tab(sh, title)
+    ws.clear()
+    ws.update(values, "A1", value_input_option="RAW")
+    ws.freeze(rows=1)
+    ws.format("1:1", {"textFormat": {"bold": True}})
+
+
+def memory_rows(path: Path, cols: tuple) -> list[list]:
+    """Header plus one row per jsonl record, newest first. Lists are joined with ', '.
+    Pure, so selftest can exercise it without credentials."""
+    records = []
+    if path.exists():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                records.append(json.loads(line))
+    records.sort(key=lambda r: str(r.get("date", "")), reverse=True)
+
+    def cell(v):
+        if isinstance(v, list):
+            return ", ".join(str(x) for x in v)
+        return "" if v is None else str(v)
+
+    return [list(cols)] + [[cell(r.get(c)) for c in cols] for r in records]
+
+
 def push() -> None:
     gc = _client()
     if gc is None:
@@ -75,13 +108,14 @@ def push() -> None:
     rows = sorted(rows, key=lambda r: (r["status"] not in tracker.OPEN_STATUSES,
                                        {"P1": 0, "P2": 1, "P3": 2}.get(r["priority"], 9),
                                        r["due"] or "9999"))
-    values = [COLUMNS] + [[r.get(c, "") for c in COLUMNS] for r in rows]
-    ws = _tab(_sheet(gc), ACTIONS_TAB)
-    ws.clear()
-    ws.update(values, "A1", value_input_option="RAW")
-    ws.freeze(rows=1)
-    ws.format("1:1", {"textFormat": {"bold": True}})
+    sh = _sheet(gc)
+    _write_table(sh, ACTIONS_TAB, [COLUMNS] + [[r.get(c, "") for c in COLUMNS] for r in rows])
     print(f"sheets push: {len(rows)} rows -> {ACTIONS_TAB}")
+    for title, path, cols in ((DECISIONS_TAB, DECISIONS, DECISION_COLS),
+                              (THREADS_TAB, THREADS, THREAD_COLS)):
+        values = memory_rows(path, cols)
+        _write_table(sh, title, values)
+        print(f"sheets push: {len(values) - 1} rows -> {title}")
 
 
 def apply_records(rows: list[dict], records: list[dict], log=append_jsonl) -> int:
