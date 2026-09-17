@@ -1,0 +1,85 @@
+{
+  "run_id": "2026-09-17T060535-code-apps-learning-curriculam-structure-discussion",
+  "source": "Code Apps - Learning Curriculam Structure Discussion.docx",
+  "triage": "claude",
+  "reply": {
+    "project": "unassigned",
+    "people": [
+      "Sarathchandra Babu",
+      "Divya",
+      "Ajit",
+      "Vishruth",
+      "Jeevan",
+      "Rigu",
+      "Akshay",
+      "Ayush Dhanraj Bhiogade"
+    ]
+  },
+  "project": null,
+  "people": [
+    "Sarathchandra Babu",
+    "Divya",
+    "Ajit",
+    "Vishruth",
+    "Jeevan",
+    "Rigu",
+    "Akshay",
+    "Ayush Dhanraj Bhiogade"
+  ],
+  "date": "2026-09-17",
+  "note": false,
+  "context": {
+    "budget_tokens": 60000,
+    "document_tokens": 5570,
+    "document_counted": 5570,
+    "project": null,
+    "people": [
+      "Sarathchandra Babu",
+      "Divya",
+      "Ajit",
+      "Vishruth",
+      "Jeevan",
+      "Rigu",
+      "Akshay",
+      "Ayush Dhanraj Bhiogade"
+    ],
+    "layers": {
+      "1:company+project": {
+        "tokens": 1408,
+        "loaded": true
+      },
+      "2:open_items": {
+        "tokens": 1662,
+        "loaded": true
+      },
+      "3:people": {
+        "tokens": 0,
+        "loaded": false
+      },
+      "4:history": {
+        "tokens": 1041,
+        "loaded": true
+      },
+      "5:briefs": {
+        "tokens": 0,
+        "loaded": false
+      }
+    },
+    "dropped": [],
+    "warnings": [],
+    "context_tokens": 4111
+  },
+  "chunks": 1,
+  "cards": 1,
+  "created": [
+    "2026-09-17-unassigned-01"
+  ],
+  "updated": [],
+  "decisions": [],
+  "threads": [
+    "T-2026-09-17-01",
+    "T-2026-09-17-03",
+    "T-2026-09-17-02",
+    "T-2026-09-17-04"
+  ]
+}
