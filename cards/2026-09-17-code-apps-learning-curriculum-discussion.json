@@ -1,0 +1,62 @@
+{
+  "meeting": "Code App Developer Training Planning",
+  "kind": "transcript",
+  "cards": [],
+  "decisions": [
+    {
+      "decision": "Training will focus on enabling developers to use AI tools effectively (read/run apps, use real data contracts, direct and review AI output) rather than making them framework experts.",
+      "by": "Sarathchandra Babu",
+      "evidence": "We're not trying them to build them as an expert. The moment they go, they know how to go on to Claude and ask them",
+      "supersedes": null
+    },
+    {
+      "decision": "Skill-gap assessment (via poll) will be done first to identify who actually needs HTML/CSS/JavaScript training before committing to an organization-wide training plan.",
+      "by": "Sarathchandra Babu",
+      "evidence": "Or, if you can put a poll in one of these, let's see here.",
+      "supersedes": null
+    }
+  ],
+  "threads": [
+    {
+      "topic": "Framework choice for training",
+      "note": "Debate on whether to standardize training on React vs staying framework-agnostic; leaning React for documentation and popularity, not exclusivity.",
+      "evidence": "if rules are better option, OK, or any other framework, because operating framework can be anything",
+      "matches_thread_id": null
+    },
+    {
+      "topic": "External AI tool data access risk",
+      "note": "Open question whether external AI chat tools like Claude/GPT could clone the code app data repo directly without going through VS Code.",
+      "evidence": "let's say Claude, to go and find the code app data repo. It will clone that data repo",
+      "matches_thread_id": null
+    },
+    {
+      "topic": "Training session length format",
+      "note": "Unresolved whether hands-on training should be a single 5-hour day or an 8-hour day format.",
+      "evidence": "There was a five-hour training for one day; it's not really a training, as per se, but rather, then one of the big day, 8 hours",
+      "matches_thread_id": null
+    }
+  ],
+  "date": "2026-09-17",
+  "source": "2026-09-17-code-apps-learning-curriculum-discussion.vtt",
+  "project": "unassigned",
+  "people": [
+    "Sarathchandra Babu",
+    "Divya",
+    "Ajit",
+    "Akshay",
+    "Vishruth",
+    "Jeevan",
+    "Rigu"
+  ],
+  "origin": "planned",
+  "run_id": "2026-09-17T055728-2026-09-17-code-apps-learning-curriculum-discussion",
+  "decision_ids": [
+    "D-2026-09-17-01",
+    "D-2026-09-17-02"
+  ],
+  "thread_ids": [
+    "T-2026-09-17-01",
+    "T-2026-09-17-02",
+    "T-2026-09-17-03"
+  ]
+}

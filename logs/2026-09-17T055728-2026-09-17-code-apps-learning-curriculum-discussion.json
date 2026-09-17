@@ -1,0 +1,82 @@
+{
+  "run_id": "2026-09-17T055728-2026-09-17-code-apps-learning-curriculum-discussion",
+  "source": "2026-09-17-code-apps-learning-curriculum-discussion.vtt",
+  "triage": "claude",
+  "reply": {
+    "project": "unassigned",
+    "people": [
+      "Sarathchandra Babu",
+      "Divya",
+      "Ajit",
+      "Akshay",
+      "Vishruth",
+      "Jeevan",
+      "Rigu"
+    ]
+  },
+  "project": null,
+  "people": [
+    "Sarathchandra Babu",
+    "Divya",
+    "Ajit",
+    "Akshay",
+    "Vishruth",
+    "Jeevan",
+    "Rigu"
+  ],
+  "date": "2026-09-17",
+  "note": false,
+  "context": {
+    "budget_tokens": 60000,
+    "document_tokens": 5647,
+    "document_counted": 5647,
+    "project": null,
+    "people": [
+      "Sarathchandra Babu",
+      "Divya",
+      "Ajit",
+      "Akshay",
+      "Vishruth",
+      "Jeevan",
+      "Rigu"
+    ],
+    "layers": {
+      "1:company+project": {
+        "tokens": 1408,
+        "loaded": true
+      },
+      "2:open_items": {
+        "tokens": 1662,
+        "loaded": true
+      },
+      "3:people": {
+        "tokens": 0,
+        "loaded": false
+      },
+      "4:history": {
+        "tokens": 367,
+        "loaded": true
+      },
+      "5:briefs": {
+        "tokens": 0,
+        "loaded": false
+      }
+    },
+    "dropped": [],
+    "warnings": [],
+    "context_tokens": 3437
+  },
+  "chunks": 1,
+  "cards": 0,
+  "created": [],
+  "updated": [],
+  "decisions": [
+    "D-2026-09-17-01",
+    "D-2026-09-17-02"
+  ],
+  "threads": [
+    "T-2026-09-17-01",
+    "T-2026-09-17-02",
+    "T-2026-09-17-03"
+  ]
+}
