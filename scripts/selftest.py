@@ -23,9 +23,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402  (after AIEMP_ROOT is set)
 import brief  # noqa: E402
 import extract  # noqa: E402
+import prep  # noqa: E402
 import search  # noqa: E402
 import sheets  # noqa: E402
 import tracker  # noqa: E402
+import verify  # noqa: E402
 
 FAILS = []
 
@@ -44,12 +46,16 @@ def fixtures():
     (TMP / "cards").mkdir()
     (TMP / "inbox").mkdir()
     (TMP / "context" / "company.md").write_text(
-        "# Company\n\n## Me\n- Name: Ayush Test. Role: lead.\n\n## Teams\n"
+        "# Company\n\n## Me\n- Name: Ayush Test. Role: lead.\n\n"
+        "## Name map (transcription errors to real people)\n| Heard as | Person |\n|---|---|\n"
+        "| Lakshmi, Leshmi | Laxmikant |\n| Sam | Samuel |\n| Sri sir | Sreekumar |\n\n## Teams\n"
         "| Team | Lead | Members | Responsibility |\n|---|---|---|---|\n"
-        "| Alpha | Laxmikant | Laxmikant, Samuel | build |\n\n## Priority rules\n- P1 only if blocking.\n",
+        "| Alpha | Laxmikant | Laxmikant, Samuel | build |\n\n"
+        "## Stakeholders\n- Sreekumar: customer.\n\n## Priority rules\n- P1 only if blocking.\n",
         encoding="utf-8")
     (TMP / "context" / "projects" / "alpha.md").write_text(
-        "# Alpha Project\n\n## Goal\nShip the alpha tracker.\n\n## Recent decisions\n_none_\n", encoding="utf-8")
+        "# Alpha Project\n\n## Goal\nShip the alpha tracker.\n\n## Key people\n- Johan: CR module.\n\n"
+        "## Glossary\n- CR: change request. Sub-items are CR items.\n\n## Recent decisions\n_none_\n", encoding="utf-8")
     (TMP / "context" / "projects" / "beta.md").write_text("# Beta\n\n## Goal\nBeta.\n", encoding="utf-8")
     (TMP / "context" / "people" / "laxmikant.md").write_text(
         "# Laxmikant\nTeam lead. Likes decisions in writing. " * 20, encoding="utf-8")
@@ -64,6 +70,10 @@ def fixtures():
         {"id": "D-2026-09-05-01", "date": "2026-09-05", "project": "beta",
          "decision": "Beta uses the export job nightly", "by": "Ayush", "evidence": "nightly export",
          "source": "2026-09-05-beta.md", "supersedes": None},
+        {"id": "D-2026-09-08-01", "date": "2026-09-08", "project": "alpha",
+         "decision": "The currency selector moves to the impact analysis view", "by": "Sreekumar",
+         "evidence": "move the selector to impact analysis", "source": "2026-09-08-alpha.md",
+         "supersedes": "D-2026-09-01-01"},
     ])
     common.write_jsonl(common.THREADS, [
         {"id": "T-2026-09-02-01", "date": "2026-09-02", "project": "alpha", "topic": "flaky export",
@@ -132,7 +142,7 @@ def test_tracker():
           "Actions header is COLUMNS: task first, provenance (created, source, id) last")
     check("Actions" in ws.tables and ws.tables["Actions"].ref.endswith(str(ws.max_row)), "Actions is an Excel table over every row")
     check(hasattr(ws[f"{tracker._col('due')}2"].value, "isoformat"), "due is written as a real date")
-    check(sum(len(cf.rules) for cf in ws.conditional_formatting) == 10 and len(ws.data_validations.dataValidation) == 5,
+    check(sum(len(cf.rules) for cf in ws.conditional_formatting) == 11 and len(ws.data_validations.dataValidation) == 5,
           "colour rules and dropdowns are attached")
     dash = wb["Dashboard"]
     check(len(dash._charts) == 2 and dash["B1"].value == "Action tracker", "dashboard has two charts")
@@ -174,6 +184,7 @@ def test_context_loader():
     check("D-2026-09-01-01" in text and "T-2026-09-02-01" in text and "old line about currency" in text,
           "history and brief sections are in the prompt")
     check("D-2026-09-05-01" not in text, "other projects' decisions are not retrieved")
+    check(isinstance(log.get("history_hits"), int) and log["history_hits"] >= 1, f"history hit count logged: {log.get('history_hits')}")
     sizes = {n: log["layers"][n]["tokens"] for n in names}
     tight = sizes["1:company+project"] + common.est_tokens(doc) + sizes["2:open_items"] + sizes["3:people"] + 5
     _, log2 = common.build_prompt_context("alpha", ["laxmikant"], doc, budget_tokens=tight)
@@ -190,7 +201,19 @@ def test_context_loader():
 def test_search():
     print("search")
     hits = search.search("when did we last discuss the currency selectors")
-    check([h["id"] for h in hits if h["kind"] == "decision"] == ["D-2026-09-01-01"], f"fuzzy keyword hit: {hits}")
+    check([h["id"] for h in hits if h["kind"] == "decision"] == ["D-2026-09-01-01", "D-2026-09-08-01"],
+          f"stemmed keyword hit, both decisions of the chain: {[h['id'] for h in hits]}")
+    dec = {h["id"]: h for h in hits if h["kind"] == "decision"}
+    check(dec["D-2026-09-01-01"]["record"]["replaced_by"] == "D-2026-09-08-01" and dec["D-2026-09-08-01"]["record"]["current"]
+          and "replaced by D-2026-09-08-01" in dec["D-2026-09-01-01"]["text"], "decision chain: current and replaced_by")
+    check(search.tokens("Lakshmi and Sam discussed the change request") == ["laxmikant", "samuel", "cr"],
+          f"name map and glossary fold to canonical tokens: {search.tokens('Lakshmi and Sam discussed the change request')}")
+    by_alias = search.search("what did Sri sir decide")
+    check([h["id"] for h in by_alias if h["kind"] == "decision"] == ["D-2026-09-01-01", "D-2026-09-08-01"],
+          f"a two-word alias in the question finds the records under the real name: {[h['id'] for h in by_alias]}")
+    text, n = search.history_block("alpha", "we should move the currency selector again")
+    check(n >= 2 and '"current": false' in text and '"replaced_by": "D-2026-09-08-01"' in text,
+          f"history block carries the chain ({n} hits)")
     check(hits and hits[0]["date"] <= hits[-1]["date"], "hits are in date order")
     check(search.search("nightly export", project="alpha") == [] or
           all(h["project"] in ("alpha", "") for h in search.search("nightly export", project="alpha")),
@@ -241,9 +264,64 @@ def test_brief():
     kinds = [k for k, _ in rows]
     check(kinds[:3] == ["title", "subtitle", "header"] and "section" in kinds and "item" in kinds
           and all(len(c) <= 8 for _, c in rows), "sheet rows: title, subtitle, header, then sections and items")
+    ch = p["changes"]
+    check(ch["since"] == "2026-09-10" and any(r["id"] == "2026-09-15-alpha-01" for r in ch["new"])
+          and "## Since 2026-09-10" in text and "- new: `2026-09-15-alpha-01`" in text,
+          f"since-last-brief: items not in the 2026-09-10 brief are new: {[r['id'] for r in ch['new']]}")
+    check(any(r["id"] == "2026-09-10-alpha-02" for r in ch["closed"]) and "- closed: `2026-09-10-alpha-02`" in text,
+          "since-last-brief: closed items listed")
+    check(any(x[0]["id"] == "2026-09-10-alpha-02" for x in ch["slipped"]), f"since-last-brief: slips from the notes markers: {ch['slipped']}")
+    alpha = next(pr for pr in p["projects"] if pr["slug"] == "alpha")
+    check([d["id"] for d in alpha["decisions"]] == ["D-2026-09-08-01", "D-2026-09-03-01"] and "### Decisions in force" in text
+          and "`D-2026-09-08-01`" in text and "`D-2026-09-01-01`" not in text.split("## Project: Alpha Project")[1],
+          f"decisions in force: current decisions only, newest first: {[d['id'] for d in alpha['decisions']]}")
+    check("Since 2026-09-10" in page and "Decisions in force" in page, "html brief has the since block and decisions in force")
+    check(any(k == "section" and c[0].startswith("Since 2026-09-10") for k, c in rows), "sheet rows have the since section")
     item = next(c for k, c in rows if k == "item")
     check(item[1] and item[2] and item[7].startswith("2026-"), "sheet item rows carry owner, task and id")
     json.dumps(sheets.brief_format_requests(1, kinds))
+
+
+def test_verify():
+    print("fact checks")
+    doc = ("Ashwini: I will be signing off on the Debi after the review.\n"
+           "Lakshmi and I will be working on the proper workflow solution design by Friday.")
+    ok = verify.quote_found("Lakshmi and I will be working on the workflow solution design", doc)
+    bad = verify.quote_found("We agreed to cancel the whole project next week", doc)
+    check(ok and not bad, "quote check tolerates one transcription word, rejects an invented quote")
+    card = {"owner": "Lakshmi", "unblocker": "Sam", "evidence": "signing off on the Debi after the review",
+            "due": "2026-09-05", "status": "blocked", "blocked_by": None, "matches_existing_id": "nope",
+            "next_step": "Ask Ashwini", "basis": None, "task": "x"}
+    flags = verify.check_card(card, doc, "2026-09-11", "", common.roster(), common.name_map(), {"2026-09-10-alpha-01"}, set())
+    check(card["owner"] == "Laxmikant" and card["unblocker"] == "Samuel" and card["matches_existing_id"] is None,
+          f"aliases become roster names, unknown match cleared: {card['owner']}, {card['unblocker']}")
+    check({f.split(":")[0] for f in flags} == {"owner mapped", "unblocker mapped", "due before meeting",
+                                               "blocked without blocker", "matched id unknown", "next step without basis"},
+          f"every failed check is a flag: {flags}")
+    good = {"owner": "Johan", "evidence": "working on the proper workflow solution design", "due": "2026-09-12",
+            "status": "open", "next_step": "Send it", "basis": "D-2026-09-08-01", "task": "y"}
+    check(verify.check_card(good, doc, "2026-09-11", "", common.roster(), common.name_map(), set(), {"D-2026-09-08-01"}) == [],
+          "a card that passes every check has no flags")
+    data = {"cards": [dict(card), dict(good)], "decisions": [{"decision": "d", "evidence": "not in the doc at all really"}],
+            "threads": [{"topic": "t", "evidence": "signing off on the Debi"}]}
+    summary = verify.check_all(data, doc, "2026-09-11", "alpha", [], {"2026-09-10-alpha-01"})
+    check(summary["cards_flagged"] == 1 and data["decisions"][0]["flags"] == ["quote not found"]
+          and data["threads"][0]["flags"] == [], f"check_all flags cards, decisions and threads: {summary['by_kind']}")
+    rows = {r["id"]: r for r in tracker.load_rows()}
+    check("flags" in common.COLUMNS and all("flags" in r for r in rows.values()), "flags is a tracker column")
+
+
+def test_prep():
+    print("meeting prep")
+    t = date(2026, 9, 16)
+    packs, md, page = prep.build(["Lakshmi"], ["alpha"], t=t)
+    person = next(pk for pk in packs if "person" in pk)
+    check(person["person"] == "Laxmikant", f"alias resolved to the roster name: {person['person']}")
+    check("## Project: Alpha Project" in md and "## Laxmikant" in md and "### Last commitments, as said" in md,
+          "prep pack has the project and the person sections")
+    proj = next(pk for pk in packs if "project" in pk)
+    check([d["id"] for d in proj["decisions"]] == ["D-2026-09-08-01", "D-2026-09-03-01"], "project pack lists decisions in force only")
+    check(page.startswith("<!doctype html>") and "Meeting prep" in page and "Laxmikant" in page, "prep html renders")
 
 
 def test_sheets():
@@ -266,14 +344,17 @@ def test_sheets():
     thr = sheets.memory_rows(common.THREADS, sheets.THREAD_COLS)
     check(dec[0] == list(sheets.DECISION_COLS) and len(dec) > 1 and all(len(r) == len(dec[0]) for r in dec),
           f"decisions tab has a header and one row per record: {len(dec) - 1}")
+    by_id = {r[0]: dict(zip(dec[0], r)) for r in dec[1:]}
+    check(by_id["D-2026-09-01-01"]["current"] == "no" and by_id["D-2026-09-01-01"]["replaced_by"] == "D-2026-09-08-01"
+          and by_id["D-2026-09-08-01"]["current"] == "yes", "decisions tab shows the chain")
     check(thr[0] == list(sheets.THREAD_COLS) and len(thr) > 1
           and all(isinstance(c, str) for r in thr for c in r), "threads tab flattens lists to strings")
     check(sheets.memory_rows(TMP / "missing.jsonl", sheets.DECISION_COLS) == [list(sheets.DECISION_COLS)],
           "a missing memory file gives a header-only tab")
     reqs = sheets.actions_format_requests(1, len(rows))
     json.dumps(reqs)
-    check(sum("addConditionalFormatRule" in r for r in reqs) == 10 and sum("setDataValidation" in r for r in reqs) == 5,
-          "Actions tab formatting: 10 colour rules, 5 dropdowns")
+    check(sum("addConditionalFormatRule" in r for r in reqs) == 11 and sum("setDataValidation" in r for r in reqs) == 5,
+          "Actions tab formatting: 11 colour rules, 5 dropdowns")
     values, layout = sheets.dashboard_values(rows)
     json.dumps(sheets.dashboard_format_requests(1, layout))
     check(values[4][0].startswith("=COUNTIFS(Actions!") and values[layout["owner_first"]][0] in {r["owner"] for r in rows}
@@ -330,7 +411,8 @@ abc/151-0
 
 if __name__ == "__main__":
     fixtures()
-    for t in (test_tracker, test_merge_and_cap, test_context_loader, test_search, test_brief, test_sheets, test_readers):
+    for t in (test_tracker, test_merge_and_cap, test_context_loader, test_search, test_verify, test_brief, test_prep,
+              test_sheets, test_readers):
         try:
             t()
         except Exception as e:  # a crash is a failure too

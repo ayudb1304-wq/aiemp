@@ -27,7 +27,7 @@ import sys
 from pathlib import Path
 
 from common import (COLUMNS, CORRECTIONS, DECISIONS, EFFORTS, GSHEET_ID, OPEN_STATUSES, ORIGINS, THREADS, TYPES,
-                    append_jsonl, today)
+                    append_jsonl, decision_chains, read_jsonl, today)
 
 EDITABLE = ("status", "owner", "due", "priority", "notes", "blocked_by", "project", "task",
             "unblocker", "next_step", "type", "effort")
@@ -36,7 +36,7 @@ DASHBOARD_TAB = "Dashboard"
 BRIEF_TAB = "Morning Brief"
 DECISIONS_TAB = "Decisions"
 THREADS_TAB = "Threads"
-DECISION_COLS = ("id", "date", "project", "decision", "by", "evidence", "source", "supersedes")
+DECISION_COLS = ("id", "date", "project", "current", "decision", "by", "replaced_by", "supersedes", "evidence", "source")
 THREAD_COLS = ("id", "date", "last_seen", "mentions", "project", "topic", "note", "evidence",
                "promoted_to", "sources")
 
@@ -86,18 +86,19 @@ def _write_table(sh, title: str, values: list[list]):
 
 
 def memory_rows(path: Path, cols: tuple) -> list[list]:
-    """Header plus one row per jsonl record, newest first. Lists are joined with ', '.
-    Pure, so selftest can exercise it without credentials."""
-    records = []
-    if path.exists():
-        for line in path.read_text(encoding="utf-8").splitlines():
-            if line.strip():
-                records.append(json.loads(line))
+    """Header plus one row per jsonl record, newest first. Lists are joined with ', '. Decisions
+    carry their chain (current yes/no, replaced_by). Pure, so selftest can exercise it without
+    credentials."""
+    records = read_jsonl(path)
+    if "current" in cols:
+        records = decision_chains(records)
     records.sort(key=lambda r: str(r.get("date", "")), reverse=True)
 
     def cell(v):
         if isinstance(v, list):
             return ", ".join(str(x) for x in v)
+        if isinstance(v, bool):
+            return "yes" if v else "no"
         return "" if v is None else str(v)
 
     return [list(cols)] + [[cell(r.get(c)) for c in cols] for r in records]
@@ -115,7 +116,7 @@ STATUS_STYLE = {"done": ("E2F3E2", "1E7B1E"), "to_verify": ("FFF2CC", "8A6100"),
 PRIORITY_STYLE = {"P1": ("FBE3E3", "9B1C1C"), "P2": ("FFF4D6", "8A6100"), "P3": ("EEF1F5", MUTED)}
 COL_WIDTH = {"task": 420, "owner": 110, "priority": 70, "status": 95, "due": 90, "project": 130, "team": 120,
              "type": 95, "next_step": 280, "unblocker": 100, "effort": 70, "blocked_by": 150,
-             "prerequisites": 190, "notes": 280, "evidence": 320, "basis": 190, "meeting": 180,
+             "prerequisites": 190, "notes": 280, "evidence": 320, "basis": 190, "flags": 200, "meeting": 180,
              "origin": 80, "updated": 90, "closed": 90, "created": 90, "source": 230, "id": 230}
 
 
@@ -208,6 +209,8 @@ def actions_format_requests(sheet_id: int, n_rows: int) -> list[dict]:
     # Each rule is inserted at index 0 and Sheets applies the first rule that is true, so append in
     # reverse precedence: the row-wide grey for closed items first, the status colours last.
     reqs.append(_rule(_grid(sheet_id, 1, None, 0, len(COLUMNS)), f"={closed}", fg=MUTED))
+    fi = COLUMNS.index("flags")
+    reqs.append(_rule(_grid(sheet_id, 1, None, fi, fi + 1), f'=${_col_letter("flags")}2<>""', bg="FFF2CC", fg="8A6100", bold=True))
     reqs.append(_rule(_grid(sheet_id, 1, None, ci["due"], ci["due"] + 1),
                       f'=IFERROR(AND(DATEVALUE({du})=TODAY(),NOT({closed})),FALSE)', fg="8A6100", bold=True))
     reqs.append(_rule(_grid(sheet_id, 1, None, ci["due"], ci["due"] + 1),

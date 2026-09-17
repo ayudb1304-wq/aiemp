@@ -48,7 +48,7 @@ FILL_HEADER = PatternFill("solid", fgColor=NAVY)
 FILL_TILE = PatternFill("solid", fgColor=TILE)
 WIDTHS = {"task": 58, "owner": 14, "priority": 9, "status": 12, "due": 11, "project": 18, "team": 16,
           "type": 12, "next_step": 40, "unblocker": 13, "effort": 9, "blocked_by": 20,
-          "prerequisites": 26, "notes": 40, "evidence": 45, "basis": 26, "meeting": 24,
+          "prerequisites": 26, "notes": 40, "evidence": 45, "basis": 26, "flags": 28, "meeting": 24,
           "origin": 10, "updated": 11, "closed": 11, "created": 11, "source": 32, "id": 32}
 MAX_ROWS = 5000   # conditional formats and dropdowns cover this many rows
 ADVISOR_FIELDS = ("type", "next_step", "prerequisites", "unblocker", "effort", "basis")
@@ -151,6 +151,9 @@ def _write_actions(ws, rows: list[dict]) -> None:
         formula=[f'AND({du}<>"",{du}<TODAY(),NOT({closed}))'], font=Font(name=FONT, size=10, bold=True, color="C0262A")))
     ws.conditional_formatting.add(due_rng, FormulaRule(
         formula=[f'AND({du}<>"",{du}=TODAY(),NOT({closed}))'], font=Font(name=FONT, size=10, bold=True, color="8A6100")))
+    fl = f"${_col('flags')}2"
+    ws.conditional_formatting.add(f"{_col('flags')}2:{_col('flags')}{MAX_ROWS}", FormulaRule(
+        formula=[f'{fl}<>""'], fill=FILL_VERIFY, font=Font(name=FONT, size=10, bold=True, color="8A6100")))
     ws.conditional_formatting.add(rng, FormulaRule(formula=[closed], font=Font(name=FONT, size=10, color=MUTED)))
 
     # Dropdowns keep hand edits inside the vocabulary the scripts understand.
@@ -426,6 +429,8 @@ def upsert(cards: list[dict], meeting: str, meeting_date: str, source: str,
                         r[k] = _s(c[k])
             elif c.get("type") and not r.get("type"):
                 r["type"] = _s(c["type"])
+            if c.get("flags"):
+                r["flags"] = _s(c["flags"])
             _add_note(r, meeting_date, note)
             r["updated"] = today()
             updated.append(r["id"])
@@ -451,6 +456,7 @@ def upsert(cards: list[dict], meeting: str, meeting_date: str, source: str,
             "source": source,
             "updated": today(),
             "origin": c.get("origin") or origin,
+            "flags": _s(c.get("flags")),
         })
         for k in ADVISOR_FIELDS:
             row[k] = _s(c.get(k))

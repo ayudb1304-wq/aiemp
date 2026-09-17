@@ -21,7 +21,8 @@ drafts/        drafts/<item-id>.md for communicate / review items (never sent an
 briefs/        briefs/<date>.md (the plan, what the memory reads) + <date>.html (the same plan as a
                styled page) + <date>.json (the plan as data) + briefs/teams/<team>.md
 logs/          logs/<run-id>.json: what context was loaded, dropped, token estimates
-scripts/       extract.py -> tracker.py -> brief.py; sheets.py; ask.py; consolidate.py; selftest.py
+scripts/       extract.py -> verify.py -> tracker.py -> brief.py; sheets.py; ask.py; prep.py; search.py;
+               consolidate.py; selftest.py
 ```
 
 ## How it runs
@@ -95,8 +96,8 @@ Excel moves the tiles and charts at once (the owner and project lists refresh on
 GitHub's file preview shows formula cells blank; open the file in Excel. The **Actions** sheet is an Excel table
 (filter and sort from the header, banded rows) with the columns you act on first: task, owner,
 priority, status, due, project, team, then the advisor columns (type, next step, unblocker,
-effort, blocked by, prerequisites, notes, evidence, basis) and provenance last (meeting, origin,
-updated, closed, created, source, id). Colour follows the data: P1 red, to_verify amber, blocked
+effort, blocked by, prerequisites, notes, evidence, basis, flags) and provenance last (meeting,
+origin, updated, closed, created, source, id). Colour follows the data: P1 red, to_verify amber, blocked
 orange, in_progress blue, done green, overdue dates in red. Status, priority, type, effort and
 origin are dropdowns. Dates are real dates, so Excel can filter them by month.
 
@@ -108,8 +109,8 @@ origin are dropdowns. Dates are real dates, so Excel can filter them by month.
   top of the brief. Set `done` in the Sheet (status column) if it is true. Only you set `done`.
 - Edit owner, due, priority, status, notes, blocked_by, project, task, type, unblocker,
   next_step or effort in the Sheet. The next run pulls those edits back and logs each change to
-  `memory/corrections.jsonl`; the extraction prompt sees your recent corrections, and the weekly
-  consolidation PR proposes rule changes from them. Delete a row in the Sheet and the item is set
+  `memory/corrections.jsonl`; the extraction prompt sees your recent corrections, the next
+  brief lists them under "Since", and the weekly consolidation PR proposes rule changes from them. Delete a row in the Sheet and the item is set
   to `rejected` (kept in the tracker, never removed). Do not add rows by hand; they are overwritten.
 - Or from the CLI: `python scripts/tracker.py --close <id>`.
 - Ask the memory: `python scripts/ask.py "when did we last discuss the currency selector"`.
@@ -117,6 +118,34 @@ origin are dropdowns. Dates are real dates, so Excel can filter them by month.
   dated hits, without one you get the raw list.
 - Run any workflow manually from the **Actions** tab with **Run workflow**. Review the weekly
   consolidation PR: merge it to accept the new project state, or close it.
+
+## How it keeps itself honest
+- **Fact checks on every card** (`scripts/verify.py`, run inside extraction, no model call). The
+  evidence quote must be in the document (transcription-tolerant), the owner must be on the
+  roster (a name-map alias such as "Lakshmi" is replaced by the real name), the basis of a next
+  step must resolve to a known id, a context file or text in the document or context, the due
+  date must parse and sit between the meeting date and a year out, a blocked item must name its
+  blocker, and a matched id must exist. A card that fails is kept with the reasons in its `flags`
+  column (amber in Excel and the Sheet) and listed under **Check these** in the brief. Over time
+  the column shows how often, and where, the model gets things wrong. Re-check a cards file with
+  `python scripts/verify.py cards/<file>.json`.
+- **Decision chains.** A decision that supersedes an earlier one marks it replaced. The history
+  the model sees carries `current` and `replaced_by` on every decision and the prompt says a
+  replaced decision is never a basis; the Sheet's Decisions tab shows the same two columns; the
+  brief and the prep pack list only the decisions in force per project.
+- **Retrieval that understands your names and terms** (`scripts/search.py`). Matching is BM25
+  over canonical tokens: the name map in `company.md` folds transcription aliases into the real
+  person, short glossary expansions fold into their term ("change request" -> CR), plurals and
+  verb endings are stemmed, and a query word found nowhere is matched fuzzily. This feeds context
+  layer 4, `ask.py` and `prep.py`; each run log records `history_hits`.
+- **Since the last brief.** The brief opens with what moved: new, closed, reported complete,
+  slipped (from the due-change markers in notes), rejected, your Sheet edits, decisions and
+  threads. It is a comparison of dated records, never a summary the model wrote.
+- **Meeting prep pack.** `python scripts/prep.py Laxmikant` or `--project intelligent-tracker`
+  (or both) writes `briefs/prep/<date>-<who>.md` and `.html`: what they own, what is waiting on
+  them, what they reported complete, their last commitments as quoted, decisions they made
+  (current first), threads they keep raising, slips and drafts ready to paste. Every line has an
+  id, a date or a quote; nothing is generated and no API key is needed.
 
 ## What the agent never does
 - Close an item (`done` is yours). It proposes `to_verify`.
@@ -136,6 +165,8 @@ python scripts/extract.py                     # every inbox file without a cards
 python scripts/brief.py
 python scripts/consolidate.py --dry-run       # prints proposed project files + PR body, writes nothing
 python scripts/ask.py "what did we decide about the currency selector"
+python scripts/prep.py Laxmikant --project intelligent-tracker   # meeting prep pack, no key needed
+python scripts/verify.py cards/2026-09-16-activity-tracker-sync.json   # re-run the fact checks
 ```
 Set `GOOGLE_SERVICE_ACCOUNT_JSON` or `GOOGLE_OAUTH_TOKEN_JSON` too if you want
 `python scripts/sheets.py push` to work locally. `scripts/migrate_0001_project.py` added the

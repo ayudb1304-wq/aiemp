@@ -45,7 +45,7 @@ CHUNK_TOKENS = 20000   # documents larger than this are processed in chunks of t
 COLUMNS = [
     "task", "owner", "priority", "status", "due", "project", "team", "type", "next_step",
     "unblocker", "effort", "blocked_by", "prerequisites", "notes", "evidence", "basis",
-    "meeting", "origin", "updated", "closed", "created", "source", "id",
+    "flags", "meeting", "origin", "updated", "closed", "created", "source", "id",
 ]
 DATE_COLUMNS = ("created", "due", "updated", "closed")
 OPEN_STATUSES = {"open", "in_progress", "blocked", "to_verify"}
@@ -267,6 +267,109 @@ def people_in(text: str) -> list[str]:
     return [p for p in people_slugs() if p.replace("-", " ") in low or p in low]
 
 
+def _table_rows(text: str, first_header: str) -> list[list[str]]:
+    """Cells of the markdown table whose header row starts with `| first_header`."""
+    rows, in_table = [], False
+    for ln in text.splitlines():
+        if ln.startswith(f"| {first_header}"):
+            in_table = True
+            continue
+        if in_table:
+            if not ln.startswith("|"):
+                break
+            cells = [c.strip() for c in ln.strip("|").split("|")]
+            if cells and not set(cells[0]) <= {"-", " ", ":"}:
+                rows.append(cells)
+    return rows
+
+
+def name_map() -> dict[str, str]:
+    """{alias (lowercase): real name} from the 'Name map' table in company.md."""
+    out = {}
+    for cells in _table_rows(_read(COMPANY), "Heard as"):
+        if len(cells) >= 2:
+            for alias in cells[0].split(","):
+                if alias.strip():
+                    out[alias.strip().lower()] = cells[1]
+    return out
+
+
+def roster() -> dict[str, str]:
+    """{first name (lowercase): full name as written} for everyone the context files know: Me,
+    team leads and members, stakeholders, name-map targets, people files and project key people."""
+    names: dict[str, str] = {}
+
+    def add(name: str) -> None:
+        name = name.strip().strip("*_")
+        if name and name.lower() != "me" and re.match(r"^[A-Z][A-Za-z.'-]+", name):
+            names.setdefault(name.split()[0].lower(), name)
+
+    text = _read(COMPANY)
+    m = re.search(r"^- Name:\s*([A-Za-z][A-Za-z .'-]*?)(?:\.|,|\s+Role)", text, re.M)
+    if m:
+        add(m.group(1))
+    for cells in _table_rows(text, "Team"):
+        for cell in cells[1:3]:
+            for n in cell.split(","):
+                add(n)
+    for real in name_map().values():
+        add(real)
+    section = re.search(r"^## Stakeholders.*?(?=^## |\Z)", text, re.S | re.M)
+    if section:
+        for ln in section.group(0).splitlines():
+            m = re.match(r"^- ([A-Z][A-Za-z .'-]*(?:,\s*[A-Z][A-Za-z .'-]*)*)\s*(?:\(|:)", ln)
+            if m:
+                for n in m.group(1).split(","):
+                    add(n)
+    for p in PROJECTS_DIR.glob("*.md") if PROJECTS_DIR.exists() else []:
+        section = re.search(r"^## Key people.*?(?=^## |\Z)", _read(p), re.S | re.M)
+        if section:
+            for ln in section.group(0).splitlines():
+                m = re.match(r"^- ([A-Z][A-Za-z .'-]*?):", ln)
+                if m:
+                    add(m.group(1))
+    for slug_ in people_slugs():
+        names.setdefault(slug_.split("-")[0], slug_.replace("-", " ").title())
+    return names
+
+
+def glossary() -> dict[str, str]:
+    """{term (lowercase): expansion} from every '## Glossary' section in the project files,
+    lines like '- CR: change request. ...'. Used as retrieval synonyms."""
+    out = {}
+    for p in PROJECTS_DIR.glob("*.md") if PROJECTS_DIR.exists() else []:
+        section = re.search(r"^## Glossary.*?(?=^## |\Z)", _read(p), re.S | re.M)
+        if not section:
+            continue
+        for ln in section.group(0).splitlines():
+            m = re.match(r"^- ([^:]{1,40}):\s*(.+)", ln)
+            if m:
+                out[m.group(1).strip().lower()] = m.group(2).split(".")[0].strip()
+    return out
+
+
+def decision_chains(records: list[dict]) -> list[dict]:
+    """Each decision with two computed fields: current (no later decision supersedes it) and
+    replaced_by (the id of the decision that does, else ""). Records are not modified."""
+    replaced = {}
+    for r in records:
+        if r.get("supersedes"):
+            replaced[r["supersedes"]] = r["id"]
+    out = []
+    for r in records:
+        rb = replaced.get(r["id"], "")
+        out.append({**r, "current": not rb, "replaced_by": rb})
+    return out
+
+
+def current_decisions(project: str | None = None) -> list[dict]:
+    """Decisions still in force, newest first, optionally for one project."""
+    recs = [d for d in decision_chains(read_jsonl(DECISIONS)) if d["current"]]
+    if project:
+        recs = [d for d in recs if slug(d.get("project", "")) == slug(project)]
+    return sorted(recs, key=lambda d: d.get("date", ""), reverse=True)
+
+
 def my_name() -> str:
     """First name from the 'Name:' line of company.md, e.g. 'Ayush'."""
     if COMPANY.exists():
@@ -316,8 +419,9 @@ def build_prompt_context(project: str | None, people: list[str], doc_text: str,
       1 company.md + projects/<project>.md
       2 open items for that project (id, owner, task, due, priority, status, evidence, notes[:200])
       3 people/<name>.md for people mentioned
-      4 retrieved history: decisions/threads for the project that match the document, plus the
-        project's active threads (for matching) and up to 20 recent corrections
+      4 retrieved history: decisions/threads for the project ranked against the document (BM25
+        with the name map and glossaries as synonyms; decisions marked current or replaced_by),
+        plus the project's active threads (for matching) and up to 20 recent corrections
       5 the project's sections of the last 2 briefs
     """
     layers: list[tuple[str, str]] = []
@@ -333,10 +437,11 @@ def build_prompt_context(project: str | None, people: list[str], doc_text: str,
                    + "\n</open_items>"))
     ppl = "\n\n".join(_read(PEOPLE_DIR / f"{slug(n)}.md") for n in people)
     layers.append(("3:people", f"<people>\n{ppl}\n</people>" if ppl.strip() else ""))
+    history_hits = None
     if history is None:
         import search  # local import
 
-        history = search.history_block(project, doc_text)
+        history, history_hits = search.history_block(project, doc_text)
     layers.append(("4:history", history or ""))
     if project:
         bs = brief_sections(project)
@@ -348,7 +453,7 @@ def build_prompt_context(project: str | None, people: list[str], doc_text: str,
     # CHUNK_TOKENS is sent chunk by chunk (extract.py), each with the same context.
     doc_tokens = min(est_tokens(doc_text), CHUNK_TOKENS)
     log = {"budget_tokens": budget_tokens, "document_tokens": est_tokens(doc_text),
-           "document_counted": doc_tokens, "project": project,
+           "document_counted": doc_tokens, "project": project, "history_hits": history_hits,
            "people": people, "layers": {}, "dropped": [], "warnings": []}
     sizes = {name: est_tokens(text) for name, text in layers}
     for name, text in layers:
