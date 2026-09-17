@@ -150,6 +150,10 @@ def read_document(path: Path) -> str:
             return "\n\n".join((page.extract_text() or "") for page in pdf.pages)
     if ext == ".eml":
         return read_eml(path)
+    if ext in (".vtt", ".srt"):
+        from captions import parse_captions
+
+        return parse_captions(path.read_text(encoding="utf-8-sig", errors="replace"))
     return path.read_text(encoding="utf-8", errors="replace")
 
 

@@ -247,6 +247,34 @@ def test_readers():
     undated = TMP / "inbox" / "random.txt"
     undated.write_text("x", encoding="utf-8")
     check(len(common.date_from_filename(undated)) == 10, "undated file falls back to the file date")
+    vtt = TMP / "captions.vtt"
+    vtt.write_text("""WEBVTT
+
+abc/149-0
+00:00:03.422 --> 00:00:07.058
+<v Priya Sharma>Runbook is about 70% done,
+I will finish it</v>
+
+abc/149-1
+00:00:07.058 --> 00:00:08.702
+<v Priya Sharma>by Friday &amp; dry-run Monday.</v>
+
+abc/150-0
+00:00:09.000 --> 00:00:11.000
+<v Arjun>Still blocked on staging creds.</v>
+
+abc/151-0
+00:00:20.000 --> 00:00:22.000
+<v Arjun>Meera will chase infra.</v>
+""", encoding="utf-8")
+    text = common.read_document(vtt)
+    check(text == "Priya Sharma: Runbook is about 70% done, I will finish it by Friday & dry-run Monday."
+          "\n\nArjun: Still blocked on staging creds.\n\nArjun: Meera will chase infra.",
+          f"vtt reader merges cues per speaker and splits on pauses: {text!r}")
+    srt = TMP / "captions.srt"
+    srt.write_text("1\n00:00:01,000 --> 00:00:04,000\nHello there.\n\n2\n00:00:04,000 --> 00:00:06,000\nSecond line.\n",
+                   encoding="utf-8")
+    check(common.read_document(srt) == "Hello there. Second line.", "srt reader drops counters and timings")
     big = "\n\n".join(f"paragraph {i} " + "word " * 300 for i in range(40))
     chunks = common.chunk_text(big, max_tokens=5000)
     check(len(chunks) > 1 and "".join(chunks).replace("\n", "") == big.replace("\n", ""), "chunking loses nothing")

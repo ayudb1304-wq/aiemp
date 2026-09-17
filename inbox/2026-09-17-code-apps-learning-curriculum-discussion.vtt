@@ -1,0 +1,2008 @@
+WEBVTT
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/149-0
+00:00:03.422 --> 00:00:07.058
+<v Sarathchandra Babu>to quickly go through the basic
+understanding of React and JavaScript so</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/149-1
+00:00:07.058 --> 00:00:08.702
+<v Sarathchandra Babu>they could understand what the...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/157-0
+00:00:08.982 --> 00:00:09.342
+<v Sarathchandra Babu>The.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/202-0
+00:00:10.262 --> 00:00:14.651
+<v Sarathchandra Babu>Whatever AI model then we use to come up
+with that particular code app,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/202-1
+00:00:14.651 --> 00:00:18.370
+<v Sarathchandra Babu>they will be able to understand what is
+happening where. So,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/202-2
+00:00:18.370 --> 00:00:23.063
+<v Sarathchandra Babu>the basic understanding of React and
+JavaScript is required. So, JavaScript,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/202-3
+00:00:23.063 --> 00:00:27.026
+<v Sarathchandra Babu>they have, they have JavaScript exposure.
+Can you check my code,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/202-4
+00:00:27.026 --> 00:00:30.622
+<v Sarathchandra Babu>but I'm not giving say yes, lot of them,
+most of them are.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/238-0
+00:00:31.462 --> 00:00:34.582
+<v Sarathchandra Babu>Yeah,
+most of them are heavily doing cameras,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/238-1
+00:00:34.582 --> 00:00:38.787
+<v Sarathchandra Babu>right? So, but that's what we can take.
+No, what is that? So,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/238-2
+00:00:38.787 --> 00:00:44.078
+<v Sarathchandra Babu>what are the what's the TG and what is
+the target? Well, that's my thing. So,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/238-3
+00:00:44.078 --> 00:00:48.554
+<v Sarathchandra Babu>who are we giving this? No,
+first we have to make sure that it is</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/238-4
+00:00:48.554 --> 00:00:50.182
+<v Sarathchandra Babu>done to a set of people.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/277-0
+00:00:50.462 --> 00:00:56.804
+<v Sarathchandra Babu>OK, not defining that it is A or BT or B,
+you know, this similar or table.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/277-1
+00:00:56.804 --> 00:01:02.554
+<v Sarathchandra Babu>We are just making this to see that first,
+across the organization,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/277-2
+00:01:02.554 --> 00:01:09.235
+<v Sarathchandra Babu>if we need to understand the skill set,
+it's mandatory, then we need to do it,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/277-3
+00:01:09.235 --> 00:01:09.742
+<v Sarathchandra Babu>but...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/296-0
+00:01:10.142 --> 00:01:18.871
+<v Sarathchandra Babu>Priority, we want to,
+because is already required to, so,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/296-1
+00:01:18.871 --> 00:01:28.502
+<v Sarathchandra Babu>so even with priority,
+they would be downstream, maybe we have.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/297-0
+00:01:29.422 --> 00:01:29.902
+<v Sarathchandra Babu>What?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/321-0
+00:01:30.822 --> 00:01:36.185
+<v Sarathchandra Babu>But you have to 1st understand the gap
+from a moderating point of view.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/321-1
+00:01:36.185 --> 00:01:40.357
+<v Sarathchandra Babu>That is why I must say this. So,
+the gap point of view,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/321-2
+00:01:40.357 --> 00:01:43.262
+<v Sarathchandra Babu>what are the gap we can tell by people?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/325-0
+00:01:44.062 --> 00:01:46.382
+<v Sarathchandra Babu>Fundamentals required and what is not
+there.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/341-0
+00:01:47.742 --> 00:01:51.844
+<v Sarathchandra Babu>Required fundamental, so it's ABC.
+What is not there today?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/341-1
+00:01:51.844 --> 00:01:55.262
+<v Sarathchandra Babu>That is the first thing which may be a
+fail, see?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/356-0
+00:01:56.702 --> 00:02:03.096
+<v Sarathchandra Babu>I know Microsoft has got a thing,
+but I realized that even if we tell him</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/356-1
+00:02:03.096 --> 00:02:05.342
+<v Sarathchandra Babu>to do that, that's not so.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/357-0
+00:02:07.182 --> 00:02:08.062
+<v Sarathchandra Babu>Divya.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/395-0
+00:02:09.982 --> 00:02:12.730
+<v Sarathchandra Babu>They would still get an understanding of
+it,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/395-1
+00:02:12.730 --> 00:02:17.799
+<v Sarathchandra Babu>but the problem to resolve will still be
+in, because, for sure, personal hands on,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/395-2
+00:02:17.799 --> 00:02:21.829
+<v Sarathchandra Babu>some of them from, like,
+if let's say you are taking it for them,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/395-3
+00:02:21.829 --> 00:02:25.371
+<v Sarathchandra Babu>they will come up in,
+I know the person is giving me this</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/395-4
+00:02:25.371 --> 00:02:28.302
+<v Sarathchandra Babu>particular post, so when it's hands on,
+will...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/400-0
+00:02:28.862 --> 00:02:31.142
+<v Sarathchandra Babu>Like, so I could,
+it would be more effective.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/443-0
+00:02:33.182 --> 00:02:37.058
+<v Sarathchandra Babu>Yeah, I learned because, so,
+and Microsoft learned because see,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/443-1
+00:02:37.058 --> 00:02:41.175
+<v Sarathchandra Babu>there's already this quarter happening,
+like there's a team that's,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/443-2
+00:02:41.175 --> 00:02:45.596
+<v Sarathchandra Babu>so he was particularly, of course,
+and it's quite slow because there is,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/443-3
+00:02:45.596 --> 00:02:48.805
+<v Sarathchandra Babu>it's they are,
+they are posted it themselves, right?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/443-4
+00:02:48.805 --> 00:02:52.499
+<v Sarathchandra Babu>And if it is in one,
+if there is one person giving that same</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/443-5
+00:02:52.499 --> 00:02:52.862
+<v Sarathchandra Babu>phone.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/451-0
+00:02:53.302 --> 00:02:56.302
+<v Sarathchandra Babu>It's A hands-on, I think.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/454-0
+00:02:58.382 --> 00:02:59.342
+<v Sarathchandra Babu>That's a problem.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/459-0
+00:03:00.862 --> 00:03:03.822
+<v Sarathchandra Babu>Right, so you take.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/460-0
+00:03:05.582 --> 00:03:06.222
+<v Sarathchandra Babu>Ajit.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/506-0
+00:03:07.382 --> 00:03:11.177
+<v Sarathchandra Babu>What are the skills,
+which is a gap for us? So, fundamentals,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/506-1
+00:03:11.177 --> 00:03:15.523
+<v Sarathchandra Babu>looks like let's finish that,
+and what are something that you can just</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/506-2
+00:03:15.523 --> 00:03:20.665
+<v Sarathchandra Babu>draw it out there before you go into this,
+like you both can actually tell what the</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/506-3
+00:03:20.665 --> 00:03:25.378
+<v Sarathchandra Babu>fundamental which is required to be done,
+like these are, we may need, yeah,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/506-4
+00:03:25.378 --> 00:03:27.582
+<v Sarathchandra Babu>we still really get off any of this.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/516-0
+00:03:31.142 --> 00:03:34.934
+<v Sarathchandra Babu>We would we could focus on React,
+because that's more publicly,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/516-1
+00:03:34.934 --> 00:03:39.022
+<v Sarathchandra Babu>but when you're writing an option,
+what are the fundamental options?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/556-0
+00:03:40.822 --> 00:03:44.185
+<v Sarathchandra Babu>Essentially, if we do,
+if we check the whole overview,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/556-1
+00:03:44.185 --> 00:03:48.342
+<v Sarathchandra Babu>just JavaScript is required,
+because React functions on JavaScript,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/556-2
+00:03:48.342 --> 00:03:51.277
+<v Sarathchandra Babu>so if you know how things work with
+JavaScript,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/556-3
+00:03:51.277 --> 00:03:56.229
+<v Sarathchandra Babu>then you would have some understanding.
+Can we, I know that it's not just React,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/556-4
+00:03:56.229 --> 00:04:00.142
+<v Sarathchandra Babu>can we know any of these things?
+Microsoft didn't say anything.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/567-0
+00:04:02.462 --> 00:04:08.452
+<v Sarathchandra Babu>Why I am discussing with you,
+it should be easier for somebody to</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/567-1
+00:04:08.452 --> 00:04:13.262
+<v Sarathchandra Babu>switch and then,
+if you have done and done this way.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/615-0
+00:04:14.702 --> 00:04:17.596
+<v Sarathchandra Babu>So, is React this way,
+or is it do the rest way,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/615-1
+00:04:17.596 --> 00:04:21.435
+<v Sarathchandra Babu>or is there anything else?
+What is similar to Power FX? Nothing,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/615-2
+00:04:21.435 --> 00:04:24.211
+<v Sarathchandra Babu>Power FX is,
+and what is similar to the way of</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/615-3
+00:04:24.211 --> 00:04:27.518
+<v Sarathchandra Babu>development,
+like I think first they create components,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/615-4
+00:04:27.518 --> 00:04:31.888
+<v Sarathchandra Babu>and then can I can you start the whole
+leave behind all of this React use</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/615-5
+00:04:31.888 --> 00:04:33.542
+<v Sarathchandra Babu>component based development?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/627-0
+00:04:33.742 --> 00:04:37.352
+<v Sarathchandra Babu>Yeah,
+so first you generalize and build the</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/627-1
+00:04:37.352 --> 00:04:43.342
+<v Sarathchandra Babu>components that you can reuse up with the
+application for. OK, it's not.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/659-0
+00:04:44.622 --> 00:04:49.134
+<v Sarathchandra Babu>So, I am,
+I'm not a person who says that we react,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/659-1
+00:04:49.134 --> 00:04:53.381
+<v Sarathchandra Babu>because we are,
+we should not be ourselves bad,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/659-2
+00:04:53.381 --> 00:04:58.601
+<v Sarathchandra Babu>so if rules are better option, OK,
+or any other framework,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/659-3
+00:04:58.601 --> 00:05:02.582
+<v Sarathchandra Babu>because operating framework can be
+anything.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/687-0
+00:05:04.702 --> 00:05:07.820
+<v Sarathchandra Babu>See, because we react, react,
+we speak every day,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/687-1
+00:05:07.820 --> 00:05:11.062
+<v Sarathchandra Babu>or if we have time somebody speaking,
+we say react,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/687-2
+00:05:11.062 --> 00:05:15.053
+<v Sarathchandra Babu>that's the reason why we say react,
+we don't need to say react,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/687-3
+00:05:15.053 --> 00:05:17.422
+<v Sarathchandra Babu>if somebody can ask another skill set.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/702-0
+00:05:18.662 --> 00:05:22.154
+<v Sarathchandra Babu>OK, I'm just documenting reactors more,
+right?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/702-1
+00:05:22.154 --> 00:05:26.462
+<v Sarathchandra Babu>There's a lot of more documentation,
+I believe, is there.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/721-0
+00:05:27.702 --> 00:05:32.456
+<v Sarathchandra Babu>We agree, I agree, we are very popular,
+so who is very popular,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/721-1
+00:05:32.456 --> 00:05:35.799
+<v Sarathchandra Babu>who is very popular,
+but who came out later,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/721-2
+00:05:35.799 --> 00:05:40.702
+<v Sarathchandra Babu>so Nayak came out first,
+so we have so very more easier and more.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/729-0
+00:05:42.142 --> 00:05:46.942
+<v Sarathchandra Babu>Friendly for good signals, and it's basic.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/763-0
+00:05:47.742 --> 00:05:51.394
+<v Sarathchandra Babu>That's what I agree to,
+so I'm not debating here,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/763-1
+00:05:51.394 --> 00:05:54.973
+<v Sarathchandra Babu>but I just want you guys to all to take
+leaders,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/763-2
+00:05:54.973 --> 00:06:00.597
+<v Sarathchandra Babu>but you guys need to think that they are
+taking a strategy of saying, "Okay,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/763-3
+00:06:00.597 --> 00:06:05.855
+<v Sarathchandra Babu>we're not primarily with react or
+primarily with or any other platforms</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/763-4
+00:06:05.855 --> 00:06:07.462
+<v Sarathchandra Babu>already a limitation."</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/790-0
+00:06:08.662 --> 00:06:13.113
+<v Sarathchandra Babu>Because it will support,
+and and why we do all of those things is</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/790-1
+00:06:13.113 --> 00:06:17.563
+<v Sarathchandra Babu>one of the reasons, right?
+And we are actually using all of these</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/790-2
+00:06:17.563 --> 00:06:23.025
+<v Sarathchandra Babu>front end frameworks is also a reason is
+the main reason why people are going to</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/790-3
+00:06:23.025 --> 00:06:23.902
+<v Sarathchandra Babu>board Akshay.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/831-0
+00:06:31.182 --> 00:06:35.619
+<v Sarathchandra Babu>But we need to do a basic understanding
+of JavaScript.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/831-1
+00:06:35.619 --> 00:06:41.669
+<v Sarathchandra Babu>So that is required for everyone to know.
+They know HTM and CSS very well.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/831-2
+00:06:41.669 --> 00:06:46.186
+<v Sarathchandra Babu>Fundamental to me is that CHTM with CSS
+and JavaScript.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/831-3
+00:06:46.186 --> 00:06:50.542
+<v Sarathchandra Babu>Then only comes the framework.
+It will be translated.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/842-0
+00:06:50.862 --> 00:06:55.295
+<v Sarathchandra Babu>But then framework is required,
+but if you don't know HTML, CSS,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/842-1
+00:06:55.295 --> 00:06:58.909
+<v Sarathchandra Babu>JavaScript,
+you can't do React or can't do the other</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/842-2
+00:06:58.909 --> 00:06:59.182
+<v Sarathchandra Babu>one.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/844-0
+00:07:00.422 --> 00:07:01.262
+<v Sarathchandra Babu>Because its all bad.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/890-0
+00:07:03.822 --> 00:07:08.670
+<v Sarathchandra Babu>But, you, you, I, I am sorry to say, sir,
+but what I am thinking is,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/890-1
+00:07:08.670 --> 00:07:13.800
+<v Sarathchandra Babu>if that would take time for us,
+for people around us, I mean, everybody,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/890-2
+00:07:13.800 --> 00:07:19.140
+<v Sarathchandra Babu>to come up to an understanding where all
+of this basically works with them,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/890-3
+00:07:19.140 --> 00:07:22.302
+<v Sarathchandra Babu>so if they are going to go through and
+HTML.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/909-0
+00:07:22.862 --> 00:07:26.109
+<v Sarathchandra Babu>The whole of CSS,
+let's say basic understanding,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/909-1
+00:07:26.109 --> 00:07:29.952
+<v Sarathchandra Babu>so basic understanding is fine. So,
+how can you be? Well,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/909-2
+00:07:29.952 --> 00:07:33.662
+<v Sarathchandra Babu>now you write down these points: HCML,
+CSS, JavaScript.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/941-0
+00:07:37.662 --> 00:07:42.702
+<v Sarathchandra Babu>JavaScript, let's say React,
+you put React this much, right? No, no,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/941-1
+00:07:42.702 --> 00:07:45.989
+<v Sarathchandra Babu>below, below,
+below that you put React also,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/941-2
+00:07:45.989 --> 00:07:50.445
+<v Sarathchandra Babu>React as a framework,
+because that's a common framework does</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/941-3
+00:07:50.445 --> 00:07:52.782
+<v Sarathchandra Babu>React in this case, now in this.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/944-0
+00:07:54.142 --> 00:07:57.262
+<v Sarathchandra Babu>You take, let's say, marketing.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/958-0
+00:07:58.382 --> 00:08:02.526
+<v Sarathchandra Babu>How will somebody,
+how good is somebody like uh,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/958-1
+00:08:02.526 --> 00:08:07.262
+<v Sarathchandra Babu>or somebody like uh,
+Vishruth or Jeevan during the ask?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/961-0
+00:08:08.142 --> 00:08:09.182
+<v Sarathchandra Babu>How do you make that?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/962-0
+00:08:10.622 --> 00:08:10.782
+<v Sarathchandra Babu>Okay.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1010-0
+00:08:12.222 --> 00:08:17.322
+<v Sarathchandra Babu>So, you tried on top, identifying who is,
+I'm not really identifying. Yes,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1010-1
+00:08:17.322 --> 00:08:20.858
+<v Sarathchandra Babu>take a guess. I don't go and ask,
+how good are you?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1010-2
+00:08:20.858 --> 00:08:23.986
+<v Sarathchandra Babu>It's a very subjective answer, right?
+Rather,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1010-3
+00:08:23.986 --> 00:08:27.318
+<v Sarathchandra Babu>we just take that subjective decision
+ourselves.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1010-4
+00:08:27.318 --> 00:08:31.262
+<v Sarathchandra Babu>Do you think that they know CSS?
+Do they know JavaScript?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1032-0
+00:08:31.582 --> 00:08:35.411
+<v Sarathchandra Babu>You can ask them this question, sir.
+There's nothing else. HTML can ask them,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1032-1
+00:08:35.411 --> 00:08:37.865
+<v Sarathchandra Babu>they won't know,
+but serious and react is rather,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1032-2
+00:08:37.865 --> 00:08:41.742
+<v Sarathchandra Babu>so then our trainees should actually have
+those. That is what I was trying to.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1061-0
+00:08:45.822 --> 00:08:51.292
+<v Sarathchandra Babu>You should be, you got the reason. See,
+I know we also should press a training</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1061-1
+00:08:51.292 --> 00:08:54.615
+<v Sarathchandra Babu>plan,
+but what is required for our team is what</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1061-2
+00:08:54.615 --> 00:08:59.739
+<v Sarathchandra Babu>we are trying to say, in our team,
+because within when I ask within to do</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1061-3
+00:08:59.739 --> 00:09:01.262
+<v Sarathchandra Babu>training on successes.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1075-0
+00:09:03.142 --> 00:09:08.023
+<v Sarathchandra Babu>What are we getting on time?
+I just spelled out one small. I asked,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1075-1
+00:09:08.023 --> 00:09:13.622
+<v Sarathchandra Babu>we tried too much JavaScript training,
+or it's here in training by it's here.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1077-0
+00:09:16.582 --> 00:09:17.582
+<v Sarathchandra Babu>Yeah, even all of us.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1080-0
+00:09:19.102 --> 00:09:20.142
+<v Sarathchandra Babu>You getting one, BS?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1111-0
+00:09:21.822 --> 00:09:25.597
+<v Sarathchandra Babu>I, I don't want to waste your time,
+because you are not the expert on those</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1111-1
+00:09:25.597 --> 00:09:28.676
+<v Sarathchandra Babu>areas, right? So, I mean,
+somebody come back to do a session,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1111-2
+00:09:28.676 --> 00:09:31.607
+<v Sarathchandra Babu>but what should I,
+how we make sure that you know they are</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1111-3
+00:09:31.607 --> 00:09:32.302
+<v Sarathchandra Babu>actually good?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1126-0
+00:09:33.982 --> 00:09:36.807
+<v Sarathchandra Babu>The fact that the entire team needs that
+training,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1126-1
+00:09:36.807 --> 00:09:39.742
+<v Sarathchandra Babu>or are there just few of them who need it,
+so, so...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1153-0
+00:09:40.782 --> 00:09:44.344
+<v Sarathchandra Babu>Continuation to this point,
+whether Rigu is going to HTML,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1153-1
+00:09:44.344 --> 00:09:48.510
+<v Sarathchandra Babu>whether she's done any CSS by herself,
+whether she knows JavaScript,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1153-2
+00:09:48.510 --> 00:09:52.011
+<v Sarathchandra Babu>has she done any kind of JavaScript
+validation, you know,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1153-3
+00:09:52.011 --> 00:09:56.237
+<v Sarathchandra Babu>calling a function or calling an API,
+you know, these kind of things,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1153-4
+00:09:56.237 --> 00:09:57.022
+<v Sarathchandra Babu>has she done?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1160-0
+00:10:01.142 --> 00:10:04.862
+<v Sarathchandra Babu>I think that's a question, but exactly,
+so question.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1166-0
+00:10:06.022 --> 00:10:07.502
+<v Sarathchandra Babu>But I can take him.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1214-0
+00:10:09.262 --> 00:10:11.964
+<v Sarathchandra Babu>I, Claude, or something,
+we have been doing this.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1214-1
+00:10:11.964 --> 00:10:14.503
+<v Sarathchandra Babu>We need to fix it or to understand the
+timing.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1214-2
+00:10:14.503 --> 00:10:18.610
+<v Sarathchandra Babu>That is the concern that we are really
+trying to enable them to that level.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1214-3
+00:10:18.610 --> 00:10:22.392
+<v Sarathchandra Babu>We're not trying them to build them as an
+expert. The moment they go,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1214-4
+00:10:22.392 --> 00:10:24.932
+<v Sarathchandra Babu>they know how to go on to Claude and ask
+them.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1214-5
+00:10:24.932 --> 00:10:28.822
+<v Sarathchandra Babu>They already gave me a code to build it.
+That is the second part of it.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1234-0
+00:10:29.422 --> 00:10:32.901
+<v Sarathchandra Babu>So,
+I'm not trying to bring up to a level</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1234-1
+00:10:32.901 --> 00:10:36.546
+<v Sarathchandra Babu>finding,
+give a basic overview of HTML CSS,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1234-2
+00:10:36.546 --> 00:10:41.102
+<v Sarathchandra Babu>so that they get, you know,
+session on here, so maybe.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1237-0
+00:10:42.222 --> 00:10:44.142
+<v Sarathchandra Babu>In other ways, what is the use of AI?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1243-0
+00:10:47.102 --> 00:10:51.902
+<v Sarathchandra Babu>You don't have to go to the one number on
+train, there is still a lot of time.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1253-0
+00:10:54.102 --> 00:10:59.502
+<v Sarathchandra Babu>Give them up to speed with the day
+sponsors, and then close it, and then.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1279-0
+00:11:01.102 --> 00:11:06.354
+<v Sarathchandra Babu>Using part to us with this data,
+by the time we can look at the further</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1279-1
+00:11:06.354 --> 00:11:11.022
+<v Sarathchandra Babu>plan and see if there are,
+so this is the part two of the plan.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1307-0
+00:11:13.062 --> 00:11:16.341
+<v Sarathchandra Babu>Pretty good, that's how it looks like,
+because we haven't get this right,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1307-1
+00:11:16.341 --> 00:11:19.000
+<v Sarathchandra Babu>so do you have any of these things
+currently on this thing?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1307-2
+00:11:19.000 --> 00:11:21.305
+<v Sarathchandra Babu>Let's go to the next one.
+You must have considered,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1307-3
+00:11:21.305 --> 00:11:23.742
+<v Sarathchandra Babu>I want to see these fundamentals of this,
+right? Yeah.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1337-0
+00:11:27.182 --> 00:11:34.687
+<v Sarathchandra Babu>So, you need to do that, right? Yes,
+what is this? Let's just do that, yes,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1337-1
+00:11:34.687 --> 00:11:40.513
+<v Sarathchandra Babu>sir, for all the people,
+so that we can tell you that now,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1337-2
+00:11:40.513 --> 00:11:46.142
+<v Sarathchandra Babu>any program, what you're gonna do,
+then you have to ask.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1340-0
+00:11:48.342 --> 00:11:49.262
+<v Sarathchandra Babu>Hmm, understood.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1345-0
+00:11:51.262 --> 00:11:54.862
+<v Sarathchandra Babu>Yes, sir. So,
+what do you address the next slide?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1352-0
+00:11:58.382 --> 00:12:03.508
+<v Sarathchandra Babu>They're going practical,
+but trying to what it makes in use case</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1352-1
+00:12:03.508 --> 00:12:03.902
+<v Sarathchandra Babu>also.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1353-0
+00:12:06.142 --> 00:12:06.782
+<v Sarathchandra Babu>So.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1387-0
+00:12:08.142 --> 00:12:14.751
+<v Sarathchandra Babu>Build the four practical capabilities.
+So what a developer in the end needs to</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1387-1
+00:12:14.751 --> 00:12:19.854
+<v Sarathchandra Babu>understand and do is basically read and
+run the application,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1387-2
+00:12:19.854 --> 00:12:25.709
+<v Sarathchandra Babu>use the real data contract.
+So basically whatever Microsoft code app,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1387-3
+00:12:25.709 --> 00:12:26.462
+<v Sarathchandra Babu>whatever.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1428-0
+00:12:27.022 --> 00:12:29.697
+<v Sarathchandra Babu>the sample template that is present,
+right?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1428-1
+00:12:29.697 --> 00:12:34.864
+<v Sarathchandra Babu>So we are basically creating a copy of it.
+So we have a basic skeleton of how it is.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1428-2
+00:12:34.864 --> 00:12:39.849
+<v Sarathchandra Babu>And then we are trying to add in the data
+sources that are present that we create</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1428-3
+00:12:39.849 --> 00:12:43.982
+<v Sarathchandra Babu>in Dataverse or SharePoint,
+whatever it is, add that into the data.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1468-0
+00:12:45.262 --> 00:12:51.000
+<v Sarathchandra Babu>The space template that we created with
+Microsoft different templates that have</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1468-1
+00:12:51.000 --> 00:12:54.299
+<v Sarathchandra Babu>available,
+and then direct AI to basically go</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1468-2
+00:12:54.299 --> 00:12:59.177
+<v Sarathchandra Babu>through this project folder and
+understand what is the requirement,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1468-3
+00:12:59.177 --> 00:13:03.982
+<v Sarathchandra Babu>so the requirement is to be explained by
+us to them, I mean to AI.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1513-0
+00:13:04.462 --> 00:13:07.303
+<v Sarathchandra Babu>so that it gets a picture on what has to
+be done.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1513-1
+00:13:07.303 --> 00:13:11.565
+<v Sarathchandra Babu>And then once it generates a particular,
+generates the output based on our</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1513-2
+00:13:11.565 --> 00:13:14.520
+<v Sarathchandra Babu>requirement and the file structure that
+is present,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1513-3
+00:13:14.520 --> 00:13:18.497
+<v Sarathchandra Babu>we have to review it and understand that
+it is functioning correctly,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1513-4
+00:13:18.497 --> 00:13:21.111
+<v Sarathchandra Babu>working correctly.
+And if there is a concern,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1513-5
+00:13:21.111 --> 00:13:22.702
+<v Sarathchandra Babu>either fix it manually or...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1519-0
+00:13:22.942 --> 00:13:26.782
+<v Sarathchandra Babu>with the help of that AI order we chose
+to deploy with all of them.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1520-0
+00:13:27.822 --> 00:13:29.582
+<v Sarathchandra Babu>The what?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1533-0
+00:13:31.822 --> 00:13:34.652
+<v Sarathchandra Babu>No,
+this is what the basic 4 fundamentals</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1533-1
+00:13:34.652 --> 00:13:36.942
+<v Sarathchandra Babu>that a developer needs to have to.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1536-0
+00:13:40.182 --> 00:13:42.062
+<v Sarathchandra Babu>We don't know what you mean.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1588-0
+00:13:43.342 --> 00:13:46.378
+<v Sarathchandra Babu>So a basic,
+so when you create a particular project,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1588-1
+00:13:46.378 --> 00:13:50.960
+<v Sarathchandra Babu>right, there'll be different structures,
+substructures, subfolders, components,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1588-2
+00:13:50.960 --> 00:13:54.053
+<v Sarathchandra Babu>and all of that inside a particular
+format structure.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1588-3
+00:13:54.053 --> 00:13:58.520
+<v Sarathchandra Babu>So a developer needs to understand what a
+particular section of a project is,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1588-4
+00:13:58.520 --> 00:14:02.472
+<v Sarathchandra Babu>what each file is, how it works,
+so that they get an idea of where a</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1588-5
+00:14:02.472 --> 00:14:03.102
+<v Sarathchandra Babu>particular.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1631-0
+00:14:04.142 --> 00:14:08.459
+<v Sarathchandra Babu>part of an application is present rather
+than having always going to a AI model to</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1631-1
+00:14:08.459 --> 00:14:11.892
+<v Sarathchandra Babu>understand, okay, what is this?
+Where is this? How do I fix this?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1631-2
+00:14:11.892 --> 00:14:16.261
+<v Sarathchandra Babu>They need to know an understanding of how
+this app is, where each of it is located,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1631-3
+00:14:16.261 --> 00:14:20.110
+<v Sarathchandra Babu>and how that functioning is present.
+Use real data contact. So basically,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1631-4
+00:14:20.110 --> 00:14:23.022
+<v Sarathchandra Babu>over here in this context,
+I use this dataverse, but...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1646-0
+00:14:23.342 --> 00:14:29.478
+<v Sarathchandra Babu>The data platform that we choose could be
+either SharePoint or Dataverse,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1646-1
+00:14:29.478 --> 00:14:34.702
+<v Sarathchandra Babu>depending upon what the business needs.
+So we are basically...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1657-0
+00:14:38.702 --> 00:14:42.010
+<v Sarathchandra Babu>So, that is not automatically,
+so we uh Power Apps CLA, right?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1657-1
+00:14:42.010 --> 00:14:42.902
+<v Sarathchandra Babu>They we have a...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1704-0
+00:14:45.022 --> 00:14:48.539
+<v Sarathchandra Babu>function call that we can do.
+It's called PA app in it and once you do</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1704-1
+00:14:48.539 --> 00:14:50.719
+<v Sarathchandra Babu>that,
+you need to initialize a power config</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1704-2
+00:14:50.719 --> 00:14:54.236
+<v Sarathchandra Babu>file that is present in a particular
+folder that maps the environment,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1704-3
+00:14:54.236 --> 00:14:57.011
+<v Sarathchandra Babu>application name, application ID,
+all of that together.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1704-4
+00:14:57.011 --> 00:15:00.231
+<v Sarathchandra Babu>Then you add data sources into that
+particular folder structure,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1704-5
+00:15:00.231 --> 00:15:03.302
+<v Sarathchandra Babu>I mean folder that we created for the
+project. So that is PA.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1707-0
+00:15:04.222 --> 00:15:07.502
+<v Sarathchandra Babu>I,
+there's no different commands available.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1708-0
+00:15:11.022 --> 00:15:12.302
+<v Sarathchandra Babu>They never responded.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1754-0
+00:15:15.662 --> 00:15:19.177
+<v Sarathchandra Babu>Yeah, no, what I'm saying is,
+when you're trying to develop an</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1754-1
+00:15:19.177 --> 00:15:21.632
+<v Sarathchandra Babu>application, we need to know,
+in this case,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1754-2
+00:15:21.632 --> 00:15:24.588
+<v Sarathchandra Babu>in React or whatever the platform mean
+framework is,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1754-3
+00:15:24.588 --> 00:15:28.884
+<v Sarathchandra Babu>we need the model and services that
+interact with this particular data model</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1754-4
+00:15:28.884 --> 00:15:31.841
+<v Sarathchandra Babu>that we're using,
+so we need to define that, I mean,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1754-5
+00:15:31.841 --> 00:15:34.742
+<v Sarathchandra Babu>create that into this particular project
+directory.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1756-0
+00:15:36.702 --> 00:15:39.662
+<v Sarathchandra Babu>We can't clear the comments.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1811-0
+00:15:40.782 --> 00:15:44.643
+<v Sarathchandra Babu>No, but each particular branch, each,
+I'm saying it is done automatically.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1811-1
+00:15:44.643 --> 00:15:47.628
+<v Sarathchandra Babu>We don't have to do it.
+We don't have to set up manually.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1811-2
+00:15:47.628 --> 00:15:51.849
+<v Sarathchandra Babu>Once you initialize a particular command
+and provide which table details that you</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1811-3
+00:15:51.849 --> 00:15:54.063
+<v Sarathchandra Babu>require,
+which table that you want in this</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1811-4
+00:15:54.063 --> 00:15:58.078
+<v Sarathchandra Babu>particular solution, I mean project,
+it automatically picks up the particular</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1811-5
+00:15:58.078 --> 00:15:59.982
+<v Sarathchandra Babu>table, create the data layers for it.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1833-0
+00:16:00.222 --> 00:16:02.779
+<v Sarathchandra Babu>So it creates a model and a service for
+it.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1833-1
+00:16:02.779 --> 00:16:05.510
+<v Sarathchandra Babu>So model contains all of your table
+structure,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1833-2
+00:16:05.510 --> 00:16:10.274
+<v Sarathchandra Babu>and the service contains the different
+functions that you can call for the table.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1833-3
+00:16:10.274 --> 00:16:13.702
+<v Sarathchandra Babu>So that setup is done automatically by
+your function call.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1839-0
+00:16:16.702 --> 00:16:19.182
+<v Sarathchandra Babu>We don't have to manually create data
+results and forecasts.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1893-0
+00:16:25.102 --> 00:16:28.912
+<v Sarathchandra Babu>Once that particular model, that is,
+we are not doing anything.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1893-1
+00:16:28.912 --> 00:16:33.080
+<v Sarathchandra Babu>So when you do that particular,
+so once you run a particular command,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1893-2
+00:16:33.080 --> 00:16:37.009
+<v Sarathchandra Babu>let's say in this case,
+PA add data source, let's say user table.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1893-3
+00:16:37.009 --> 00:16:41.653
+<v Sarathchandra Babu>So that user table gets added to the
+particular project that we are referring</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1893-4
+00:16:41.653 --> 00:16:44.451
+<v Sarathchandra Babu>to.
+And that creates its own generated folder,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1893-5
+00:16:44.451 --> 00:16:45.582
+<v Sarathchandra Babu>which contains the.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1915-0
+00:16:46.302 --> 00:16:50.035
+<v Sarathchandra Babu>user tables model and user table service.
+So we have these two files.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1915-1
+00:16:50.035 --> 00:16:53.449
+<v Sarathchandra Babu>So me as a developer,
+I need to know that what happens in these</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1915-2
+00:16:53.449 --> 00:16:57.182
+<v Sarathchandra Babu>files, what is present in these files,
+and how can I use these files.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1919-0
+00:16:59.582 --> 00:17:02.142
+<v Sarathchandra Babu>Send more than services for this.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1920-0
+00:17:03.542 --> 00:17:03.822
+<v Sarathchandra Babu>Yeah.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1955-0
+00:17:05.062 --> 00:17:09.849
+<v Sarathchandra Babu>Okay, once then direct and review AI.
+So I need to understand, basically,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1955-1
+00:17:09.849 --> 00:17:12.890
+<v Sarathchandra Babu>I need to know what is a business
+requirement,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1955-2
+00:17:12.890 --> 00:17:17.742
+<v Sarathchandra Babu>what the business requires to be done in
+the application. And I need to...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1989-0
+00:17:20.182 --> 00:17:27.368
+<v Sarathchandra Babu>Make sure that particular AI model that
+I'm instructing to create this particular</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1989-1
+00:17:27.368 --> 00:17:32.012
+<v Sarathchandra Babu>application, right?
+It needs to know exactly what my</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1989-2
+00:17:32.012 --> 00:17:38.584
+<v Sarathchandra Babu>requirement is, so what, but why,
+what is that here? No, but it is needed,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/1989-3
+00:17:38.584 --> 00:17:39.022
+<v Sarathchandra Babu>so...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2010-0
+00:17:39.342 --> 00:17:42.267
+<v Sarathchandra Babu>You prompting is needs to be right is
+what I'm saying,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2010-1
+00:17:42.267 --> 00:17:45.617
+<v Sarathchandra Babu>because if prompt goes wrong,
+you could create an application,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2010-2
+00:17:45.617 --> 00:17:48.222
+<v Sarathchandra Babu>but that is not what the user wanted in
+the end.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2050-0
+00:17:49.262 --> 00:17:52.720
+<v Sarathchandra Babu>Correct,
+but that element should be actually the</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2050-1
+00:17:52.720 --> 00:17:56.249
+<v Sarathchandra Babu>prompting.
+The first round would be the ones that</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2050-2
+00:17:56.249 --> 00:18:00.765
+<v Sarathchandra Babu>are the most important,
+because that's because the first round,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2050-3
+00:18:00.765 --> 00:18:04.223
+<v Sarathchandra Babu>if it is deviated or if it is already
+made from,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2050-4
+00:18:04.223 --> 00:18:10.222
+<v Sarathchandra Babu>it would add that is actually part of the
+that process of development itself, right?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2092-0
+00:18:10.462 --> 00:18:13.368
+<v Sarathchandra Babu>Well, requirement, you can create that,
+yes,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2092-1
+00:18:13.368 --> 00:18:18.792
+<v Sarathchandra Babu>so automatically we do all the separation,
+but you are using it to automatically do</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2092-2
+00:18:18.792 --> 00:18:22.860
+<v Sarathchandra Babu>that, right? So, no, no,
+I'm saying before it does all of this</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2092-3
+00:18:22.860 --> 00:18:25.830
+<v Sarathchandra Babu>automatically,
+we need to make sure that what</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2092-4
+00:18:25.830 --> 00:18:30.995
+<v Sarathchandra Babu>instructions being given to the model is
+correct. Can you develop this outside,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2092-5
+00:18:30.995 --> 00:18:32.222
+<v Sarathchandra Babu>like in Corex or...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2095-0
+00:18:32.302 --> 00:18:34.142
+<v Sarathchandra Babu>Yeah, these things are very useful.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2103-0
+00:18:37.502 --> 00:18:41.342
+<v Sarathchandra Babu>I think it you not call me then the whole
+development.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2125-0
+00:18:53.262 --> 00:18:57.272
+<v Sarathchandra Babu>Other than BS code on VS code, there is,
+yeah,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2125-1
+00:18:57.272 --> 00:19:04.183
+<v Sarathchandra Babu>since talking about directly in products,
+or in or for any directly for products</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2125-2
+00:19:04.183 --> 00:19:08.279
+<v Sarathchandra Babu>application,
+like if you want Java application,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2125-3
+00:19:08.279 --> 00:19:11.862
+<v Sarathchandra Babu>you can actually do it in products, right?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2129-0
+00:19:12.702 --> 00:19:17.422
+<v Sarathchandra Babu>I mean, we just got an ID. Let's see that,
+so...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2163-0
+00:19:18.582 --> 00:19:24.258
+<v Sarathchandra Babu>Can you do a code apps development
+outside VS code apps development?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2163-1
+00:19:24.258 --> 00:19:31.004
+<v Sarathchandra Babu>I'm not sure. Where do you develop? Sorry,
+where do you develop a code app Visual</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2163-2
+00:19:31.004 --> 00:19:36.104
+<v Sarathchandra Babu>Studio? Yeah, okay.
+Have you done it on VS Code and then used</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2163-3
+00:19:36.104 --> 00:19:37.502
+<v Sarathchandra Babu>VS Code, VS Code?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2187-0
+00:19:37.542 --> 00:19:42.671
+<v Sarathchandra Babu>This, of course, no, please,
+for any questions, otherwise, please,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2187-1
+00:19:42.671 --> 00:19:46.345
+<v Sarathchandra Babu>not I.D.
+You mean directly ask a model to do it</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2187-2
+00:19:46.345 --> 00:19:49.942
+<v Sarathchandra Babu>and not give a practical session on chat,
+you?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2203-0
+00:19:52.182 --> 00:19:57.773
+<v Sarathchandra Babu>It wouldn't want to stand on very many
+application, tell the requirements, say,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2203-1
+00:19:57.773 --> 00:20:02.665
+<v Sarathchandra Babu>I want business as a so-and-so
+application, it will build that, well,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2203-2
+00:20:02.665 --> 00:20:04.622
+<v Sarathchandra Babu>it will actually build that.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2213-0
+00:20:04.662 --> 00:20:05.102
+<v Sarathchandra Babu>Okay.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2241-0
+00:20:06.222 --> 00:20:10.650
+<v Sarathchandra Babu>In in that tool, it doesn't need this,
+so for four apps,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2241-1
+00:20:10.650 --> 00:20:16.553
+<v Sarathchandra Babu>is it mandatory that you need to have
+this tool? That is my first question.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2241-2
+00:20:16.553 --> 00:20:21.913
+<v Sarathchandra Babu>If you ask me personally, yes,
+it is required because you letting AI</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2241-3
+00:20:21.913 --> 00:20:24.942
+<v Sarathchandra Babu>model to completely do a whole project.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2243-0
+00:20:25.182 --> 00:20:25.742
+<v Sarathchandra Babu>And then...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2246-0
+00:20:27.342 --> 00:20:29.262
+<v Sarathchandra Babu>Yeah, OK. Good time.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2258-0
+00:20:30.862 --> 00:20:38.422
+<v Sarathchandra Babu>The export pass through other things
+which we installed for.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2270-0
+00:20:39.822 --> 00:20:42.484
+<v Sarathchandra Babu>See,
+and all of those things that he would</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2270-1
+00:20:42.484 --> 00:20:45.209
+<v Sarathchandra Babu>input store,
+but there is another platform,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2270-2
+00:20:45.209 --> 00:20:46.942
+<v Sarathchandra Babu>how does it actually handle?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2301-0
+00:20:47.862 --> 00:20:54.292
+<v Sarathchandra Babu>She said she would need a node.
+js that he can, so the question is,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2301-1
+00:20:54.292 --> 00:21:01.574
+<v Sarathchandra Babu>other tools develop the AI tools,
+can we do this? Like, we have no, we have,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2301-2
+00:21:01.574 --> 00:21:07.342
+<v Sarathchandra Babu>yeah, basically saying,
+ask a particular AI model correctly.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2334-0
+00:21:07.662 --> 00:21:10.317
+<v Sarathchandra Babu>To create the application,
+don't involve VS.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2334-1
+00:21:10.317 --> 00:21:14.624
+<v Sarathchandra Babu>Code or any other ID to it. Now,
+what if that plot chat or that GPT chat</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2334-2
+00:21:14.624 --> 00:21:17.278
+<v Sarathchandra Babu>has access to your data?
+It would create CW,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2334-3
+00:21:17.278 --> 00:21:21.290
+<v Sarathchandra Babu>it would create a data report,
+that same data report you put in the</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2334-4
+00:21:21.290 --> 00:21:22.942
+<v Sarathchandra Babu>share and commanding for it.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2336-0
+00:21:24.862 --> 00:21:25.822
+<v Sarathchandra Babu>It becomes a code.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2375-0
+00:21:28.022 --> 00:21:33.825
+<v Sarathchandra Babu>You just ask, let's say Claude,
+to go and find the code app data repo.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2375-1
+00:21:33.825 --> 00:21:37.666
+<v Sarathchandra Babu>It will clone that data repo first in a
+cloud,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2375-2
+00:21:37.666 --> 00:21:43.306
+<v Sarathchandra Babu>so the cloud place that would sit
+somewhere in one of a repo that it</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2375-3
+00:21:43.306 --> 00:21:45.022
+<v Sarathchandra Babu>creates in your data.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2377-0
+00:21:48.942 --> 00:21:49.982
+<v Sarathchandra Babu>That's also possible.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2378-0
+00:21:51.502 --> 00:21:52.222
+<v Sarathchandra Babu>I think.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2393-0
+00:21:53.902 --> 00:21:59.369
+<v Sarathchandra Babu>To check that out, can't really,
+so that's one that works, so I'm not sure,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2393-1
+00:21:59.369 --> 00:22:01.742
+<v Sarathchandra Babu>let's see what are the next side.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2405-0
+00:22:04.902 --> 00:22:10.142
+<v Sarathchandra Babu>Is what the plan is to make sure
+everybody gets a hands-on on it.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2434-0
+00:22:12.062 --> 00:22:17.499
+<v Sarathchandra Babu>There was a five-hour training for one
+day; it's not really a training,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2434-1
+00:22:17.499 --> 00:22:21.804
+<v Sarathchandra Babu>as per se, but rather,
+then one of the big day, 8 hours,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2434-2
+00:22:21.804 --> 00:22:26.335
+<v Sarathchandra Babu>so 8 hours, I'll count to that. OK, OK,
+OK, yeah, next one,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2434-3
+00:22:26.335 --> 00:22:28.902
+<v Sarathchandra Babu>missing the point in that. OK, OK.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2443-0
+00:22:31.942 --> 00:22:37.699
+<v Sarathchandra Babu>Case, what, what is this?
+This is an application that we think of</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2443-1
+00:22:37.699 --> 00:22:38.222
+<v Sarathchandra Babu>for...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2453-0
+00:22:41.022 --> 00:22:45.262
+<v Sarathchandra Babu>For developers to create,
+so very basic application,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2453-1
+00:22:45.262 --> 00:22:46.782
+<v Sarathchandra Babu>basic for use case.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2454-0
+00:22:54.102 --> 00:22:54.542
+<v Sarathchandra Babu>VS.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2455-0
+00:22:57.982 --> 00:22:58.462
+<v Sarathchandra Babu>Thanks.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2472-0
+00:22:59.622 --> 00:23:05.601
+<v Sarathchandra Babu>OK, that's it. OK,
+so this one help us use case helps to</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2472-1
+00:23:05.601 --> 00:23:09.902
+<v Sarathchandra Babu>plan, but we go to, yeah, second of site.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2478-0
+00:23:11.742 --> 00:23:12.462
+<v Sarathchandra Babu>This one, yeah.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2482-0
+00:23:15.902 --> 00:23:19.182
+<v Sarathchandra Babu>Once in another four days,
+we can't stack this.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2507-0
+00:23:20.622 --> 00:23:24.376
+<v Sarathchandra Babu>OK, right,
+because we have to fix that in two</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2507-1
+00:23:24.376 --> 00:23:30.579
+<v Sarathchandra Babu>developments. One is, like we said,
+requests to be required for somebody to</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2507-2
+00:23:30.579 --> 00:23:32.782
+<v Sarathchandra Babu>include actual development.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2510-0
+00:23:33.702 --> 00:23:37.342
+<v Sarathchandra Babu>OK, that's OK. OK, then.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2515-0
+00:23:38.822 --> 00:23:40.462
+<v Sarathchandra Babu>When you spoke of our data.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2519-0
+00:23:41.542 --> 00:23:43.342
+<v Sarathchandra Babu>How do you access these apps?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2535-0
+00:23:44.542 --> 00:23:47.756
+<v Sarathchandra Babu>It's an important part.
+How do you development with prompting is</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2535-1
+00:23:47.756 --> 00:23:51.662
+<v Sarathchandra Babu>also another thing which I'm seeing as an
+important thing, which platform how?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2541-0
+00:23:52.822 --> 00:23:55.102
+<v Sarathchandra Babu>It actually works out to reach me.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2574-0
+00:23:56.222 --> 00:23:59.639
+<v Sarathchandra Babu>Right,
+so that structure should be structured to</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2574-1
+00:23:59.639 --> 00:24:05.148
+<v Sarathchandra Babu>handle. This won't be the point. OK, OK,
+OK. This will not help them to scale.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2574-2
+00:24:05.148 --> 00:24:09.471
+<v Sarathchandra Babu>Firstly, fix them.
+Then we do your reimbursement data itself.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2574-3
+00:24:09.471 --> 00:24:12.539
+<v Sarathchandra Babu>There's no problem,
+but reimbursement also,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2574-4
+00:24:12.539 --> 00:24:16.862
+<v Sarathchandra Babu>you should actually tell what somebody
+should actually build.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2575-0
+00:24:17.102 --> 00:24:17.742
+<v Sarathchandra Babu>Together.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2586-0
+00:24:18.782 --> 00:24:22.238
+<v Sarathchandra Babu>In the,
+it cannot be like the open number in this</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2586-1
+00:24:22.238 --> 00:24:25.556
+<v Sarathchandra Babu>thing.
+You want to do with prompt and the same,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2586-2
+00:24:25.556 --> 00:24:27.422
+<v Sarathchandra Babu>right? You see, you know...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2607-0
+00:24:29.022 --> 00:24:35.296
+<v Sarathchandra Babu>You say it's clearly defined on, yeah,
+that's why I'm not speaking on with the</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2607-1
+00:24:35.296 --> 00:24:39.982
+<v Sarathchandra Babu>screenshot, technically, nothing else,
+like our structure.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2651-0
+00:24:41.182 --> 00:24:45.049
+<v Sarathchandra Babu>They should not be wasting time.
+They should clearly look at what they</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2651-1
+00:24:45.049 --> 00:24:49.515
+<v Sarathchandra Babu>should actually problem with that and how
+quickly they can actually build is what</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2651-2
+00:24:49.515 --> 00:24:52.074
+<v Sarathchandra Babu>we are actually trying to.
+So along with this,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2651-3
+00:24:52.074 --> 00:24:56.431
+<v Sarathchandra Babu>I think we need to add even the prompt.
+I can add it in the requirement for the</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2651-4
+00:24:56.431 --> 00:24:59.862
+<v Sarathchandra Babu>use case, but training should not be this.
+Training should be.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2654-0
+00:25:00.542 --> 00:25:01.822
+<v Sarathchandra Babu>Yes, well done.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2655-0
+00:25:03.182 --> 00:25:04.062
+<v Sarathchandra Babu>That is right.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2665-0
+00:25:06.862 --> 00:25:11.227
+<v Sarathchandra Babu>I will say that, OK. See,
+they just do something without</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2665-1
+00:25:11.227 --> 00:25:13.142
+<v Sarathchandra Babu>understanding over there.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2691-0
+00:25:14.622 --> 00:25:20.348
+<v Sarathchandra Babu>So, like this one, that is what I thought,
+like this thought, it doesn't it, it, it,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2691-1
+00:25:20.348 --> 00:25:24.727
+<v Sarathchandra Babu>it connects with your use case activity,
+no matter the use case,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2691-2
+00:25:24.727 --> 00:25:26.142
+<v Sarathchandra Babu>they weren't able to.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2724-0
+00:25:27.102 --> 00:25:31.835
+<v Sarathchandra Babu>So, how do you start a project?
+How do you define the environments?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2724-1
+00:25:31.835 --> 00:25:37.055
+<v Sarathchandra Babu>What are the preinquisites which has
+required for you to run it on the new</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2724-2
+00:25:37.055 --> 00:25:41.440
+<v Sarathchandra Babu>school, deployment strategy?
+How do you connect to a database,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2724-3
+00:25:41.440 --> 00:25:45.965
+<v Sarathchandra Babu>like Dataverse, right?
+Is your data doing data from the machine,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2724-4
+00:25:45.965 --> 00:25:46.382
+<v Sarathchandra Babu>right?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2728-0
+00:25:46.942 --> 00:25:48.942
+<v Sarathchandra Babu>How do you integrate this with data?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2759-0
+00:25:50.062 --> 00:25:53.122
+<v Sarathchandra Babu>So,
+all those things should be the training</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2759-1
+00:25:53.122 --> 00:25:57.572
+<v Sarathchandra Babu>structure, and it is,
+you can't expect the how we connect to be</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2759-2
+00:25:57.572 --> 00:26:01.188
+<v Sarathchandra Babu>in a lower session, no,
+they said 5 minutes, right?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2759-3
+00:26:01.188 --> 00:26:06.542
+<v Sarathchandra Babu>But that should be the activity which is
+to be, rather than, yeah, actually.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2766-0
+00:26:08.142 --> 00:26:12.542
+<v Sarathchandra Babu>With dealing with HTML, CSS,
+we will now have another session.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2779-0
+00:26:13.542 --> 00:26:18.622
+<v Sarathchandra Babu>It made them before in this thing, right?
+And one exercise for them to do CSS.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2787-0
+00:26:20.062 --> 00:26:23.747
+<v Sarathchandra Babu>One minute, so let them understand,
+know how we actually responded,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2787-1
+00:26:23.747 --> 00:26:25.102
+<v Sarathchandra Babu>this is what we're going.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2800-0
+00:26:28.062 --> 00:26:32.909
+<v Sarathchandra Babu>You, you want a question? Yes,
+otherwise it will not be helpful for the</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2800-1
+00:26:32.909 --> 00:26:33.582
+<v Sarathchandra Babu>developer.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2821-0
+00:26:34.782 --> 00:26:39.789
+<v Sarathchandra Babu>That is what I am trying to see again.
+Okay. Last part is already fine,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2821-1
+00:26:39.789 --> 00:26:43.058
+<v Sarathchandra Babu>but from last part,
+you actually add two bits,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2821-2
+00:26:43.058 --> 00:26:45.422
+<v Sarathchandra Babu>a requirement document and the UI.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2824-0
+00:26:46.582 --> 00:26:49.742
+<v Sarathchandra Babu>Well, that collapsed. Sorry, it was,
+that's fine.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2837-0
+00:26:50.862 --> 00:26:54.659
+<v Sarathchandra Babu>At the prompt and other things,
+creating the game rules and all those</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2837-1
+00:26:54.659 --> 00:26:58.022
+<v Sarathchandra Babu>things, when she refined it with them,
+use that to create it.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2855-0
+00:26:59.982 --> 00:27:03.742
+<v Sarathchandra Babu>We need to check into that,
+because super man,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2855-1
+00:27:03.742 --> 00:27:09.902
+<v Sarathchandra Babu>we just tell that Copilot could do it,
+which GitHub Copilot and do what your</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2855-2
+00:27:09.902 --> 00:27:11.182
+<v Sarathchandra Babu>data was, and...</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2857-0
+00:27:12.622 --> 00:27:13.902
+<v Sarathchandra Babu>VS code development.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2879-0
+00:27:15.262 --> 00:27:20.333
+<v Sarathchandra Babu>It, it could, it could,
+it could link it up. Yeah,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2879-1
+00:27:20.333 --> 00:27:26.299
+<v Sarathchandra Babu>we were asking you whether I got
+something directly or not.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2879-2
+00:27:26.299 --> 00:27:29.182
+<v Sarathchandra Babu>That is a different question.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2889-0
+00:27:30.262 --> 00:27:33.957
+<v Sarathchandra Babu>They don't write about it;
+it has to be developed about it,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2889-1
+00:27:33.957 --> 00:27:35.742
+<v Sarathchandra Babu>but we're not, we have to do.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2904-0
+00:27:38.382 --> 00:27:42.259
+<v Sarathchandra Babu>This is not exercise queue to understand
+the quality of the problem,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2904-1
+00:27:42.259 --> 00:27:43.382
+<v Sarathchandra Babu>it is an enablement.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2915-0
+00:27:44.342 --> 00:27:47.829
+<v Sarathchandra Babu>On this, yeah,
+so we don't we don't focus on that;</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2915-1
+00:27:47.829 --> 00:27:50.222
+<v Sarathchandra Babu>we focus on the learning, they can.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2916-0
+00:27:52.222 --> 00:27:52.702
+<v Sarathchandra Babu>Got it.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2919-0
+00:27:54.622 --> 00:27:55.982
+<v Sarathchandra Babu>OK, yes.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2943-0
+00:28:01.302 --> 00:28:05.900
+<v Sarathchandra Babu>So, what is the action?
+We will get back to you in first,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2943-1
+00:28:05.900 --> 00:28:10.816
+<v Sarathchandra Babu>find out the strengths and what are the
+strengths and we can,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2943-2
+00:28:10.816 --> 00:28:15.652
+<v Sarathchandra Babu>if there are more things we can do. Okay,
+we have something.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2943-3
+00:28:15.652 --> 00:28:18.902
+<v Sarathchandra Babu>I love to fill it in the next 10 minutes.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2951-0
+00:28:22.382 --> 00:28:25.902
+<v Sarathchandra Babu>Or, if you can put a poll in one of these,
+let's see here.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2995-0
+00:28:31.102 --> 00:28:33.652
+<v Sarathchandra Babu>So,
+once we get a basic understanding of how</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2995-1
+00:28:33.652 --> 00:28:37.562
+<v Sarathchandra Babu>where everybody is at, I think,
+based on that, we can create a plan,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2995-2
+00:28:37.562 --> 00:28:40.565
+<v Sarathchandra Babu>and then we'll get back to you on it.
+close it, man.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2995-3
+00:28:40.565 --> 00:28:44.079
+<v Sarathchandra Babu>Now we know what we're doing,
+spend another one hour, finish,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2995-4
+00:28:44.079 --> 00:28:47.422
+<v Sarathchandra Babu>close it today,
+but what we need to know needs to be this.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2996-0
+00:28:49.262 --> 00:28:49.862
+<v Sarathchandra Babu>That is good.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/2998-0
+00:28:50.982 --> 00:28:51.902
+<v Sarathchandra Babu>Something like.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3005-0
+00:28:56.702 --> 00:29:00.222
+<v Sarathchandra Babu>Okay, I think it's good.
+So action item is this. Yeah.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3012-0
+00:29:01.822 --> 00:29:05.342
+<v Sarathchandra Babu>You will refine that for slagging your
+children.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3049-0
+00:29:07.182 --> 00:29:10.528
+<v Sarathchandra Babu>Features or fundamentals and code
+actually,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3049-1
+00:29:10.528 --> 00:29:16.460
+<v Sarathchandra Babu>which needs to be developed as a sequence.
+This is to do fundamentals that is</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3049-2
+00:29:16.460 --> 00:29:20.871
+<v Sarathchandra Babu>required, how to set up a project,
+how to use data layer,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3049-3
+00:29:20.871 --> 00:29:26.422
+<v Sarathchandra Babu>and then how to develop using React,
+what what does it actually recover?</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3057-0
+00:29:26.782 --> 00:29:31.502
+<v Sarathchandra Babu>Right, so Rex one session,
+JavaScript session, we get the blue one.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3060-0
+00:29:33.502 --> 00:29:34.382
+<v Sarathchandra Babu>Sachin on Deepak.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3100-0
+00:29:36.782 --> 00:29:41.693
+<v Sarathchandra Babu>OK, so that one thing you, yeah,
+I think that's for that,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3100-1
+00:29:41.693 --> 00:29:46.010
+<v Sarathchandra Babu>even if I show you,
+and the other one is separate,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3100-2
+00:29:46.010 --> 00:29:49.990
+<v Sarathchandra Babu>see that I'm not even worried,
+you share that,</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3100-3
+00:29:49.990 --> 00:29:55.662
+<v Sarathchandra Babu>we can really create that requirement,
+right, give a UI from that.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3103-0
+00:29:56.702 --> 00:29:58.942
+<v Sarathchandra Babu>Then we do the very important.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3106-0
+00:30:00.062 --> 00:30:00.622
+<v Sarathchandra Babu>The technician.</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3116-0
+00:30:01.902 --> 00:30:04.868
+<v Sarathchandra Babu>Ohh,
+I created some something called an AI</v>
+
+45ab2ff2-cfa4-4ee1-99c8-392d5dc3af6d/3116-1
+00:30:04.868 --> 00:30:05.902
+<v Sarathchandra Babu>like where I...</v>
