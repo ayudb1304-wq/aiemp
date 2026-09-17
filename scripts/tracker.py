@@ -12,25 +12,45 @@ Rules the code enforces:
 import json
 import re
 import sys
+from collections import Counter
 from datetime import date
 from pathlib import Path
 
 from openpyxl import Workbook, load_workbook
-from openpyxl.styles import Alignment, Font, PatternFill
+from openpyxl.chart import BarChart, Reference
+from openpyxl.chart.label import DataLabelList
+from openpyxl.formatting.rule import FormulaRule
+from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.datavalidation import DataValidation
+from openpyxl.worksheet.table import Table, TableStyleInfo
 
-from common import COLUMNS, OPEN_STATUSES, TRACKER, UNASSIGNED, parse_date, slug, today
+from common import (COLUMNS, DATE_COLUMNS, EFFORTS, OPEN_STATUSES, ORIGINS, TRACKER, TYPES, UNASSIGNED,
+                    parse_date, slug, today)
 
-FILL_P1 = PatternFill("solid", fgColor="F8D7DA")
-FILL_OVERDUE = PatternFill("solid", fgColor="FFE5B4")
-FILL_DONE = PatternFill("solid", fgColor="E2EFDA")
+FONT = "Arial"
+NAVY = "1F3864"
+INK = "1F2933"
+MUTED = "6B7280"
+TILE = "F3F6FB"
+LINE = "D9DEE7"
+# Sequential blue steps for P1 > P2 > P3 (one hue, dark -> light) and the fixed status colours.
+PRIORITY_COLOURS = {"P1": "1C5CAB", "P2": "5598E7", "P3": "B7D3F6"}
+CHART_BLUE = "2A78D6"
+FILL_P1 = PatternFill("solid", fgColor="FBE3E3")
+FILL_P2 = PatternFill("solid", fgColor="FFF4D6")
+FILL_P3 = PatternFill("solid", fgColor="EEF1F5")
+FILL_DONE = PatternFill("solid", fgColor="E2F3E2")
 FILL_VERIFY = PatternFill("solid", fgColor="FFF2CC")
-FILL_HEADER = PatternFill("solid", fgColor="1F3864")
-WIDTHS = {"id": 30, "created": 11, "meeting": 18, "team": 12, "project": 16, "owner": 12,
-          "task": 55, "due": 11, "priority": 8, "status": 11, "blocked_by": 18,
-          "evidence": 45, "source": 28, "updated": 11, "notes": 35, "origin": 10, "type": 12,
-          "next_step": 40, "prerequisites": 30, "unblocker": 12, "effort": 9, "basis": 30,
-          "closed": 11}
+FILL_BLOCKED = PatternFill("solid", fgColor="FDE4D7")
+FILL_PROGRESS = PatternFill("solid", fgColor="E1ECFB")
+FILL_HEADER = PatternFill("solid", fgColor=NAVY)
+FILL_TILE = PatternFill("solid", fgColor=TILE)
+WIDTHS = {"task": 58, "owner": 14, "priority": 9, "status": 12, "due": 11, "project": 18, "team": 16,
+          "type": 12, "next_step": 40, "unblocker": 13, "effort": 9, "blocked_by": 20,
+          "prerequisites": 26, "notes": 40, "evidence": 45, "basis": 26, "meeting": 24,
+          "origin": 10, "updated": 11, "closed": 11, "created": 11, "source": 32, "id": 32}
+MAX_ROWS = 5000   # conditional formats and dropdowns cover this many rows
 ADVISOR_FIELDS = ("type", "next_step", "prerequisites", "unblocker", "effort", "basis")
 DUE_MARK = re.compile(r"due (\d{4}-\d{2}-\d{2}|none) -> (\d{4}-\d{2}-\d{2}|none)")
 
@@ -46,7 +66,8 @@ def _s(v) -> str:
 def load_rows() -> list[dict]:
     if not TRACKER.exists():
         return []
-    ws = load_workbook(TRACKER).active
+    wb = load_workbook(TRACKER)
+    ws = wb["Actions"] if "Actions" in wb.sheetnames else wb.active
     headers = [c.value for c in ws[1]]
     rows = []
     for values in ws.iter_rows(min_row=2, values_only=True):
@@ -60,42 +81,285 @@ def load_rows() -> list[dict]:
     return rows
 
 
-def save_rows(rows: list[dict]) -> None:
-    wb = Workbook()
-    ws = wb.active
-    ws.title = "Actions"
+def _sorted(rows: list[dict]) -> list[dict]:
+    """Open first, then P1 -> P3, then earliest due. Shared with the Sheet push."""
+    order = {"P1": 0, "P2": 1, "P3": 2}
+    return sorted(rows, key=lambda r: (r["status"] not in OPEN_STATUSES,
+                                       order.get(r["priority"], 9), r["due"] or "9999"))
+
+
+def _col(name: str) -> str:
+    return get_column_letter(COLUMNS.index(name) + 1)
+
+
+def _cell_value(col: str, v):
+    """Dates are written as real dates (sortable, filterable by month in Excel); the rest as text."""
+    if col in DATE_COLUMNS:
+        return parse_date(v)
+    return _s(v)
+
+
+def _write_actions(ws, rows: list[dict]) -> None:
+    thin = Side(style="thin", color=LINE)
     ws.append(COLUMNS)
     for cell in ws[1]:
-        cell.font = Font(bold=True, color="FFFFFF")
+        cell.font = Font(name=FONT, bold=True, color="FFFFFF", size=10)
         cell.fill = FILL_HEADER
-    order = {"P1": 0, "P2": 1, "P3": 2}
-    rows = sorted(rows, key=lambda r: (r["status"] not in OPEN_STATUSES,
-                                       order.get(r["priority"], 9), r["due"] or "9999"))
+        cell.alignment = Alignment(vertical="center", horizontal="left", wrap_text=True)
+        cell.border = Border(bottom=thin)
+    ws.row_dimensions[1].height = 24
+    for r in rows:
+        ws.append([_cell_value(c, r.get(c, "")) for c in COLUMNS])
+        for c in ws[ws.max_row]:
+            c.font = Font(name=FONT, size=10, color=INK)
+            c.alignment = Alignment(wrap_text=True, vertical="top")
+            c.border = Border(bottom=thin)
+    for col in DATE_COLUMNS:
+        for c in ws[_col(col)][1:]:
+            c.number_format = "yyyy-mm-dd"
+    for col in ("priority", "status", "due", "effort", "origin", "updated", "closed", "created"):
+        for c in ws[_col(col)][1:]:
+            c.alignment = Alignment(horizontal="center", vertical="top", wrap_text=True)
+    for i, col in enumerate(COLUMNS, 1):
+        ws.column_dimensions[get_column_letter(i)].width = WIDTHS.get(col, 14)
+    ws.freeze_panes = "B2"          # header row and the task column stay in view
+    ws.sheet_view.zoomScale = 90
+
+    last = get_column_letter(len(COLUMNS))
+    n = max(len(rows), 1)
+    table = Table(displayName="Actions", ref=f"A1:{last}{n + 1}")
+    table.tableStyleInfo = TableStyleInfo(name="TableStyleLight9", showRowStripes=True,
+                                          showFirstColumn=False, showLastColumn=False, showColumnStripes=False)
+    ws.add_table(table)
+
+    # Colour is live: change a status or priority in Excel and the row restyles itself.
+    rng = f"A2:{last}{MAX_ROWS}"
+    st, pr, du = (f"${_col(c)}2" for c in ("status", "priority", "due"))
+    closed = f'OR({st}="done",{st}="rejected")'
+    ws.conditional_formatting.add(f"{_col('status')}2:{_col('status')}{MAX_ROWS}", FormulaRule(
+        formula=[f'{st}="done"'], fill=FILL_DONE, font=Font(name=FONT, size=10, bold=True, color="1E7B1E")))
+    for value, fill, colour in (("to_verify", FILL_VERIFY, "8A6100"), ("blocked", FILL_BLOCKED, "9A3F12"),
+                                ("in_progress", FILL_PROGRESS, "1C5CAB")):
+        ws.conditional_formatting.add(f"{_col('status')}2:{_col('status')}{MAX_ROWS}", FormulaRule(
+            formula=[f'{st}="{value}"'], fill=fill, font=Font(name=FONT, size=10, bold=True, color=colour)))
+    for value, fill, colour in (("P1", FILL_P1, "9B1C1C"), ("P2", FILL_P2, "8A6100"), ("P3", FILL_P3, MUTED)):
+        ws.conditional_formatting.add(f"{_col('priority')}2:{_col('priority')}{MAX_ROWS}", FormulaRule(
+            formula=[f'AND({pr}="{value}",NOT({closed}))'], fill=fill,
+            font=Font(name=FONT, size=10, bold=True, color=colour)))
+    due_rng = f"{_col('due')}2:{_col('due')}{MAX_ROWS}"
+    ws.conditional_formatting.add(due_rng, FormulaRule(
+        formula=[f'AND({du}<>"",{du}<TODAY(),NOT({closed}))'], font=Font(name=FONT, size=10, bold=True, color="C0262A")))
+    ws.conditional_formatting.add(due_rng, FormulaRule(
+        formula=[f'AND({du}<>"",{du}=TODAY(),NOT({closed}))'], font=Font(name=FONT, size=10, bold=True, color="8A6100")))
+    ws.conditional_formatting.add(rng, FormulaRule(formula=[closed], font=Font(name=FONT, size=10, color=MUTED)))
+
+    # Dropdowns keep hand edits inside the vocabulary the scripts understand.
+    for col, values in (("status", sorted(OPEN_STATUSES) + ["done", "rejected"]), ("priority", ["P1", "P2", "P3"]),
+                        ("type", TYPES), ("effort", EFFORTS), ("origin", ORIGINS)):
+        dv = DataValidation(type="list", formula1='"' + ",".join(values) + '"', allow_blank=True)
+        dv.error, dv.errorTitle = f"Pick one of: {', '.join(values)}", f"Unknown {col}"
+        ws.add_data_validation(dv)
+        dv.add(f"{_col(col)}2:{_col(col)}{MAX_ROWS}")
+
+
+def _horizon(r: dict, t: date) -> str:
+    d = parse_date(r["due"])
+    if not d:
+        return "No date"
+    if d < t:
+        return "Overdue"
+    if d == t:
+        return "Due today"
+    if (d - t).days <= 7:
+        return "Next 7 days"
+    return "Later"
+
+
+def _write_dashboard(ws, rows: list[dict], t: date) -> None:
+    """Summary of the Actions sheet as it was generated. Values are written as numbers, not
+    formulas, so the page reads correctly in every viewer (GitHub preview, Google Sheets import,
+    Excel) without a recalculation; the file is regenerated on every run anyway."""
+    open_rows = [r for r in rows if r["status"] in OPEN_STATUSES]
+    thin = Side(style="thin", color=LINE)
+
+    def put(ref, value, *, bold=False, size=10, colour=INK, fill=None, align="left", fmt=None):
+        c = ws[ref]
+        c.value = value
+        c.font = Font(name=FONT, bold=bold, size=size, color=colour)
+        c.alignment = Alignment(horizontal=align, vertical="center", wrap_text=True)
+        if fill:
+            c.fill = fill
+        if fmt:
+            c.number_format = fmt
+        return c
+
+    ws.sheet_view.showGridLines = False
+    widths = {"A": 2, "B": 24, "C": 11, "D": 11, "E": 11, "F": 11, "G": 11, "H": 11, "I": 3}
+    widths.update({get_column_letter(i): 11 for i in range(10, 18)})
+    for col, w in widths.items():
+        ws.column_dimensions[col].width = w
+    put("B1", "Action tracker", bold=True, size=20, colour=NAVY)
+    put("B2", f"Snapshot generated {t.isoformat()}. Regenerated on every run from the Actions sheet; "
+              f"edit items in the Google Sheet, not here.", colour=MUTED, size=9)
+    ws.merge_cells("B2:Q2")
+
+    overdue = [r for r in open_rows if (d := parse_date(r["due"])) and d < t]
+    tiles = [("OPEN ITEMS", len(open_rows)), ("P1 OPEN", sum(r["priority"] == "P1" for r in open_rows)),
+             ("OVERDUE", len(overdue)), ("DUE TODAY", sum(parse_date(r["due"]) == t for r in open_rows)),
+             ("TO VERIFY", sum(r["status"] == "to_verify" for r in open_rows)),
+             ("BLOCKED", sum(r["status"] == "blocked" for r in open_rows)),
+             ("DONE", sum(r["status"] == "done" for r in rows))]
+    ws.row_dimensions[4].height = 16
+    ws.row_dimensions[5].height = 34
+    for col, (label, value) in zip("BCDEFGH", tiles):
+        put(f"{col}4", label, size=8, bold=True, colour=MUTED, fill=FILL_TILE, align="center")
+        accent = "C0262A" if label in ("OVERDUE", "P1 OPEN") and value else NAVY
+        put(f"{col}5", value, size=22, bold=True, colour=accent, fill=FILL_TILE, align="center")
+        ws[f"{col}4"].border = Border(left=thin, right=thin, top=thin)
+        ws[f"{col}5"].border = Border(left=thin, right=thin, bottom=thin)
+
+    def header(row, cells):
+        for ref, text in cells:
+            put(ref, text, bold=True, size=9, colour="FFFFFF", fill=FILL_HEADER,
+                align="left" if ref[0] == "B" else "center")
+        ws.row_dimensions[row].height = 18
+
+    def section(row, title, note=""):
+        put(f"B{row}", title, bold=True, size=12, colour=NAVY)
+        if note:
+            put(f"D{row}", note, size=9, colour=MUTED)
+            ws.merge_cells(f"D{row}:Q{row}")
+
+    # Open items by owner (feeds the workload chart)
+    r0 = 8
+    section(r0, "Open items by owner", "stacked by priority; the chart on the right reads from this table")
+    header(r0 + 1, [(f"B{r0 + 1}", "Owner"), (f"C{r0 + 1}", "P1"), (f"D{r0 + 1}", "P2"), (f"E{r0 + 1}", "P3"),
+                    (f"F{r0 + 1}", "Open"), (f"G{r0 + 1}", "Overdue")])
+    owners = Counter(r["owner"] or "Unassigned" for r in open_rows)
+    row = r0 + 2
+    first_owner_row = row
+    for owner, n in owners.most_common():
+        mine = [r for r in open_rows if (r["owner"] or "Unassigned") == owner]
+        vals = [owner, sum(r["priority"] == "P1" for r in mine), sum(r["priority"] == "P2" for r in mine),
+                sum(r["priority"] not in ("P1", "P2") for r in mine), n, sum(r in overdue for r in mine)]
+        for col, v in zip("BCDEFG", vals):
+            put(f"{col}{row}", v, align="left" if col == "B" else "center", bold=(col == "F"))
+            ws[f"{col}{row}"].border = Border(bottom=thin)
+        row += 1
+    last_owner_row = max(row - 1, first_owner_row)
+    if not owners:
+        put(f"B{row}", "No open items", colour=MUTED)
+        row += 1
+    put(f"B{row}", "Total", bold=True)
+    totals = [sum(r["priority"] == "P1" for r in open_rows), sum(r["priority"] == "P2" for r in open_rows),
+              sum(r["priority"] not in ("P1", "P2") for r in open_rows), len(open_rows), len(overdue)]
+    for col, v in zip("CDEFG", totals):
+        put(f"{col}{row}", v, bold=True, align="center")
+        ws[f"{col}{row}"].border = Border(top=Side(style="medium", color=NAVY))
+    ws[f"B{row}"].border = Border(top=Side(style="medium", color=NAVY))
+    total_row = row
+
+    if owners:
+        chart = BarChart()
+        chart.type = "bar"
+        chart.grouping = "stacked"
+        chart.overlap = 100
+        chart.gapWidth = 60
+        chart.title = "Open items by owner and priority"
+        chart.style = 10
+        data = Reference(ws, min_col=3, max_col=5, min_row=r0 + 1, max_row=last_owner_row)
+        cats = Reference(ws, min_col=2, min_row=first_owner_row, max_row=last_owner_row)
+        chart.add_data(data, titles_from_data=True)
+        chart.set_categories(cats)
+        for ser, key in zip(chart.series, ("P1", "P2", "P3")):
+            ser.graphicalProperties.solidFill = PRIORITY_COLOURS[key]
+            ser.graphicalProperties.line.solidFill = "FFFFFF"
+        chart.y_axis.majorGridlines = None
+        chart.y_axis.delete = False
+        chart.x_axis.delete = False
+        chart.x_axis.scaling.orientation = "maxMin"   # busiest owner on top, same order as the table
+        chart.legend.position = "b"
+        chart.height = 0.55 * max(len(owners), 4) + 3.2
+        chart.width = 16
+        ws.add_chart(chart, f"J{r0}")
+
+    # Due horizon (feeds the second chart)
+    r1 = max(total_row + 3, r0 + 14)
+    section(r1, "When is it due", "open items only")
+    header(r1 + 1, [(f"B{r1 + 1}", "Horizon"), (f"C{r1 + 1}", "Items"), (f"D{r1 + 1}", "P1")])
+    horizons = ["Overdue", "Due today", "Next 7 days", "Later", "No date"]
+    for i, h in enumerate(horizons):
+        mine = [r for r in open_rows if _horizon(r, t) == h]
+        put(f"B{r1 + 2 + i}", h)
+        put(f"C{r1 + 2 + i}", len(mine), align="center", bold=True)
+        put(f"D{r1 + 2 + i}", sum(r["priority"] == "P1" for r in mine), align="center")
+        for col in "BCD":
+            ws[f"{col}{r1 + 2 + i}"].border = Border(bottom=thin)
+    hz = BarChart()
+    hz.type = "col"
+    hz.title = "Open items by due horizon"
+    hz.style = 10
+    hz.add_data(Reference(ws, min_col=3, min_row=r1 + 2, max_row=r1 + 6), titles_from_data=False)
+    hz.set_categories(Reference(ws, min_col=2, min_row=r1 + 2, max_row=r1 + 6))
+    hz.series[0].graphicalProperties.solidFill = CHART_BLUE
+    hz.series[0].graphicalProperties.line.noFill = True
+    hz.dataLabels = DataLabelList()
+    hz.dataLabels.showVal = True
+    hz.legend = None
+    hz.y_axis.majorGridlines = None
+    hz.y_axis.delete = True
+    hz.x_axis.delete = False
+    hz.gapWidth = 80
+    hz.height, hz.width = 7, 16
+    ws.add_chart(hz, f"J{r1}")
+
+    # By project and by status: tables only
+    r2 = r1 + 9
+    section(r2, "By project")
+    header(r2 + 1, [(f"B{r2 + 1}", "Project"), (f"C{r2 + 1}", "Open"), (f"D{r2 + 1}", "P1"),
+                    (f"E{r2 + 1}", "Overdue"), (f"F{r2 + 1}", "Done")])
+    projects = sorted({r["project"] or UNASSIGNED for r in rows})
+    for i, p in enumerate(projects):
+        mine = [r for r in rows if (r["project"] or UNASSIGNED) == p]
+        mine_open = [r for r in mine if r["status"] in OPEN_STATUSES]
+        vals = [p, len(mine_open), sum(r["priority"] == "P1" for r in mine_open),
+                sum(r in overdue for r in mine_open), sum(r["status"] == "done" for r in mine)]
+        for col, v in zip("BCDEF", vals):
+            put(f"{col}{r2 + 2 + i}", v, align="left" if col == "B" else "center", bold=(col == "C"))
+            ws[f"{col}{r2 + 2 + i}"].border = Border(bottom=thin)
+    r3 = r2 + 2 + max(len(projects), 1) + 2
+    section(r3, "By status")
+    header(r3 + 1, [(f"B{r3 + 1}", "Status"), (f"C{r3 + 1}", "Items")])
+    statuses = sorted(OPEN_STATUSES) + ["done", "rejected"]
+    counts = Counter(r["status"] for r in rows)
+    for i, st in enumerate(statuses):
+        put(f"B{r3 + 2 + i}", st)
+        put(f"C{r3 + 2 + i}", counts.get(st, 0), align="center", bold=True)
+        for col in "BC":
+            ws[f"{col}{r3 + 2 + i}"].border = Border(bottom=thin)
+    r4 = r3 + 2 + len(statuses) + 1
+    put(f"B{r4}", "Reading the Actions sheet: rows are ordered open first, then P1 to P3, then by due date. "
+                  "Red priority = P1; amber status = reported complete, waiting for your confirmation "
+                  "(to_verify); orange = blocked; green = done; a red due date is overdue. Only you set done.",
+        colour=MUTED, size=9)
+    ws.merge_cells(f"B{r4}:Q{r4 + 1}")
+    ws.row_dimensions[r4].height = 16
+    ws.row_dimensions[r4 + 1].height = 16
+
+
+def save_rows(rows: list[dict]) -> None:
     t = date.today()
     for r in rows:
         if r.get("status") == "done" and not r.get("closed"):
             r["closed"] = today()
-        ws.append([_s(r.get(c, "")) for c in COLUMNS])
-        row_cells = ws[ws.max_row]
-        due = parse_date(r["due"])
-        if r["status"] not in OPEN_STATUSES:
-            fill = FILL_DONE
-        elif r["status"] == "to_verify":
-            fill = FILL_VERIFY
-        elif due and due < t:
-            fill = FILL_OVERDUE
-        elif r["priority"] == "P1":
-            fill = FILL_P1
-        else:
-            fill = None
-        for c in row_cells:
-            c.alignment = Alignment(wrap_text=True, vertical="top")
-            if fill:
-                c.fill = fill
-    for i, col in enumerate(COLUMNS, 1):
-        ws.column_dimensions[get_column_letter(i)].width = WIDTHS.get(col, 14)
-    ws.freeze_panes = "A2"
-    ws.auto_filter.ref = ws.dimensions
+    rows = _sorted(rows)
+    wb = Workbook()
+    dash = wb.active
+    dash.title = "Dashboard"
+    actions = wb.create_sheet("Actions")
+    _write_actions(actions, rows)
+    _write_dashboard(dash, rows, t)
+    wb.active = 0
     TRACKER.parent.mkdir(parents=True, exist_ok=True)
     wb.save(TRACKER)
 

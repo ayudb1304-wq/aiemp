@@ -16,8 +16,10 @@ memory/        what the agent learned (machine-written, never deleted)
   corrections.jsonl     every cell you changed in the Google Sheet
 cards/         one JSON file per processed inbox file (cards, decisions, threads, kind, project)
 tracker/       actions.xlsx, the source of truth, mirrored two-way to the Google Sheet
+               Dashboard sheet (headline numbers, workload and due-horizon charts) + Actions table
 drafts/        drafts/<item-id>.md for communicate / review items (never sent anywhere)
-briefs/        briefs/<date>.md (the plan) + briefs/teams/<team>.md
+briefs/        briefs/<date>.md (the plan, what the memory reads) + <date>.html (the same plan as a
+               styled page) + <date>.json (the plan as data) + briefs/teams/<team>.md
 logs/          logs/<run-id>.json: what context was loaded, dropped, token estimates
 scripts/       extract.py -> tracker.py -> brief.py; sheets.py; ask.py; consolidate.py; selftest.py
 ```
@@ -30,11 +32,15 @@ scripts/       extract.py -> tracker.py -> brief.py; sheets.py; ask.py; consolid
    truncated) and emits cards, decisions and threads. Cards merge into `actions.xlsx` (updating
    existing items instead of duplicating, at most 3 P1 per document, never setting `done`),
    drafts are written for communicate/review items, everything is committed, and the **Actions**
-   tab of the Sheet is rewritten, along with read-only **Decisions** and **Threads** tabs mirrored
-   from `memory/decisions.jsonl` and `memory/threads.jsonl`.
+   tab of the Sheet is rewritten (frozen header and task column, colour by priority, status and
+   overdue date, dropdowns on the enumerated columns), along with a **Dashboard** tab of live
+   formulas over it and read-only **Decisions** and **Threads** tabs mirrored from
+   `memory/decisions.jsonl` and `memory/threads.jsonl`.
 2. **Every weekday 08:30 IST** the `morning-brief` workflow writes `briefs/<date>.md`: waiting for
-   your confirmation, do first, batch, delegate?, recurring threads, then per project. It commits
-   and copies the brief into the **Morning Brief** tab.
+   your confirmation, do first, batch, delegate?, recurring threads, then per project. The same
+   plan is written as `briefs/<date>.html` (headline numbers, cards, per-project tables; open it
+   in a browser or forward it) and `briefs/<date>.json`. It commits and writes the plan into the
+   **Morning Brief** tab as a formatted table (section bands, priority and overdue colours).
 3. **Every Sunday 18:00 IST** the `consolidate` workflow rewrites each active project's state file
    from the week's activity and opens a **pull request** (`consolidate/<date>`) with the proposed
    files, observations (days-to-close by type and unblocker, most slipped items) and suggested rule
@@ -79,6 +85,19 @@ scripts/       extract.py -> tracker.py -> brief.py; sheets.py; ask.py; consolid
    *you*. Add a project by adding a file; its file name is the slug used in card ids
    (`YYYY-MM-DD-<project-slug>-NN`). Files the agent cannot place go to `unassigned` and are
    flagged in the brief.
+
+## The tracker workbook
+`tracker/actions.xlsx` opens on a **Dashboard**: open / P1 / overdue / due today / to verify /
+blocked / done tiles, open items by owner (stacked by priority, with a chart), the due horizon
+(overdue, today, next 7 days, later, no date, with a chart), and per-project and per-status
+tables. The numbers are a snapshot taken when the file was written; the file is regenerated on
+every run, so they are never stale relative to the rows. The **Actions** sheet is an Excel table
+(filter and sort from the header, banded rows) with the columns you act on first: task, owner,
+priority, status, due, project, team, then the advisor columns (type, next step, unblocker,
+effort, blocked by, prerequisites, notes, evidence, basis) and provenance last (meeting, origin,
+updated, closed, created, source, id). Colour follows the data: P1 red, to_verify amber, blocked
+orange, in_progress blue, done green, overdue dates in red. Status, priority, type, effort and
+origin are dropdowns. Dates are real dates, so Excel can filter them by month.
 
 ## Day to day
 - Drop files into `inbox/` and push. That is all. Name them `YYYY-MM-DD-<meeting>.<ext>`; without
