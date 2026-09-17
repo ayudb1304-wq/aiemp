@@ -16,14 +16,16 @@ Passes:
   3. drafts for communicate / review items (one call per document, only when there are any).
 
 Guards: at most 3 P1 per document (Claude re-ranks once, then the earliest due dates win);
-the agent never sets `done`; re-running the same file creates no duplicates.
-Every run writes logs/<run-id>.json.
+the agent never sets `done`; re-running the same file creates no duplicates. Every card is
+fact-checked by scripts/verify.py (quote in document, owner on roster, basis resolves, due date
+sane) and carries the failures in its `flags` field. Every run writes logs/<run-id>.json.
 """
 import json
 import sys
 from pathlib import Path
 
 import tracker
+import verify
 from common import (CARDS, CHUNK_TOKENS, DECISIONS, DRAFTS, EFFORTS, INBOX, INPUT_EXTS, KINDS, MODEL_INPUT_TOKENS,
                     STATUSES, THREADS, TYPES, UNASSIGNED, ask_json, build_prompt_context, chunk_text,
                     date_from_filename, est_tokens, is_note, load_context, now_id, people_in,
@@ -73,6 +75,9 @@ Rules:
   Generic advice is worse than none. basis must name where the advice comes from.
 - Relative dates ("Friday", "end of week") must be resolved using <meeting_date>.
 - <corrections> shows how the human corrected earlier cards. Follow those preferences.
+- A decision in <history> with "current": false has been replaced by the decision named in
+  replaced_by. Treat only current decisions as the rule; a replaced one is history, useful for
+  supersedes and for recognising an old topic, never as a basis.
 - If nothing actionable was said, return empty arrays."""
 
 NOTE_SYSTEM = """You are the AI employee of the person described in <context>. The document is a quick
@@ -387,6 +392,10 @@ def process(path: Path) -> Path:
         if not c.get("project") or slug(c["project"]) not in project_slugs():
             c["project"] = proj
     origin = "unplanned" if note else "planned"
+    open_ids = {r["id"] for r in tracker.open_items()}
+    log["checks"] = verify.check_all(data, text, meeting_date, project, people, open_ids)
+    for f in log["checks"]["flagged"]:
+        print(f"  flagged: {f['what'][:60]}: {', '.join(f['flags'])}")
     data.update({"date": meeting_date, "source": path.name, "project": proj, "people": people,
                  "origin": origin, "run_id": run_id})
     created, updated = tracker.upsert(data["cards"], data["meeting"], meeting_date, path.name,

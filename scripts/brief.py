@@ -1,12 +1,15 @@
 """Morning brief: a plan for the day, not a flat list.
 
 Sections, in order:
+  0. Since the last brief            what moved: new, closed, reported complete, slipped, your edits,
+                                     decisions, threads (a diff, not a guess)
   1. Waiting for your confirmation   to_verify items with their completion quote
+  1b. Check these                    items the fact checks flagged (scripts/verify.py)
   2. Do first                        up to 3 items that unblock the most or are closest to a hard date
   3. Batch                           items that share an unblocker ("one call with X closes 04, 05, 07")
   4. Delegate?                       my items that the unblocker or the team lead could own
   5. Recurring threads               threads mentioned 3+ times: make this a task?
-  6. Per project                     planned/unplanned counts, items, drafts linked, slips
+  6. Per project                     planned/unplanned counts, decisions in force, items, drafts, slips
 
 Writes briefs/YYYY-MM-DD.md (the record the memory and search read), briefs/YYYY-MM-DD.html (the
 same plan as a styled page: headline numbers, cards, per-project tables), briefs/YYYY-MM-DD.json (the
@@ -21,11 +24,11 @@ import html
 import json
 import re
 from collections import defaultdict
-from datetime import date
+from datetime import date, timedelta
 
 import tracker
-from common import (BRIEFS, COMPANY, DRAFTS, THREADS, UNASSIGNED, ask, have_key, load_context, my_name,
-                    project_title, read_jsonl, slug, today)
+from common import (BRIEFS, COMPANY, CORRECTIONS, DECISIONS, DRAFTS, THREADS, UNASSIGNED, ask, current_decisions,
+                    have_key, load_context, my_name, project_title, read_jsonl, slug, today)
 
 WHY_SYSTEM = """You are the AI employee described in <context>. For each candidate item, write ONE
 sentence (under 25 words) saying why it should be done first today. Cite the item ids and the
@@ -177,6 +180,51 @@ def team_digest(team: str, items: list[dict], t: date) -> str:
     return "\n".join(out)
 
 
+ID_RE = re.compile(r"`(\d{4}-\d{2}-\d{2}-[a-z0-9-]+-\d{2})`")
+NOTE_RE = re.compile(r"(\d{4}-\d{2}-\d{2}): (.+?)(?= \| \d{4}-\d{2}-\d{2}: |$)")
+
+
+def previous_brief(t: date) -> tuple[str, set[str]]:
+    """(date of the last brief before t, ids it mentioned). Falls back to yesterday and no ids."""
+    files = sorted(f for f in BRIEFS.glob("????-??-??.md") if f.stem < t.isoformat()) if BRIEFS.exists() else []
+    if not files:
+        return (t - timedelta(days=1)).isoformat(), set()
+    return files[-1].stem, set(ID_RE.findall(files[-1].read_text(encoding="utf-8")))
+
+
+def changes_since(since: str, known_ids: set[str], t: date) -> dict:
+    """What moved since the last brief, from the tracker columns and the memory files. Every
+    entry names an id, so nothing here is inferred."""
+    rows = tracker.load_rows()
+    out = {"since": since, "new": [], "closed": [], "reported": [], "slipped": [], "reassigned": [],
+           "rejected": [], "edits": [], "decisions": [], "threads": []}
+    for r in rows:
+        recent = r["updated"] >= since
+        if r["status"] in tracker.OPEN_STATUSES and recent and r["id"] not in known_ids and known_ids:
+            out["new"].append(r)
+        elif r["status"] in tracker.OPEN_STATUSES and not known_ids and r["created"] >= since:
+            out["new"].append(r)
+        if r["status"] == "done" and r["closed"] >= since:
+            out["closed"].append(r)
+        if r["status"] == "to_verify" and recent:
+            out["reported"].append(r)
+        if r["status"] == "rejected" and recent:
+            out["rejected"].append(r)
+        for d, note in NOTE_RE.findall(r.get("notes") or ""):
+            if d >= since and (m := tracker.DUE_MARK.search(note)):
+                out["slipped"].append((r, m.group(1), m.group(2)))
+    for c in read_jsonl(CORRECTIONS):
+        if c.get("date", "") >= since:
+            out["edits"].append(c)
+            if c.get("field") == "owner":
+                out["reassigned"].append(c)
+    out["decisions"] = [d for d in read_jsonl(DECISIONS) if d.get("date", "") >= since]
+    out["threads"] = [th for th in read_jsonl(THREADS)
+                      if (th.get("last_seen") or th.get("date", "")) >= since and not th.get("promoted_to")]
+    out["total"] = sum(len(out[k]) for k in ("new", "closed", "reported", "slipped", "rejected", "edits", "decisions", "threads"))
+    return out
+
+
 def plan(ask_fn=None, t: date | None = None) -> dict:
     """The day's plan as data. ask_fn(system, user) -> str writes the Do-first reasons; None means
     deterministic reasons (used when there is no API key). Every renderer below reads this dict."""
@@ -211,12 +259,16 @@ def plan(ask_fn=None, t: date | None = None) -> dict:
         except Exception as e:  # deterministic reasons still stand
             claude_error = str(e)
 
+    since, known_ids = previous_brief(t)
+    changes = changes_since(since, known_ids, t)
+
     projects = []
     for project, rows in sorted(by_project.items()):
         rows = sorted(rows, key=lambda r: _score(r, t))
         due_soon = [r for r in rows if (d := tracker.parse_date(r["due"])) and (d - t).days <= 2]
         projects.append({
             "slug": project,
+            "decisions": current_decisions(project)[:5],
             "title": project_title(project) if project != UNASSIGNED else "Unassigned (flag: no project)",
             "planned": sum(1 for r in rows if r.get("origin") != "unplanned"),
             "unplanned": sum(1 for r in rows if r.get("origin") == "unplanned"),
@@ -228,7 +280,9 @@ def plan(ask_fn=None, t: date | None = None) -> dict:
     return {
         "date": t.isoformat(), "title": t.strftime("%A %d %b %Y"), "me": me, "counts": counts,
         "project_counts": [(project_title(p), len(v)) for p, v in sorted(by_project.items())],
+        "changes": changes,
         "verify": [{"item": r, "quote": _completion_quote(r)} for r in items if r["status"] == "to_verify"],
+        "flagged": [r for r in items if r.get("flags")],
         "first": [{"item": r, "why": reasons[r["id"]]} for r, _ in first], "claude_error": claude_error,
         "batches": [{"who": who, "items": rows} for who, rows in batches(items)],
         "delegate": [{"item": r, "to": who} for r, who in delegate(items, me)],
@@ -243,6 +297,20 @@ def render_md(p: dict) -> str:
     counts = ", ".join(f"{title}: {n}" for title, n in p["project_counts"])
     out = [f"# Morning brief: {p['title']}", "", f"_{p['counts']['open']} open items ({counts})_", ""]
 
+    ch = p["changes"]
+    out.append(f"## Since {ch['since']}")
+    if not ch["total"]:
+        out.append("_Nothing moved._")
+    out += [f"- new: `{r['id']}` **{r['owner']}**: {r['task']}" for r in ch["new"]]
+    out += [f"- closed: `{r['id']}` {r['task']}" for r in ch["closed"]]
+    out += [f"- reported complete: `{r['id']}` **{r['owner']}**: {r['task']}" for r in ch["reported"]]
+    out += [f"- slipped: `{r['id']}` {r['task']} (due {a} -> {b})" for r, a, b in ch["slipped"]]
+    out += [f"- rejected in the Sheet: `{r['id']}` {r['task']}" for r in ch["rejected"]]
+    out += [f"- you set {c['field']} of `{c['id']}` to {c['to'] or 'blank'}" for c in ch["edits"] if c.get("field") != "deleted"]
+    out += [f"- decision: `{d['id']}` {d['decision']} (by {d['by']})" for d in ch["decisions"]]
+    out += [f"- thread: `{th['id']}` {th['topic']} (mentioned {th['mentions']}x)" for th in ch["threads"]]
+    out.append("")
+
     out.append("## Waiting for your confirmation")
     if p["verify"]:
         for v in p["verify"]:
@@ -252,6 +320,12 @@ def render_md(p: dict) -> str:
     else:
         out.append("_Nothing reported complete._")
     out.append("")
+
+    if p["flagged"]:
+        out.append("## Check these")
+        out.append("_The fact checks found something the model may have got wrong._")
+        out += [f"- `{r['id']}` **{r['owner']}**: {r['task']} -> {r['flags']}" for r in p["flagged"]]
+        out.append("")
 
     out.append("## Do first")
     if p["first"]:
@@ -295,6 +369,9 @@ def render_md(p: dict) -> str:
     for pr in p["projects"]:
         out.append(f"## Project: {pr['title']}")
         out.append(f"_{pr['planned']} planned, {pr['unplanned']} unplanned_")
+        if pr["decisions"]:
+            out += ["### Decisions in force"] + [f"- `{d['id']}` {d['decision']} (by {d['by']}, {d['date']})"
+                                                 for d in pr["decisions"]]
         if pr["due_soon"]:
             out += ["### Due today / overdue"] + [_line(r, t) for r in pr["due_soon"]]
         if pr["rest"]:
@@ -404,6 +481,21 @@ def render_html(p: dict) -> str:
         parts.append(f"<section><h2>{_h(title)}<span class='count'>{count}</span></h2>"
                      f"<p class='hint'>{_h(hint)}</p>{body}</section>")
 
+    ch = p["changes"]
+    groups = [("New", [f"<span class='owner'>{_h(r['owner'])}</span>: {_h(r['task'])} <span class='id'>{_h(r['id'])}</span>" for r in ch["new"]]),
+              ("Closed", [f"{_h(r['task'])} <span class='id'>{_h(r['id'])}</span>" for r in ch["closed"]]),
+              ("Reported complete", [f"<span class='owner'>{_h(r['owner'])}</span>: {_h(r['task'])} <span class='id'>{_h(r['id'])}</span>" for r in ch["reported"]]),
+              ("Slipped", [f"{_h(r['task'])} <span class='pill slip'>due {_h(a)} \u2192 {_h(b)}</span> <span class='id'>{_h(r['id'])}</span>" for r, a, b in ch["slipped"]]),
+              ("Rejected in the Sheet", [f"{_h(r['task'])} <span class='id'>{_h(r['id'])}</span>" for r in ch["rejected"]]),
+              ("Your edits", [f"{_h(c['field'])} of <span class='id'>{_h(c['id'])}</span> set to <b>{_h(c['to'] or 'blank')}</b>"
+                              for c in ch["edits"] if c.get("field") != "deleted"]),
+              ("Decisions", [f"{_h(d['decision'])} <span class='quote'>by {_h(d['by'])}</span> <span class='id'>{_h(d['id'])}</span>" for d in ch["decisions"]]),
+              ("Threads", [f"{_h(th['topic'])} <span class='pill slip'>mentioned {_h(th['mentions'])}x</span> <span class='id'>{_h(th['id'])}</span>" for th in ch["threads"]])]
+    body = "".join(f"<h3>{_h(name)} ({len(lines)})</h3><ul>" + "".join(f"<li>{ln}</li>" for ln in lines) + "</ul>"
+                   for name, lines in groups if lines)
+    section(f"Since {ch['since']}", ch["total"], "What moved since the last brief, from the tracker and the memory files.",
+            body or "<p class='empty'>Nothing moved.</p>")
+
     body = ""
     for v in p["verify"]:
         r = v["item"]
@@ -413,6 +505,14 @@ def render_html(p: dict) -> str:
     section("Waiting for your confirmation", len(p["verify"]),
             "Reported complete in a meeting. Set done in the Sheet if it is true; only you close items.",
             body or "<p class='empty'>Nothing reported complete.</p>")
+
+    if p["flagged"]:
+        body = "<table><thead><tr><th>Owner</th><th>Task</th><th>What the check found</th></tr></thead><tbody>" + "".join(
+            f"<tr><td class='owner'>{_h(r['owner'])}</td><td>{_h(r['task'])}<br><span class='id'>{_h(r['id'])}</span></td>"
+            f"<td><span class='pill verify'>{_h(r['flags'])}</span></td></tr>" for r in p["flagged"]) + "</tbody></table>"
+        section("Check these", len(p["flagged"]),
+                "The fact checks found something the model may have got wrong: a quote not in the document, an "
+                "unknown owner, an unresolved basis or an odd date. Fix the row in the Sheet or ignore.", body)
 
     body = ""
     for i, f in enumerate(p["first"], 1):
@@ -455,6 +555,10 @@ def render_html(p: dict) -> str:
 
     for pr in p["projects"]:
         body = ""
+        if pr["decisions"]:
+            body += "<h3>Decisions in force</h3><ul>" + "".join(
+                f"<li>{_h(d['decision'])} <span class='quote'>by {_h(d['by'])}, {_h(d['date'])}</span> "
+                f"<span class='id'>{_h(d['id'])}</span></li>" for d in pr["decisions"]) + "</ul>"
         if pr["due_soon"]:
             body += "<h3>Due today / overdue</h3>" + _table(pr["due_soon"], t)
         if pr["rest"]:
@@ -499,11 +603,38 @@ def sheet_rows(p: dict) -> list[tuple[str, list[str]]]:
     def item(r, section="", note=""):
         return ("item", [section, r["owner"], r["task"], r["priority"], r["due"], flags(r), note, r["id"]])
 
+    ch = p["changes"]
+    rows.append(("section", [f"Since {ch['since']}"]))
+    for r in ch["new"]:
+        rows.append(item(r, section="New"))
+    for r in ch["closed"]:
+        rows.append(item(r, section="Closed"))
+    for r in ch["reported"]:
+        rows.append(item(r, section="Reported complete"))
+    for r, a, b in ch["slipped"]:
+        rows.append(item(r, section="Slipped", note=f"due {a} -> {b}"))
+    for r in ch["rejected"]:
+        rows.append(item(r, section="Rejected in the Sheet"))
+    for c in ch["edits"]:
+        if c.get("field") != "deleted":
+            rows.append(("sub", ["Your edit", "", f"{c['field']} set to {c['to'] or 'blank'}", "", "", "", "", c["id"]]))
+    for d in ch["decisions"]:
+        rows.append(("item", ["Decision", d["by"], d["decision"], "", d["date"], "", "", d["id"]]))
+    for th in ch["threads"]:
+        rows.append(("item", ["Thread", th["project"], th["topic"], "", th["last_seen"], f"mentioned {th['mentions']}x", "", th["id"]]))
+    if not ch["total"]:
+        rows.append(("empty", ["", "Nothing moved."]))
+
     rows.append(("section", ["Waiting for your confirmation"]))
     for v in p["verify"]:
         rows.append(item(v["item"], note=(f'"{v["quote"]}" ' if v["quote"] else "") + "set done in Actions if true"))
     if not p["verify"]:
         rows.append(("empty", ["", "Nothing reported complete."]))
+
+    if p["flagged"]:
+        rows.append(("section", ["Check these (fact checks)"]))
+        for r in p["flagged"]:
+            rows.append(item(r, note=r["flags"]))
 
     rows.append(("section", ["Do first"]))
     for i, f in enumerate(p["first"], 1):
@@ -537,6 +668,8 @@ def sheet_rows(p: dict) -> list[tuple[str, list[str]]]:
 
     for pr in p["projects"]:
         rows.append(("section", [f"Project: {pr['title']} ({pr['planned']} planned, {pr['unplanned']} unplanned)"]))
+        for d in pr["decisions"]:
+            rows.append(("sub", ["In force", d["by"], d["decision"], "", d["date"], "", "", d["id"]]))
         for r in pr["due_soon"]:
             rows.append(item(r, section="Due today / overdue"))
         for r in pr["rest"]:

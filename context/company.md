@@ -25,6 +25,7 @@ Last reviewed: 2026-09-16.
 | Team | Lead | Members | Responsibility |
 |------|------|---------|----------------|
 | Intelligent Tracker | Laxmikant | Laxmikant, Samuel, Johan, Ashwini | Canvas app + SharePoint + Power Automate build |
+| Maruti | | Sarathchandra Babu | Maruti account team, separate from the Power Apps build (add lead, members and scope) |
 
 Who owns what inside the team:
 - Laxmikant: Project Plan module (plan tree, stages, milestones, allocation), Time Tracker screen, scheduling engine, SharePoint list configuration, overall solution design document.
@@ -36,6 +37,7 @@ Who owns what inside the team:
 - Sreekumar: internal customer and sponsor. Gives functional sign-off on the UI in the group chat. Owns nothing technical; his asks become team tasks.
 - Ajith, Rajat: senior management. Estimate and price projects with Sreekumar. Rarely own actions.
 - Adwaith: LSP project contact for master data. I speak to him in a separate LSP sync-up.
+- Sarathchandra Babu: teammate on the Maruti team (not the Power Apps build). Owns actions in his own discussions, such as the Code Apps learning curriculum.
 - Me (Ayush): I own solution design sign-off and anything the team is waiting on from me.
 
 ## Projects
