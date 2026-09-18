@@ -1,0 +1,1 @@
+- Ayush: brainstorm startup ideas during the walk today, 18 Sep at 17:00, about 30 minutes. Personal, not tied to a project. Write the ideas down afterwards.

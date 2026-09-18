@@ -47,3 +47,9 @@ jobs:
       - name: Push tracker to the Google Sheet
         if: ${{ !cancelled() }}
         run: python scripts/sheets.py push
+
+      - name: Refresh today's calendar blocks
+        if: ${{ !cancelled() }}
+        env:
+          GCAL_ID: ${{ vars.GCAL_ID || secrets.GCAL_ID }}
+        run: python scripts/dayplan.py >> $GITHUB_STEP_SUMMARY

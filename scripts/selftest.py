@@ -461,6 +461,19 @@ def test_dayplan():
     text = dayplan.render(plan, cfg, t)
     check(text.index("09:30-09:45") < text.index("17:00-17:05") and "(walk, phone)" in text, "plan renders in time order")
 
+    walkish = rows[:1] + [row("w1", "Ayush", "open", "P2", "2026-09-16", "decide", "unknown",
+                              "Brainstorm startup ideas during the walk")]
+    plan3 = dayplan.schedule(dayplan.pick_items(walkish, "Ayush", t), cfg, t)
+    w1 = {b["id"]: b for b in plan3["blocks"]}["w1"]
+    check(w1["where"] == "walk" and w1["start"].strftime("%H:%M") == "17:05" and w1["end"].strftime("%H:%M") == "17:30",
+          f"a 'during the walk' item takes what is left of the walk: {w1['start']:%H:%M}-{w1['end']:%H:%M}")
+    check(not dayplan.walk_hint({"task": "Walk Sreekumar through the CR screen"}), "walking someone through is not a walk")
+    ev = dayplan.window_event(cfg["protected"][1], t, cfg)
+    check(ev["summary"] == "Walk" and ev["start"]["dateTime"].startswith("2026-09-16T17:00")
+          and ev["extendedProperties"]["private"]["aiemp_id"] == "window:Walk", "walk window becomes a calendar event")
+    check(dayplan.stale_ids({"window:Walk": {}, "old": {}, "v1": {}}, {"v1"}) == ["old"],
+          "stale events are removed but window events are kept")
+
 
 if __name__ == "__main__":
     fixtures()

@@ -7,7 +7,7 @@
   "gap_minutes": 10,
   "protected": [
     {"name": "Lunch", "start": "13:00", "end": "15:00"},
-    {"name": "Walk", "start": "17:00", "end": "17:30", "phone_ok": true, "phone_max_minutes": 5}
+    {"name": "Walk", "start": "17:00", "end": "17:30", "phone_ok": true, "phone_max_minutes": 5, "show_on_calendar": true}
   ],
   "calendar_id": "",
   "busy_calendars": []

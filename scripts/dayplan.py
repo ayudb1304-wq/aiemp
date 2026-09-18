@@ -24,6 +24,7 @@ config. Without them the script prints the plan and exits 0.
 """
 import json
 import os
+import re
 import sys
 from datetime import date, datetime, time, timedelta
 from pathlib import Path
@@ -45,11 +46,16 @@ DEFAULT_CONFIG = {
     "gap_minutes": 10,
     "protected": [
         {"name": "Lunch", "start": "13:00", "end": "15:00"},
-        {"name": "Walk", "start": "17:00", "end": "17:30", "phone_ok": True, "phone_max_minutes": 5},
+        {"name": "Walk", "start": "17:00", "end": "17:30", "phone_ok": True, "phone_max_minutes": 5,
+         "show_on_calendar": True},
     ],
     "calendar_id": "",
     "busy_calendars": [],
 }
+# An item whose text says it belongs in the walk goes there even if it is longer than a phone task,
+# trimmed to whatever of the walk is left. "Brainstorm startup ideas during the walk" qualifies.
+WALK_HINT = re.compile(r"\b(during|on|in) (the|my) walk\b|#walk\b", re.I)
+WINDOW_PREFIX = "window:"
 EFFORT_MINUTES = {"15m": 15, "1h": 60, "half-day": 60, "day+": 60}
 TYPE_MINUTES = {"communicate": 15, "coordinate": 15, "decide": 30, "review": 45, "build": 60, "other": 30}
 PHONE_TYPES = {"communicate", "coordinate"}
@@ -97,6 +103,10 @@ def phone_ok(item: dict, minutes: int, cfg: dict) -> bool:
     if minutes > limit:
         return False
     return item.get("status") == "to_verify" or (item.get("type") in PHONE_TYPES)
+
+
+def walk_hint(item: dict) -> bool:
+    return bool(WALK_HINT.search(f"{item.get('task', '')} {item.get('notes', '')} {item.get('next_step', '')}"))
 
 
 def pick_items(rows: list[dict], me: str, t: date) -> list[dict]:
@@ -164,7 +174,15 @@ def schedule(items: list[dict], cfg: dict, t: date, busy: list[tuple[datetime, d
 
     for r in items:
         minutes = minutes_for(r, cfg)
-        slot = place(phone, minutes, False) if phone_ok(r, minutes, cfg) else None
+        slot = None
+        if walk_hint(r):
+            left = max((w[1] - w[0] for w in phone), default=timedelta(0))
+            fit = min(minutes, int(left.total_seconds() // 60))
+            if fit >= cfg["slot_min_minutes"]:
+                minutes = fit
+                slot = place(phone, minutes, False)
+        elif phone_ok(r, minutes, cfg):
+            slot = place(phone, minutes, False)
         where = "walk"
         if slot is None:
             slot = place(desk, minutes, True)
@@ -195,6 +213,26 @@ def event_body(block: dict, item: dict, cfg: dict) -> dict:
         "reminders": {"useDefault": False, "overrides": [{"method": "popup", "minutes": 5}]},
         "extendedProperties": {"private": {"aiemp_id": block["id"], "aiemp_date": block["start"].date().isoformat()}},
     }
+
+
+def window_event(p: dict, t: date, cfg: dict) -> dict:
+    """A protected window shown on the calendar as its own event, e.g. the daily walk."""
+    tz = ZoneInfo(cfg["timezone"])
+    start, end = datetime.combine(t, _hm(p["start"]), tz), datetime.combine(t, _hm(p["end"]), tz)
+    return {
+        "summary": p["name"],
+        "description": "Protected time from context/dayplan.json. The AI employee plans around it.",
+        "start": {"dateTime": start.isoformat(), "timeZone": cfg["timezone"]},
+        "end": {"dateTime": end.isoformat(), "timeZone": cfg["timezone"]},
+        "colorId": "2",  # sage
+        "reminders": {"useDefault": False, "overrides": [{"method": "popup", "minutes": 5}]},
+        "extendedProperties": {"private": {"aiemp_id": f"{WINDOW_PREFIX}{p['name']}", "aiemp_date": t.isoformat()}},
+    }
+
+
+def stale_ids(have: dict, planned_ids: set) -> list[str]:
+    """Our events for the day that no longer correspond to a planned item. Window events stay."""
+    return [i for i in have if i not in planned_ids and not i.startswith(WINDOW_PREFIX)]
 
 
 def render(plan: dict, cfg: dict, t: date) -> str:
@@ -302,12 +340,19 @@ def sync(s, cal_id: str, plan: dict, items_by_id: dict, cfg: dict, t: date) -> d
                              "start": b["start"].isoformat(), "end": b["end"].isoformat(), "minutes": b["minutes"],
                              "event_id": resp.json()["id"], "run": today()})
     planned = {b["id"] for b in plan["blocks"]}
-    for item_id, e in have.items():
-        if item_id not in planned:
-            _ok(s.delete(f"{CAL_API}/calendars/{cal_id}/events/{e['id']}"))
-            counts["deleted"] += 1
-            append_jsonl(PLANS, {"date": t.isoformat(), "id": item_id, "action": "deleted", "event_id": e["id"],
-                                 "run": today()})
+    for item_id in stale_ids(have, planned):
+        e = have[item_id]
+        _ok(s.delete(f"{CAL_API}/calendars/{cal_id}/events/{e['id']}"))
+        counts["deleted"] += 1
+        append_jsonl(PLANS, {"date": t.isoformat(), "id": item_id, "action": "deleted", "event_id": e["id"],
+                             "run": today()})
+    for p in cfg["protected"]:
+        wid = f"{WINDOW_PREFIX}{p['name']}"
+        if p.get("show_on_calendar") and wid not in have:
+            resp = _ok(s.post(f"{CAL_API}/calendars/{cal_id}/events", json=window_event(p, t, cfg)))
+            counts["created"] += 1
+            append_jsonl(PLANS, {"date": t.isoformat(), "id": wid, "action": "created", "where": "window",
+                                 "start": p["start"], "end": p["end"], "event_id": resp.json()["id"], "run": today()})
     return counts
 
 
