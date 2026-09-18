@@ -230,6 +230,26 @@ def _session():
     return AuthorizedSession(creds)
 
 
+def _ok(resp):
+    """raise_for_status with the reason Google gives, plus the fix for the two usual causes."""
+    if resp.ok:
+        return resp
+    try:
+        err = resp.json().get("error", {})
+        reason = "; ".join(e.get("reason", "") for e in err.get("errors", [])) or err.get("status", "")
+        message = err.get("message", "")
+    except ValueError:
+        reason, message = "", resp.text[:300]
+    hint = ""
+    if resp.status_code == 403 and ("accessNotConfigured" in reason or "has not been used" in message
+                                    or "is disabled" in message):
+        hint = " Enable the Google Calendar API in the Cloud project (APIs & Services > Library) and retry."
+    elif resp.status_code in (403, 404):
+        hint = (" Check GCAL_ID and share that calendar with the service account email with "
+                "'Make changes to events'.")
+    raise RuntimeError(f"Google Calendar {resp.status_code} {reason}: {message}.{hint}")
+
+
 def _day_bounds(t: date, tz: ZoneInfo) -> tuple[str, str]:
     return (datetime.combine(t, time(0, 0), tz).isoformat(),
             datetime.combine(t + timedelta(days=1), time(0, 0), tz).isoformat())
@@ -241,7 +261,7 @@ def busy_times(s, calendars: list[str], t: date, tz: ZoneInfo) -> list[tuple[dat
     lo, hi = _day_bounds(t, tz)
     resp = s.post(f"{CAL_API}/freeBusy", json={"timeMin": lo, "timeMax": hi, "timeZone": cfg_tz_name(tz),
                                                "items": [{"id": c} for c in calendars]})
-    resp.raise_for_status()
+    _ok(resp)
     out = []
     for cal in resp.json().get("calendars", {}).values():
         for b in cal.get("busy", []):
@@ -259,7 +279,7 @@ def existing_events(s, cal_id: str, t: date, tz: ZoneInfo) -> dict[str, dict]:
     resp = s.get(f"{CAL_API}/calendars/{cal_id}/events",
                  params={"timeMin": lo, "timeMax": hi, "singleEvents": "true", "maxResults": 250,
                          "privateExtendedProperty": f"aiemp_date={t.isoformat()}"})
-    resp.raise_for_status()
+    _ok(resp)
     return {e["extendedProperties"]["private"]["aiemp_id"]: e
             for e in resp.json().get("items", []) if e.get("status") != "cancelled"
             and e.get("extendedProperties", {}).get("private", {}).get("aiemp_id")}
@@ -276,7 +296,7 @@ def sync(s, cal_id: str, plan: dict, items_by_id: dict, cfg: dict, t: date) -> d
                                  "event_id": have[b["id"]]["id"], "run": today()})
             continue
         resp = s.post(f"{CAL_API}/calendars/{cal_id}/events", json=event_body(b, items_by_id[b["id"]], cfg))
-        resp.raise_for_status()
+        _ok(resp)
         counts["created"] += 1
         append_jsonl(PLANS, {"date": t.isoformat(), "id": b["id"], "action": "created", "where": b["where"],
                              "start": b["start"].isoformat(), "end": b["end"].isoformat(), "minutes": b["minutes"],
@@ -284,7 +304,7 @@ def sync(s, cal_id: str, plan: dict, items_by_id: dict, cfg: dict, t: date) -> d
     planned = {b["id"] for b in plan["blocks"]}
     for item_id, e in have.items():
         if item_id not in planned:
-            s.delete(f"{CAL_API}/calendars/{cal_id}/events/{e['id']}").raise_for_status()
+            _ok(s.delete(f"{CAL_API}/calendars/{cal_id}/events/{e['id']}"))
             counts["deleted"] += 1
             append_jsonl(PLANS, {"date": t.isoformat(), "id": item_id, "action": "deleted", "event_id": e["id"],
                                  "run": today()})

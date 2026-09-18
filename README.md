@@ -89,13 +89,15 @@ scripts/       extract.py -> verify.py -> tracker.py -> brief.py; sheets.py; ask
    The spreadsheet id is set in `scripts/common.py` (`GSHEET_ID`). To point at another sheet,
    add a repository variable `GSHEET_ID`.
 5. Google Calendar (optional, for the day blocks).
-   1. In Google Calendar, **Settings > Add calendar > Create new calendar**, name it "AI Employee".
+   1. In the Cloud project from step 4, **APIs & Services > Library**: enable **Google Calendar API**
+      (a 403 from the calendar step means this was skipped).
+   2. In Google Calendar, **Settings > Add calendar > Create new calendar**, name it "AI Employee".
       A separate calendar keeps generated blocks apart from real meetings and lets you hide them.
-   2. Open that calendar's settings, **Share with specific people**, add the service account email
+   3. Open that calendar's settings, **Share with specific people**, add the service account email
       with **Make changes to events**. Scroll to **Integrate calendar** and copy the **Calendar ID**.
-   3. Add it as the repository variable `GCAL_ID` (Settings > Secrets and variables > Actions >
+   4. Add it as the repository variable `GCAL_ID` (Settings > Secrets and variables > Actions >
       Variables), or set `calendar_id` in `context/dayplan.json`.
-   4. So blocks avoid your real meetings, also share your main calendar with the service account
+   5. So blocks avoid your real meetings, also share your main calendar with the service account
       as **See only free/busy** and add its address (your Gmail) to `busy_calendars` in
       `context/dayplan.json`.
    Working hours, lunch, the walk and slot sizes are all in `context/dayplan.json`. If you use
