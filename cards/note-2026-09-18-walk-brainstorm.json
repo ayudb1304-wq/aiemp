@@ -1,0 +1,40 @@
+{
+  "meeting": "Personal note 2026-09-18",
+  "kind": "notes",
+  "cards": [
+    {
+      "team": "unassigned",
+      "project": "unassigned",
+      "owner": "Ayush",
+      "task": "Brainstorm startup ideas during the walk (18 Sep, 17:00, ~30 min) and write them down afterwards",
+      "due": "2026-09-18",
+      "priority": "P3",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "brainstorm startup ideas during the walk today, 18 Sep at 17:00, about 30 minutes. Personal, not tied to a project.",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "other",
+      "next_step": "Write down the ideas after the walk",
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "1h",
+      "basis": "line itself: personal walk brainstorm task",
+      "flags": [
+        "basis unresolved"
+      ]
+    }
+  ],
+  "decisions": [],
+  "threads": [],
+  "date": "2026-09-18",
+  "source": "note-2026-09-18-walk-brainstorm.md",
+  "project": "unassigned",
+  "people": [
+    "Ayush"
+  ],
+  "origin": "unplanned",
+  "run_id": "2026-09-18T102555-note-2026-09-18-walk-brainstorm",
+  "decision_ids": [],
+  "thread_ids": []
+}
