@@ -42,6 +42,12 @@ scripts/       extract.py -> verify.py -> tracker.py -> brief.py; sheets.py; ask
    plan is written as `briefs/<date>.html` (headline numbers, cards, per-project tables; open it
    in a browser or forward it) and `briefs/<date>.json`. It commits and writes the plan into the
    **Morning Brief** tab as a formatted table (section bands, priority and overdue colours).
+   It then puts your own items for the day on your Google Calendar as blocks of 5 to 60 minutes
+   (`scripts/dayplan.py`): items you own that are due, overdue or P1, plus anything waiting for
+   your confirmation. Lunch and the walk in `context/dayplan.json` are never touched, except that
+   5-minute phone-sized items (a confirmation, a message) may sit inside the walk. Blocks you move
+   stay where you put them; blocks for items that closed are removed. Nothing tracks whether a block
+   happened yet, this is a reminder, not a scorecard.
 3. **Every Sunday 18:00 IST** the `consolidate` workflow rewrites each active project's state file
    from the week's activity and opens a **pull request** (`consolidate/<date>`) with the proposed
    files, observations (days-to-close by type and unblocker, most slipped items) and suggested rule
@@ -82,7 +88,19 @@ scripts/       extract.py -> verify.py -> tracker.py -> brief.py; sheets.py; ask
 
    The spreadsheet id is set in `scripts/common.py` (`GSHEET_ID`). To point at another sheet,
    add a repository variable `GSHEET_ID`.
-5. Edit `context/company.md` and `context/projects/<slug>.md`. This is what makes it work like
+5. Google Calendar (optional, for the day blocks).
+   1. In Google Calendar, **Settings > Add calendar > Create new calendar**, name it "AI Employee".
+      A separate calendar keeps generated blocks apart from real meetings and lets you hide them.
+   2. Open that calendar's settings, **Share with specific people**, add the service account email
+      with **Make changes to events**. Scroll to **Integrate calendar** and copy the **Calendar ID**.
+   3. Add it as the repository variable `GCAL_ID` (Settings > Secrets and variables > Actions >
+      Variables), or set `calendar_id` in `context/dayplan.json`.
+   4. So blocks avoid your real meetings, also share your main calendar with the service account
+      as **See only free/busy** and add its address (your Gmail) to `busy_calendars` in
+      `context/dayplan.json`.
+   Working hours, lunch, the walk and slot sizes are all in `context/dayplan.json`. If you use
+   Option B above, run `google_login.py` again: the calendar scope was added to it.
+6. Edit `context/company.md` and `context/projects/<slug>.md`. This is what makes it work like
    *you*. Add a project by adding a file; its file name is the slug used in card ids
    (`YYYY-MM-DD-<project-slug>-NN`). Files the agent cannot place go to `unassigned` and are
    flagged in the brief.

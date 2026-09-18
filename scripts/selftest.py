@@ -22,6 +22,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import common  # noqa: E402  (after AIEMP_ROOT is set)
 import brief  # noqa: E402
+import dayplan  # noqa: E402
 import extract  # noqa: E402
 import prep  # noqa: E402
 import search  # noqa: E402
@@ -409,10 +410,62 @@ abc/151-0
     check(extract.pending() == [eml, note, undated], f"pending lists every supported inbox file: {extract.pending()}")
 
 
+def test_dayplan():
+    print("dayplan")
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+
+    cfg = dict(dayplan.DEFAULT_CONFIG)
+    tz = ZoneInfo(cfg["timezone"])
+    t = date(2026, 9, 16)
+
+    def row(i, owner, status, prio, due, typ, effort, task="t"):
+        return {"id": i, "owner": owner, "status": status, "priority": prio, "due": due, "type": typ,
+                "effort": effort, "task": task, "next_step": "", "unblocker": "", "prerequisites": "",
+                "evidence": "", "source": "s.md"}
+
+    rows = [row("v1", "Samuel", "to_verify", "P1", None, "build", "1h", "Runbook finished"),
+            row("m1", "Ayush", "open", "P1", "2026-09-15", "decide", "15m", "Decide flow"),
+            row("m2", "Ayush", "open", "P2", "2026-09-16", "communicate", "unknown", "Send comments"),
+            row("m3", "Ayush", "open", "P2", "2026-09-20", "review", "1h", "Later"),
+            row("m4", "Ayush", "blocked", "P1", "2026-09-15", "build", "1h", "Stuck"),
+            row("o1", "Johan", "open", "P1", "2026-09-15", "build", "1h", "Not mine"),
+            row("m5", "ayush", "open", "P1", None, "build", "day+", "Big build")]
+    picked = [r["id"] for r in dayplan.pick_items(rows, "Ayush", t)]
+    check(picked == ["v1", "m1", "m5", "m2"], f"to_verify first, then my P1 overdue, P1 undated, P2 due today: {picked}")
+    check(dayplan.minutes_for(rows[6], cfg) == 60 and dayplan.minutes_for(rows[0], cfg) == 5
+          and dayplan.minutes_for(rows[2], cfg) == 15, "durations: day+ capped at 60, to_verify 5, unknown effort by type")
+
+    busy = [(datetime(2026, 9, 16, 9, 0, tzinfo=tz), datetime(2026, 9, 16, 9, 30, tzinfo=tz))]
+    plan = dayplan.schedule(dayplan.pick_items(rows, "Ayush", t), cfg, t, busy)
+    at = {b["id"]: b for b in plan["blocks"]}
+    check(at["v1"]["where"] == "walk" and at["v1"]["start"].strftime("%H:%M") == "17:00", "confirmation goes into the walk")
+    check(at["m1"]["start"].strftime("%H:%M") == "09:30", f"first desk block starts after the busy slot: {at['m1']['start']}")
+    check(at["m5"]["start"].strftime("%H:%M") == "09:55" and at["m5"]["minutes"] == 60, "10 minute gap, then a 60 minute block")
+    check(at["m2"]["where"] == "desk", "a 15 minute message is too long for the walk")
+    check(not plan["unplaced"], "everything fits on a normal day")
+
+    many = [row(f"b{i}", "Ayush", "open", "P1", None, "build", "1h", f"Build {i}") for i in range(12)]
+    plan2 = dayplan.schedule(dayplan.pick_items(many, "Ayush", t), cfg, t)
+    lunch = (datetime(2026, 9, 16, 13, 0, tzinfo=tz), datetime(2026, 9, 16, 15, 0, tzinfo=tz))
+    walk = (datetime(2026, 9, 16, 17, 0, tzinfo=tz), datetime(2026, 9, 16, 17, 30, tzinfo=tz))
+    clash = [b for b in plan2["blocks"] for w in (lunch, walk) if b["start"] < w[1] and b["end"] > w[0]]
+    check(not clash and plan2["unplaced"] and len(plan2["blocks"]) + len(plan2["unplaced"]) == 12
+          and all(5 <= b["minutes"] <= 60 for b in plan2["blocks"]),
+          f"full day: no block touches lunch or the walk, the rest is reported: {len(plan2['blocks'])} placed")
+
+    body = dayplan.event_body(at["v1"], rows[0], cfg)
+    check(body["summary"] == "[P1] Confirm: Runbook finished"
+          and body["extendedProperties"]["private"] == {"aiemp_id": "v1", "aiemp_date": "2026-09-16"}
+          and body["reminders"]["overrides"] == [{"method": "popup", "minutes": 5}], "event body: summary, tag, reminder")
+    text = dayplan.render(plan, cfg, t)
+    check(text.index("09:30-09:45") < text.index("17:00-17:05") and "(walk, phone)" in text, "plan renders in time order")
+
+
 if __name__ == "__main__":
     fixtures()
     for t in (test_tracker, test_merge_and_cap, test_context_loader, test_search, test_verify, test_brief, test_prep,
-              test_sheets, test_readers):
+              test_sheets, test_readers, test_dayplan):
         try:
             t()
         except Exception as e:  # a crash is a failure too

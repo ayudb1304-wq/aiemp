@@ -12,7 +12,7 @@ import json
 import sys
 from pathlib import Path
 
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/calendar"]
 
 if __name__ == "__main__":
     if len(sys.argv) != 2 or not Path(sys.argv[1]).exists():
