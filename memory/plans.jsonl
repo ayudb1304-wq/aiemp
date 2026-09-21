@@ -1,0 +1,2 @@
+{"date": "2026-09-21", "id": "2026-09-18-unassigned-01", "action": "created", "where": "walk", "start": "2026-09-21T17:00:00+05:30", "end": "2026-09-21T17:30:00+05:30", "minutes": 30, "event_id": "h26108d64f1ir0adjb9r6muejo", "run": "2026-09-21"}
+{"date": "2026-09-21", "id": "window:Walk", "action": "created", "where": "window", "start": "17:00", "end": "17:30", "event_id": "2clsu0obv17cimnk4pil6dkdps", "run": "2026-09-21"}

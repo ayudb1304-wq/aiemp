@@ -1,0 +1,91 @@
+{
+  "run_id": "2026-09-21T062516-2026-09-21-activity-tracker-sync",
+  "source": "2026-09-21-activity-tracker-sync.docx",
+  "triage": "claude",
+  "reply": {
+    "project": "intelligent-tracker",
+    "people": [
+      "Ashwini",
+      "Sreekumar",
+      "Ayush",
+      "Sam",
+      "Johan",
+      "Namrata",
+      "Samuel"
+    ]
+  },
+  "project": "intelligent-tracker",
+  "people": [
+    "Ashwini",
+    "Sreekumar",
+    "Ayush",
+    "Sam",
+    "Johan",
+    "Namrata",
+    "Samuel"
+  ],
+  "date": "2026-09-21",
+  "note": false,
+  "context": {
+    "budget_tokens": 60000,
+    "document_tokens": 4222,
+    "document_counted": 4222,
+    "project": "intelligent-tracker",
+    "history_hits": 0,
+    "people": [
+      "Ashwini",
+      "Sreekumar",
+      "Ayush",
+      "Sam",
+      "Johan",
+      "Namrata",
+      "Samuel"
+    ],
+    "layers": {
+      "1:company+project": {
+        "tokens": 1936,
+        "loaded": true
+      },
+      "2:open_items": {
+        "tokens": 7,
+        "loaded": true
+      },
+      "3:people": {
+        "tokens": 0,
+        "loaded": false
+      },
+      "4:history": {
+        "tokens": 770,
+        "loaded": true
+      },
+      "5:briefs": {
+        "tokens": 388,
+        "loaded": true
+      }
+    },
+    "dropped": [],
+    "warnings": [],
+    "context_tokens": 3101
+  },
+  "chunks": 1,
+  "checks": {
+    "cards_flagged": 0,
+    "by_kind": {},
+    "flagged": []
+  },
+  "cards": 3,
+  "created": [
+    "2026-09-21-intelligent-tracker-01",
+    "2026-09-21-intelligent-tracker-02",
+    "2026-09-21-intelligent-tracker-03"
+  ],
+  "updated": [],
+  "decisions": [],
+  "threads": [
+    "T-2026-09-21-01",
+    "T-2026-09-21-02"
+  ],
+  "drafts": [
+    "2026-09-21-intelligent-tracker-01"
+  ]
+}
