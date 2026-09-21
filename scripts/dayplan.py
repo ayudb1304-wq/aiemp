@@ -51,12 +51,17 @@ DEFAULT_CONFIG = {
     ],
     "calendar_id": "",
     "busy_calendars": [],
+    # When nothing is owned by me, each teammate item that is due, overdue or P1 becomes a short
+    # check-in block instead, so the manager's day still has a shape.
+    "checkin_minutes": 5,
+    "checkin_max": 8,
 }
+CHECKIN_PREFIX = "checkin:"
 # An item whose text says it belongs in the walk goes there even if it is longer than a phone task,
 # trimmed to whatever of the walk is left. "Brainstorm startup ideas during the walk" qualifies.
 WALK_HINT = re.compile(r"\b(during|on|in) (the|my) walk\b|#walk\b", re.I)
 WINDOW_PREFIX = "window:"
-EFFORT_MINUTES = {"15m": 15, "1h": 60, "half-day": 60, "day+": 60}
+EFFORT_MINUTES = {"5m": 5, "15m": 15, "1h": 60, "half-day": 60, "day+": 60}
 TYPE_MINUTES = {"communicate": 15, "coordinate": 15, "decide": 30, "review": 45, "build": 60, "other": 30}
 PHONE_TYPES = {"communicate", "coordinate"}
 COLOR = {"P1": "11", "P2": "5", "P3": "8"}  # Google Calendar colorIds: tomato, banana, graphite
@@ -132,6 +137,46 @@ def pick_items(rows: list[dict], me: str, t: date) -> list[dict]:
     return sorted(out, key=key)
 
 
+def _urgency(r: dict, t: date) -> tuple:
+    due = _parse_date(r.get("due"))
+    overdue_days = (t - due).days if due and due < t else 0
+    return (PRIORITY_ORDER.get(r.get("priority"), 9), -overdue_days, due.isoformat() if due else "9999", r.get("id", ""))
+
+
+def checkins(rows: list[dict], me: str, picked: list[dict], t: date, cfg: dict) -> list[dict]:
+    """Synthetic 5-minute items to review a teammate's work, only on a day with nothing of my own.
+    Confirmations (to_verify) do not count as my own work."""
+    me_l = me.lower()
+    if any((r.get("owner") or "").strip().lower() == me_l and r.get("status") != "to_verify" for r in picked):
+        return []
+    picked_ids = {r["id"] for r in picked}
+    cands = []
+    for r in rows:
+        owner = (r.get("owner") or "").strip()
+        if not owner or owner.lower() == me_l or r["id"] in picked_ids:
+            continue
+        if r.get("status") not in OPEN_STATUSES or r.get("status") == "to_verify":
+            continue
+        due = _parse_date(r.get("due"))
+        if r.get("priority") == "P1" or (due and due <= t) or r.get("status") == "blocked":
+            cands.append(r)
+    cands.sort(key=lambda r: _urgency(r, t))
+    out = []
+    for r in cands[:cfg.get("checkin_max", 8)]:
+        why = "blocked" if r.get("status") == "blocked" else ("overdue" if (d := _parse_date(r.get("due"))) and d < t else "due")
+        out.append({"id": f"{CHECKIN_PREFIX}{r['id']}", "owner": me, "status": "open", "priority": r.get("priority", "P2"),
+                    "type": "coordinate", "effort": "5m", "origin": "checkin",
+                    "task": f"Check in with {owner_of(r)}: {r.get('task', '')}",
+                    "next_step": f"Ask {owner_of(r)} where it stands ({why}); unblock or re-plan if needed.",
+                    "unblocker": r.get("unblocker", ""), "prerequisites": "", "evidence": r.get("evidence", ""),
+                    "source": r.get("source", ""), "notes": r.get("notes", "")})
+    return out
+
+
+def owner_of(r: dict) -> str:
+    return (r.get("owner") or "").strip()
+
+
 def _windows(cfg: dict, t: date, tz: ZoneInfo, busy: list[tuple[datetime, datetime]]):
     """(desk_windows, phone_windows) as lists of [start, end] datetimes, busy time removed."""
     day_start = datetime.combine(t, _hm(cfg["work_start"]), tz)
@@ -198,6 +243,8 @@ def schedule(items: list[dict], cfg: dict, t: date, busy: list[tuple[datetime, d
 
 def event_body(block: dict, item: dict, cfg: dict) -> dict:
     tag = "Confirm: " if block["status"] == "to_verify" else ""
+    if block["id"].startswith(CHECKIN_PREFIX):
+        tag = ""  # the task text already starts with "Check in with ..."
     lines = [f"Item {block['id']}", ""]
     for label, key in (("Next step", "next_step"), ("Unblocker", "unblocker"), ("Prerequisites", "prerequisites"),
                        ("Evidence", "evidence"), ("Source", "source")):
@@ -242,6 +289,8 @@ def render(plan: dict, cfg: dict, t: date) -> str:
     for b in sorted(plan["blocks"], key=lambda b: b["start"]):
         where = " (walk, phone)" if b["where"] == "walk" else ""
         tag = "Confirm: " if b["status"] == "to_verify" else ""
+        if b["id"].startswith(CHECKIN_PREFIX):
+            tag = "Check-in: "
         out.append(f"- {b['start']:%H:%M}-{b['end']:%H:%M} `{b['id']}` {b['priority']} {tag}{b['task']}{where}")
     if plan["unplaced"]:
         out += ["", "Did not fit today:"] + [f"- `{r['id']}` {r['priority']} {r['task']}" for r in plan["unplaced"]]
@@ -369,6 +418,9 @@ def main(argv: list[str]) -> int:
         t = date.fromisoformat(argv[argv.index("--date") + 1])
     rows = tracker.load_rows()
     items = pick_items(rows, my_name(), t)
+    extra = checkins(rows, my_name(), items, t, cfg)
+    items += extra
+    rows = rows + extra  # so sync() can build event bodies for the synthetic items
     cal_id = os.environ.get("GCAL_ID", "").strip() or cfg.get("calendar_id", "")
     s = None if dry else _session()
     busy = []

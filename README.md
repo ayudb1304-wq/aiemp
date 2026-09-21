@@ -44,7 +44,9 @@ scripts/       extract.py -> verify.py -> tracker.py -> brief.py; sheets.py; ask
    **Morning Brief** tab as a formatted table (section bands, priority and overdue colours).
    It then puts your own items for the day on your Google Calendar as blocks of 5 to 60 minutes
    (`scripts/dayplan.py`): items you own that are due, overdue or P1, plus anything waiting for
-   your confirmation. Lunch and the walk in `context/dayplan.json` are never touched, except that
+   your confirmation. On a day with nothing of your own, each teammate item that is due, overdue,
+   P1 or blocked becomes a 5-minute check-in block instead (up to `checkin_max`), so the day
+   still has a shape. Lunch and the walk in `context/dayplan.json` are never touched, except that
    5-minute phone-sized items (a confirmation, a message) may sit inside the walk. Blocks you move
    stay where you put them; blocks for items that closed are removed. Nothing tracks whether a block
    happened yet, this is a reminder, not a scorecard.

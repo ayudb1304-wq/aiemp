@@ -474,6 +474,22 @@ def test_dayplan():
     check(dayplan.stale_ids({"window:Walk": {}, "old": {}, "v1": {}}, {"v1"}) == ["old"],
           "stale events are removed but window events are kept")
 
+    team = [row("t1", "Laxmikant", "open", "P2", "2026-09-16", "build", "1h", "Stage validation"),
+            row("t2", "Ashwini", "open", "P1", None, "coordinate", "15m", "Set the demo date"),
+            row("t3", "Johan", "blocked", "P2", None, "build", "1h", "CR screen"),
+            row("t4", "Samuel", "open", "P3", "2026-09-30", "build", "day+", "Later"),
+            row("v1", "Samuel", "to_verify", "P1", None, "build", "1h", "Runbook finished")]
+    picked = dayplan.pick_items(team, "Ayush", t)
+    ci = dayplan.checkins(team, "Ayush", picked, t, cfg)
+    check([c["id"] for c in ci] == ["checkin:t2", "checkin:t1", "checkin:t3"],
+          f"no own work: check-ins for due, overdue, P1 and blocked teammate items, most urgent first: {[c['id'] for c in ci]}")
+    check(ci[0]["task"].startswith("Check in with Ashwini:") and dayplan.minutes_for(ci[0], cfg) == 5, "check-ins are 5 minutes")
+    plan4 = dayplan.schedule(picked + ci, cfg, t)
+    check(len(plan4["blocks"]) == 4 and "Check-in:" in dayplan.render(plan4, cfg, t), "check-ins are scheduled and labelled")
+    mine = team + [row("m9", "Ayush", "open", "P2", "2026-09-16", "decide", "15m", "My own thing")]
+    check(dayplan.checkins(mine, "Ayush", dayplan.pick_items(mine, "Ayush", t), t, cfg) == [],
+          "a day with my own work gets no check-ins")
+
 
 if __name__ == "__main__":
     fixtures()
