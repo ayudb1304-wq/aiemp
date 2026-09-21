@@ -2,7 +2,7 @@
 
 This file is the AI employee's memory of the company: me, the roster, priority rules, escalation and
 standing decisions. It is read on every run. Project state lives in `context/projects/<slug>.md`.
-Last reviewed: 2026-09-16.
+Last reviewed: 2026-09-21.
 
 ## Me
 - Name: Ayush Dhanraj Bhiogade. Role: technical lead and solution owner for the Intelligent Tracker build (edit if this is wrong).

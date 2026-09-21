@@ -35,6 +35,11 @@ jobs:
       - name: Extract cards, decisions and threads; update tracker
         run: python scripts/extract.py
 
+      # New items change the plan, so refresh the brief too. Idempotent: it rewrites today's files.
+      - name: Rebuild today's brief
+        if: ${{ !cancelled() }}
+        run: python scripts/brief.py >> $GITHUB_STEP_SUMMARY
+
       - name: Refresh today's calendar blocks
         if: ${{ !cancelled() }}
         env:
@@ -46,10 +51,12 @@ jobs:
         run: |
           git config user.name "ai-employee"
           git config user.email "ai-employee@users.noreply.github.com"
-          git add cards tracker memory drafts logs
+          git add cards tracker memory drafts logs briefs
           git diff --cached --quiet || git commit -m "cards: process inbox"
           git push
 
       - name: Push tracker to the Google Sheet
         if: ${{ !cancelled() }}
-        run: python scripts/sheets.py push
+        run: |
+          python scripts/sheets.py push
+          python scripts/sheets.py brief "briefs/$(date -u +%F).md"
