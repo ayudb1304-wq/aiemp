@@ -37,7 +37,7 @@ scripts/       extract.py -> verify.py -> tracker.py -> brief.py; sheets.py; ask
    overdue date, dropdowns on the enumerated columns), along with a **Dashboard** tab of live
    formulas over it and read-only **Decisions** and **Threads** tabs mirrored from
    `memory/decisions.jsonl` and `memory/threads.jsonl`.
-2. **Every weekday 08:30 IST** the `morning-brief` workflow writes `briefs/<date>.md`: waiting for
+2. **Every weekday morning (07:53 IST, retried 09:53)** the `morning-brief` workflow writes `briefs/<date>.md`: waiting for
    your confirmation, do first, batch, delegate?, recurring threads, then per project. The same
    plan is written as `briefs/<date>.html` (headline numbers, cards, per-project tables; open it
    in a browser or forward it) and `briefs/<date>.json`. It commits and writes the plan into the

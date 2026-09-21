@@ -2,7 +2,10 @@ name: Morning brief
 
 on:
   schedule:
-    - cron: "0 3 * * 1-5"   # 08:30 IST, weekdays
+    # GitHub cron is best effort and slips most at :00. Two off-peak slots: 07:53 IST and a
+    # 09:53 IST retry. The brief is idempotent, so a second run just refreshes the same day.
+    - cron: "23 2 * * 1-5"
+    - cron: "23 4 * * 1-5"
   workflow_dispatch:
 
 permissions:
