@@ -485,7 +485,10 @@ def test_dayplan():
           f"no own work: check-ins for due, overdue, P1 and blocked teammate items, most urgent first: {[c['id'] for c in ci]}")
     check(ci[0]["task"].startswith("Check in with Ashwini:") and dayplan.minutes_for(ci[0], cfg) == 5, "check-ins are 5 minutes")
     plan4 = dayplan.schedule(picked + ci, cfg, t)
-    check(len(plan4["blocks"]) == 4 and "Check-in:" in dayplan.render(plan4, cfg, t), "check-ins are scheduled and labelled")
+    check(len(plan4["blocks"]) == 4 and "Check in with Ashwini" in dayplan.render(plan4, cfg, t), "check-ins are scheduled and labelled")
+    check(all(b["where"] == "desk" for b in plan4["blocks"] if b["id"].startswith("checkin:"))
+          and min(b["start"] for b in plan4["blocks"] if b["id"].startswith("checkin:")).strftime("%H:%M") == "09:00",
+          "check-ins go to the desk from the start of the day, not into the walk")
     mine = team + [row("m9", "Ayush", "open", "P2", "2026-09-16", "decide", "15m", "My own thing")]
     check(dayplan.checkins(mine, "Ayush", dayplan.pick_items(mine, "Ayush", t), t, cfg) == [],
           "a day with my own work gets no check-ins")

@@ -105,8 +105,8 @@ def minutes_for(item: dict, cfg: dict) -> int:
 def phone_ok(item: dict, minutes: int, cfg: dict) -> bool:
     """Small enough and simple enough to do from a phone during the walk."""
     limit = min((p.get("phone_max_minutes", 5) for p in cfg["protected"] if p.get("phone_ok")), default=0)
-    if minutes > limit:
-        return False
+    if minutes > limit or str(item.get("id", "")).startswith(CHECKIN_PREFIX):
+        return False  # check-ins with the team happen at the desk during the working day
     return item.get("status") == "to_verify" or (item.get("type") in PHONE_TYPES)
 
 
@@ -290,7 +290,7 @@ def render(plan: dict, cfg: dict, t: date) -> str:
         where = " (walk, phone)" if b["where"] == "walk" else ""
         tag = "Confirm: " if b["status"] == "to_verify" else ""
         if b["id"].startswith(CHECKIN_PREFIX):
-            tag = "Check-in: "
+            tag = ""  # the task already reads "Check in with ..."
         out.append(f"- {b['start']:%H:%M}-{b['end']:%H:%M} `{b['id']}` {b['priority']} {tag}{b['task']}{where}")
     if plan["unplaced"]:
         out += ["", "Did not fit today:"] + [f"- `{r['id']}` {r['priority']} {r['task']}" for r in plan["unplaced"]]
