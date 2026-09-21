@@ -3,9 +3,9 @@
  "title": "Monday 21 Sep 2026",
  "me": "Ayush",
  "counts": {
-  "open": 4,
+  "open": 3,
   "p1": 0,
-  "overdue": 1,
+  "overdue": 0,
   "due_today": 3,
   "to_verify": 0,
   "blocked": 0
@@ -14,10 +14,6 @@
   [
    "Intelligent Tracker",
    3
-  ],
-  [
-   "unassigned",
-   1
   ]
  ],
  "changes": {
@@ -100,32 +96,6 @@
     "created": "2026-09-21",
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-03"
-   },
-   {
-    "task": "Brainstorm startup ideas during the walk (18 Sep, 17:00, ~30 min) and write them down afterwards",
-    "owner": "Ayush",
-    "priority": "P3",
-    "status": "open",
-    "due": "2026-09-18",
-    "project": "unassigned",
-    "team": "unassigned",
-    "type": "other",
-    "next_step": "Write down the ideas after the walk",
-    "unblocker": "",
-    "effort": "1h",
-    "blocked_by": "",
-    "prerequisites": "",
-    "notes": "",
-    "evidence": "brainstorm startup ideas during the walk today, 18 Sep at 17:00, about 30 minutes. Personal, not tied to a project.",
-    "basis": "line itself: personal walk brainstorm task",
-    "flags": "basis unresolved",
-    "meeting": "Personal note 2026-09-18",
-    "origin": "unplanned",
-    "updated": "2026-09-18",
-    "closed": "",
-    "created": "2026-09-18",
-    "source": "note-2026-09-18-walk-brainstorm.md",
-    "id": "2026-09-18-unassigned-01"
    }
   ],
   "closed": [
@@ -336,6 +306,32 @@
     "created": "2026-09-16",
     "source": "2026-09-16-activity-tracker-sync.md",
     "id": "2026-09-16-intelligent-tracker-01"
+   },
+   {
+    "task": "Brainstorm startup ideas during the walk (18 Sep, 17:00, ~30 min) and write them down afterwards",
+    "owner": "Ayush",
+    "priority": "P3",
+    "status": "done",
+    "due": "2026-09-18",
+    "project": "unassigned",
+    "team": "unassigned",
+    "type": "other",
+    "next_step": "Write down the ideas after the walk",
+    "unblocker": "",
+    "effort": "1h",
+    "blocked_by": "",
+    "prerequisites": "",
+    "notes": "",
+    "evidence": "brainstorm startup ideas during the walk today, 18 Sep at 17:00, about 30 minutes. Personal, not tied to a project.",
+    "basis": "line itself: personal walk brainstorm task",
+    "flags": "basis unresolved",
+    "meeting": "Personal note 2026-09-18",
+    "origin": "unplanned",
+    "updated": "2026-09-21",
+    "closed": "2026-09-21",
+    "created": "2026-09-18",
+    "source": "note-2026-09-18-walk-brainstorm.md",
+    "id": "2026-09-18-unassigned-01"
    }
   ],
   "reported": [],
@@ -406,6 +402,14 @@
     "from": "to_verify",
     "to": "done",
     "project": "intelligent-tracker"
+   },
+   {
+    "date": "2026-09-21",
+    "id": "2026-09-18-unassigned-01",
+    "field": "status",
+    "from": "open",
+    "to": "done",
+    "project": "unassigned"
    }
   ],
   "decisions": [],
@@ -441,67 +445,11 @@
     ]
    }
   ],
-  "total": 22
+  "total": 23
  },
  "verify": [],
- "flagged": [
-  {
-   "task": "Brainstorm startup ideas during the walk (18 Sep, 17:00, ~30 min) and write them down afterwards",
-   "owner": "Ayush",
-   "priority": "P3",
-   "status": "open",
-   "due": "2026-09-18",
-   "project": "unassigned",
-   "team": "unassigned",
-   "type": "other",
-   "next_step": "Write down the ideas after the walk",
-   "unblocker": "",
-   "effort": "1h",
-   "blocked_by": "",
-   "prerequisites": "",
-   "notes": "",
-   "evidence": "brainstorm startup ideas during the walk today, 18 Sep at 17:00, about 30 minutes. Personal, not tied to a project.",
-   "basis": "line itself: personal walk brainstorm task",
-   "flags": "basis unresolved",
-   "meeting": "Personal note 2026-09-18",
-   "origin": "unplanned",
-   "updated": "2026-09-18",
-   "closed": "",
-   "created": "2026-09-18",
-   "source": "note-2026-09-18-walk-brainstorm.md",
-   "id": "2026-09-18-unassigned-01"
-  }
- ],
+ "flagged": [],
  "first": [
-  {
-   "item": {
-    "task": "Brainstorm startup ideas during the walk (18 Sep, 17:00, ~30 min) and write them down afterwards",
-    "owner": "Ayush",
-    "priority": "P3",
-    "status": "open",
-    "due": "2026-09-18",
-    "project": "unassigned",
-    "team": "unassigned",
-    "type": "other",
-    "next_step": "Write down the ideas after the walk",
-    "unblocker": "",
-    "effort": "1h",
-    "blocked_by": "",
-    "prerequisites": "",
-    "notes": "",
-    "evidence": "brainstorm startup ideas during the walk today, 18 Sep at 17:00, about 30 minutes. Personal, not tied to a project.",
-    "basis": "line itself: personal walk brainstorm task",
-    "flags": "basis unresolved",
-    "meeting": "Personal note 2026-09-18",
-    "origin": "unplanned",
-    "updated": "2026-09-18",
-    "closed": "",
-    "created": "2026-09-18",
-    "source": "note-2026-09-18-walk-brainstorm.md",
-    "id": "2026-09-18-unassigned-01"
-   },
-   "why": "3d overdue"
-  },
   {
    "item": {
     "task": "Verify and add date-based validation for inserting a new stage above or between existing stages in the plan tree.",
@@ -529,7 +477,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "Due today; next step is to add date-based validation for inserting a stage in the plan tree, per Laxmikant's commitment."
+   "why": "due today"
   },
   {
    "item": {
@@ -558,7 +506,36 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "Due today; next step is to implement a my-tasks filter on the plan tree screen, per Laxmikant's commitment."
+   "why": "due today"
+  },
+  {
+   "item": {
+    "task": "Set and add the first demo date to the project plan.",
+    "owner": "Ashwini",
+    "priority": "P2",
+    "status": "open",
+    "due": "2026-09-21",
+    "project": "intelligent-tracker",
+    "team": "Intelligent Tracker",
+    "type": "coordinate",
+    "next_step": "Add the planned first-demo date to the project plan schedule.",
+    "unblocker": "",
+    "effort": "15m",
+    "blocked_by": "",
+    "prerequisites": "",
+    "notes": "",
+    "evidence": "No, please put the date where we can have the first demo.",
+    "basis": "No, please put the date where we can have the first demo.",
+    "flags": "",
+    "meeting": "Activity Tracker internal sync-up",
+    "origin": "planned",
+    "updated": "2026-09-21",
+    "closed": "",
+    "created": "2026-09-21",
+    "source": "2026-09-21-activity-tracker-sync.docx",
+    "id": "2026-09-21-intelligent-tracker-03"
+   },
+   "why": "due today"
   }
  ],
  "claude_error": "",
@@ -653,67 +630,6 @@
     }
    ],
    "rest": []
-  },
-  {
-   "slug": "unassigned",
-   "decisions": [
-    {
-     "id": "D-2026-09-17-01",
-     "date": "2026-09-17",
-     "project": "unassigned",
-     "decision": "Training will focus on enabling developers to use AI tools effectively (read/run apps, use real data contracts, direct and review AI output) rather than making them framework experts.",
-     "by": "Sarathchandra Babu",
-     "evidence": "We're not trying them to build them as an expert. The moment they go, they know how to go on to Claude and ask them",
-     "source": "2026-09-17-code-apps-learning-curriculum-discussion.docx",
-     "supersedes": null,
-     "current": true,
-     "replaced_by": ""
-    },
-    {
-     "id": "D-2026-09-17-02",
-     "date": "2026-09-17",
-     "project": "unassigned",
-     "decision": "Skill-gap assessment (via poll) will be done first to identify who actually needs HTML/CSS/JavaScript training before committing to an organization-wide training plan.",
-     "by": "Sarathchandra Babu",
-     "evidence": "Or, if you can put a poll in one of these, let's see here.",
-     "source": "2026-09-17-code-apps-learning-curriculum-discussion.docx",
-     "supersedes": null,
-     "current": true,
-     "replaced_by": ""
-    }
-   ],
-   "title": "Unassigned (flag: no project)",
-   "planned": 0,
-   "unplanned": 1,
-   "due_soon": [
-    {
-     "task": "Brainstorm startup ideas during the walk (18 Sep, 17:00, ~30 min) and write them down afterwards",
-     "owner": "Ayush",
-     "priority": "P3",
-     "status": "open",
-     "due": "2026-09-18",
-     "project": "unassigned",
-     "team": "unassigned",
-     "type": "other",
-     "next_step": "Write down the ideas after the walk",
-     "unblocker": "",
-     "effort": "1h",
-     "blocked_by": "",
-     "prerequisites": "",
-     "notes": "",
-     "evidence": "brainstorm startup ideas during the walk today, 18 Sep at 17:00, about 30 minutes. Personal, not tied to a project.",
-     "basis": "line itself: personal walk brainstorm task",
-     "flags": "basis unresolved",
-     "meeting": "Personal note 2026-09-18",
-     "origin": "unplanned",
-     "updated": "2026-09-18",
-     "closed": "",
-     "created": "2026-09-18",
-     "source": "note-2026-09-18-walk-brainstorm.md",
-     "id": "2026-09-18-unassigned-01"
-    }
-   ],
-   "rest": []
   }
  ],
  "teams": {
@@ -795,34 +711,6 @@
     "created": "2026-09-21",
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-03"
-   }
-  ],
-  "unassigned": [
-   {
-    "task": "Brainstorm startup ideas during the walk (18 Sep, 17:00, ~30 min) and write them down afterwards",
-    "owner": "Ayush",
-    "priority": "P3",
-    "status": "open",
-    "due": "2026-09-18",
-    "project": "unassigned",
-    "team": "unassigned",
-    "type": "other",
-    "next_step": "Write down the ideas after the walk",
-    "unblocker": "",
-    "effort": "1h",
-    "blocked_by": "",
-    "prerequisites": "",
-    "notes": "",
-    "evidence": "brainstorm startup ideas during the walk today, 18 Sep at 17:00, about 30 minutes. Personal, not tied to a project.",
-    "basis": "line itself: personal walk brainstorm task",
-    "flags": "basis unresolved",
-    "meeting": "Personal note 2026-09-18",
-    "origin": "unplanned",
-    "updated": "2026-09-18",
-    "closed": "",
-    "created": "2026-09-18",
-    "source": "note-2026-09-18-walk-brainstorm.md",
-    "id": "2026-09-18-unassigned-01"
    }
   ]
  }
