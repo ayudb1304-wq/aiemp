@@ -36,6 +36,7 @@ DASHBOARD_TAB = "Dashboard"
 BRIEF_TAB = "Morning Brief"
 DECISIONS_TAB = "Decisions"
 THREADS_TAB = "Threads"
+HABITS_TAB = "Habits"
 DECISION_COLS = ("id", "date", "project", "current", "decision", "by", "replaced_by", "supersedes", "evidence", "source")
 THREAD_COLS = ("id", "date", "last_seen", "mentions", "project", "topic", "note", "evidence",
                "promoted_to", "sources")
@@ -386,6 +387,16 @@ def push() -> None:
         values = memory_rows(path, cols)
         _write_table(sh, title, values)
         print(f"sheets push: {len(values) - 1} rows -> {title}")
+    import habits
+    from datetime import date as _date
+
+    values = habits.sheet_rows(habits.load_habits(), _date.today(), habits.read_jsonl(habits.LOG))
+    ws = _write_table(sh, HABITS_TAB, values)
+    _apply(sh, ws, [{"setDataValidation": {
+        "range": _grid(ws.id, 1, len(values), 3, 4),
+        "rule": {"condition": {"type": "ONE_OF_LIST", "values": [{"userEnteredValue": v} for v in habits.STATUSES]},
+                 "showCustomUi": True, "strict": False}}}], "habits")
+    print(f"sheets push: {len(values) - 1} rows -> {HABITS_TAB}")
 
 
 def apply_records(rows: list[dict], records: list[dict], log=append_jsonl) -> int:
@@ -446,6 +457,15 @@ def pull() -> None:
     if changed:
         tracker.save_rows(rows)
     print(f"sheets pull: {changed} rows updated from {ACTIONS_TAB}")
+    import habits
+    from datetime import date as _date
+
+    try:
+        hrecs = _tab(_sheet(gc), HABITS_TAB).get_all_records(default_blank="")
+    except Exception as e:  # tab not created yet
+        hrecs, e_ = [], e
+    n = habits.apply_sheet(hrecs, habits.read_jsonl(habits.LOG), _date.today())
+    print(f"sheets pull: {n} habit entries recorded from {HABITS_TAB}")
 
 
 def brief(path: Path) -> None:

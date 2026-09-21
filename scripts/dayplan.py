@@ -266,7 +266,7 @@ def window_event(p: dict, t: date, cfg: dict) -> dict:
     """A protected window shown on the calendar as its own event, e.g. the daily walk."""
     tz = ZoneInfo(cfg["timezone"])
     start, end = datetime.combine(t, _hm(p["start"]), tz), datetime.combine(t, _hm(p["end"]), tz)
-    return {
+    body = {
         "summary": p["name"],
         "description": "Protected time from context/dayplan.json. The AI employee plans around it.",
         "start": {"dateTime": start.isoformat(), "timeZone": cfg["timezone"]},
@@ -275,6 +275,12 @@ def window_event(p: dict, t: date, cfg: dict) -> dict:
         "reminders": {"useDefault": False, "overrides": [{"method": "popup", "minutes": 5}]},
         "extendedProperties": {"private": {"aiemp_id": f"{WINDOW_PREFIX}{p['name']}", "aiemp_date": t.isoformat()}},
     }
+    import habits
+
+    h = habits.by_name(p["name"])
+    if h:  # a tracked habit: the event title carries the weekly score
+        body = habits.decorate(body, h, habits.state(h, t, habits.read_jsonl(habits.LOG)))
+    return body
 
 
 def stale_ids(have: dict, planned_ids: set) -> list[str]:
@@ -283,7 +289,10 @@ def stale_ids(have: dict, planned_ids: set) -> list[str]:
 
 
 def render(plan: dict, cfg: dict, t: date) -> str:
+    import habits
+
     out = [f"## Today on your calendar ({t.strftime('%A %d %b')}, {cfg['timezone']})", ""]
+    out += [f"- {line}" for line in habits.week_summary(t)]
     if not plan["blocks"]:
         out.append("_Nothing of yours is due today._")
     for b in sorted(plan["blocks"], key=lambda b: b["start"]):
@@ -395,13 +404,23 @@ def sync(s, cal_id: str, plan: dict, items_by_id: dict, cfg: dict, t: date) -> d
         counts["deleted"] += 1
         append_jsonl(PLANS, {"date": t.isoformat(), "id": item_id, "action": "deleted", "event_id": e["id"],
                              "run": today()})
+    import habits
+
     for p in cfg["protected"]:
         wid = f"{WINDOW_PREFIX}{p['name']}"
-        if p.get("show_on_calendar") and wid not in have:
-            resp = _ok(s.post(f"{CAL_API}/calendars/{cal_id}/events", json=window_event(p, t, cfg)))
+        if not p.get("show_on_calendar"):
+            continue
+        body = window_event(p, t, cfg)
+        if wid not in have:
+            resp = _ok(s.post(f"{CAL_API}/calendars/{cal_id}/events", json=body))
             counts["created"] += 1
             append_jsonl(PLANS, {"date": t.isoformat(), "id": wid, "action": "created", "where": "window",
                                  "start": p["start"], "end": p["end"], "event_id": resp.json()["id"], "run": today()})
+        elif habits.by_name(p["name"]) and have[wid].get("summary") != body["summary"]:
+            # the score changed since the event was written: refresh title, colour and reminders in place
+            patch = {k: body[k] for k in ("summary", "description", "colorId", "reminders")}
+            _ok(s.patch(f"{CAL_API}/calendars/{cal_id}/events/{have[wid]['id']}", json=patch))
+            counts["updated"] = counts.get("updated", 0) + 1
     return counts
 
 

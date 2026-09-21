@@ -50,6 +50,12 @@ scripts/       extract.py -> verify.py -> tracker.py -> brief.py; sheets.py; ask
    5-minute phone-sized items (a confirmation, a message) may sit inside the walk. Blocks you move
    stay where you put them; blocks for items that closed are removed. Nothing tracks whether a block
    happened yet, this is a reminder, not a scorecard.
+   **Habits** (`scripts/habits.py`, config in `context/habits.json`): the walk is tracked against
+   a weekly quota rather than nagged daily. The walk event's title carries the score ("Walk: 2 of 5
+   this week, 3 days left"), turns red with three reminders only when the slack is gone
+   ("MANDATORY today"), and green once the quota is met. You record done, skip or snooze in the
+   **Habits** tab of the Sheet (one row per day of the current week); the next run pulls it into
+   `memory/habits.jsonl` and refreshes the event. Skip shows its consequence in the description.
 3. **Every Sunday 18:00 IST** the `consolidate` workflow rewrites each active project's state file
    from the week's activity and opens a **pull request** (`consolidate/<date>`) with the proposed
    files, observations (days-to-close by type and unblocker, most slipped items) and suggested rule

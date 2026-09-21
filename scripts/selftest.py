@@ -469,7 +469,7 @@ def test_dayplan():
           f"a 'during the walk' item takes what is left of the walk: {w1['start']:%H:%M}-{w1['end']:%H:%M}")
     check(not dayplan.walk_hint({"task": "Walk Sreekumar through the CR screen"}), "walking someone through is not a walk")
     ev = dayplan.window_event(cfg["protected"][1], t, cfg)
-    check(ev["summary"] == "Walk" and ev["start"]["dateTime"].startswith("2026-09-16T17:00")
+    check(ev["summary"].startswith("Walk") and ev["start"]["dateTime"].startswith("2026-09-16T17:00")
           and ev["extendedProperties"]["private"]["aiemp_id"] == "window:Walk", "walk window becomes a calendar event")
     check(dayplan.stale_ids({"window:Walk": {}, "old": {}, "v1": {}}, {"v1"}) == ["old"],
           "stale events are removed but window events are kept")
@@ -494,10 +494,45 @@ def test_dayplan():
           "a day with my own work gets no check-ins")
 
 
+def test_habits():
+    print("habits")
+    import habits
+    h = {"name": "Walk", "quota_per_week": 3, "start": "17:00", "end": "17:30"}
+    wk = date(2026, 9, 21)  # a Monday
+    log = [{"date": "2026-09-22", "habit": "Walk", "status": "done"}]
+    st = habits.state(h, wk, [])
+    check(st["done"] == 0 and st["days_left"] == 7 and not st["mandatory"] and "0 of 3" in st["line"], f"fresh week: {st['line']}")
+    st = habits.state(h, date(2026, 9, 25), log)  # Friday, 1 done, Fri Sat Sun left for 2
+    check(st["done"] == 1 and st["days_left"] == 3 and st["slack"] == 1 and not st["mandatory"]
+          and "every remaining day mandatory" in st["consequence"], f"slack and consequence: {st['line']} / {st['consequence']}")
+    st = habits.state(h, date(2026, 9, 26), log)  # Saturday: 2 left, 2 days -> mandatory
+    check(st["mandatory"] and st["line"].startswith("Walk: MANDATORY today") and "impossible" in st["consequence"],
+          f"no slack -> mandatory, skip is impossible: {st['line']}")
+    st = habits.state(h, date(2026, 9, 26), log + [{"date": "2026-09-26", "habit": "Walk", "status": "skip"}])
+    check(st["today_status"] == "skip" and "skipped today" in st["line"] and st["days_left"] == 1, f"skip recorded: {st['line']}")
+    full = log + [{"date": "2026-09-23", "habit": "Walk", "status": "done"}, {"date": "2026-09-24", "habit": "Walk", "status": "done"}]
+    st = habits.state(h, date(2026, 9, 25), full)
+    check(st["remaining"] == 0 and "done for the week" in st["line"], "quota met")
+    body = habits.decorate({"summary": "Walk"}, h, habits.state(h, date(2026, 9, 26), log))
+    check(body["colorId"] == "11" and len(body["reminders"]["overrides"]) == 3 and "MANDATORY" in body["summary"],
+          "mandatory day: red, three reminders")
+    rows = habits.sheet_rows([h], date(2026, 9, 24), log)
+    check(rows[0] == list(habits.SHEET_COLS) and len(rows) == 8 and rows[1][3] == "missed" and rows[2][3] == "done"
+          and rows[4][3] == "" and rows[5][4] == "" and "0 of 3" in rows[1][4], f"sheet rows: past missed, recorded, today blank, future empty: {rows[1:5]}")
+    written = []
+    n = habits.apply_sheet([{"date": "2026-09-22", "habit": "Walk", "status": "done"},
+                            {"date": "2026-09-24", "habit": "Walk", "status": "Skip"},
+                            {"date": "2026-09-23", "habit": "Walk", "status": "missed"},
+                            {"date": "2026-09-30", "habit": "Walk", "status": "done"}],
+                           log, date(2026, 9, 24), log=lambda p, rec: written.append(rec))
+    check(n == 1 and written[0]["date"] == "2026-09-24" and written[0]["status"] == "skip",
+          f"sheet pull: only new done/skip/snooze up to today are logged: {written}")
+
+
 if __name__ == "__main__":
     fixtures()
     for t in (test_tracker, test_merge_and_cap, test_context_loader, test_search, test_verify, test_brief, test_prep,
-              test_sheets, test_readers, test_dayplan):
+              test_sheets, test_readers, test_dayplan, test_habits):
         try:
             t()
         except Exception as e:  # a crash is a failure too
