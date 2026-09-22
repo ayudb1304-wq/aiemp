@@ -11,3 +11,7 @@
 {"date": "2026-09-21", "id": "checkin:2026-09-21-intelligent-tracker-01", "action": "kept", "event_id": "qktce3s7cmlo5lh9ihlbhobc98", "run": "2026-09-21"}
 {"date": "2026-09-21", "id": "checkin:2026-09-21-intelligent-tracker-02", "action": "kept", "event_id": "lc1pe5v8k0hqmd2h8r7atpqu1k", "run": "2026-09-21"}
 {"date": "2026-09-21", "id": "checkin:2026-09-21-intelligent-tracker-03", "action": "kept", "event_id": "atl0sl1u8v4b455ihuaqu4evfg", "run": "2026-09-21"}
+{"date": "2026-09-22", "id": "checkin:2026-09-21-intelligent-tracker-01", "action": "created", "where": "desk", "start": "2026-09-22T09:00:00+05:30", "end": "2026-09-22T09:05:00+05:30", "minutes": 5, "event_id": "qgvhnmad3b0dtqob6losc07ldk", "run": "2026-09-22"}
+{"date": "2026-09-22", "id": "checkin:2026-09-21-intelligent-tracker-02", "action": "created", "where": "desk", "start": "2026-09-22T09:15:00+05:30", "end": "2026-09-22T09:20:00+05:30", "minutes": 5, "event_id": "j5shuopikmd9rclk5qqbmm6li4", "run": "2026-09-22"}
+{"date": "2026-09-22", "id": "checkin:2026-09-21-intelligent-tracker-03", "action": "created", "where": "desk", "start": "2026-09-22T09:30:00+05:30", "end": "2026-09-22T09:35:00+05:30", "minutes": 5, "event_id": "3ce0abq4la46lrm7svuehk3lsc", "run": "2026-09-22"}
+{"date": "2026-09-22", "id": "window:Walk", "action": "created", "where": "window", "start": "17:00", "end": "17:30", "event_id": "k50okerlqbiua1tm3t03jhuk38", "run": "2026-09-22"}
