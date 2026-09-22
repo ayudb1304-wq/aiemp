@@ -126,7 +126,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "Already 1 day overdue; next step is adding stage-date validation to the plan tree."
+   "why": "1d overdue"
   },
   {
    "item": {
@@ -155,7 +155,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "Already 1 day overdue; next step is implementing the 'my tasks' filter on the plan tree screen."
+   "why": "1d overdue"
   },
   {
    "item": {
@@ -184,7 +184,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-03"
    },
-   "why": "Already 1 day overdue; next step is adding the planned first-demo date to the project plan schedule."
+   "why": "1d overdue"
   }
  ],
  "claude_error": "",
