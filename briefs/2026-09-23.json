@@ -59,7 +59,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "2 days overdue and blocks safe stage insertion in the plan tree that development relies on—do it first."
+   "why": "2 days overdue, and validating stage insertion dates is needed before the plan tree logic can be trusted for scheduling."
   },
   {
    "item": {
@@ -117,7 +117,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-03"
    },
-   "why": "2 days overdue and the demo date must be in the project plan before scheduling/forecast can reflect it."
+   "why": "2 days overdue; the first demo date must be in the plan for the team to schedule toward it."
   }
  ],
  "claude_error": "",
