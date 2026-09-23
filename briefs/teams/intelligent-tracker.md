@@ -1,6 +1,6 @@
-# Intelligent Tracker: 2026-09-22
+# Intelligent Tracker: 2026-09-23
 
 ## Due today / overdue
-- `2026-09-21-intelligent-tracker-01` P2 **Laxmikant**: Verify and add date-based validation for inserting a new stage above or between existing stages in the plan tree. **(1d overdue)** [draft](../drafts/2026-09-21-intelligent-tracker-01.md)
-- `2026-09-21-intelligent-tracker-02` P2 **Laxmikant**: Add a 'my tasks' filter to the plan tree so team members can see only the tasks assigned to them. **(1d overdue)**
-- `2026-09-21-intelligent-tracker-03` P2 **Ashwini**: Set and add the first demo date to the project plan. **(1d overdue)**
+- `2026-09-21-intelligent-tracker-01` P2 **Laxmikant**: Verify and add date-based validation for inserting a new stage above or between existing stages in the plan tree. **(2d overdue)** [draft](../drafts/2026-09-21-intelligent-tracker-01.md)
+- `2026-09-21-intelligent-tracker-02` P2 **Laxmikant**: Add a 'my tasks' filter to the plan tree so team members can see only the tasks assigned to them. **(2d overdue)**
+- `2026-09-21-intelligent-tracker-03` P2 **Ashwini**: Set and add the first demo date to the project plan. **(2d overdue)**
