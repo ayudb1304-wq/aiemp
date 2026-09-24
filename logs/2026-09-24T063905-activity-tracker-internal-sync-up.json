@@ -1,0 +1,108 @@
+{
+  "run_id": "2026-09-24T063905-activity-tracker-internal-sync-up",
+  "source": "Activity Tracker-Internal Sync-up.docx",
+  "triage": "claude",
+  "reply": {
+    "project": "intelligent-tracker",
+    "people": [
+      "Ashwini",
+      "Sreekumar",
+      "Ayush",
+      "Samuel",
+      "Johan",
+      "Sam",
+      "Shalini",
+      "Aswin",
+      "Lakshmi",
+      "Vipin"
+    ]
+  },
+  "project": "intelligent-tracker",
+  "people": [
+    "Ashwini",
+    "Sreekumar",
+    "Ayush",
+    "Samuel",
+    "Johan",
+    "Sam",
+    "Shalini",
+    "Aswin",
+    "Lakshmi",
+    "Vipin"
+  ],
+  "date": "2026-09-22",
+  "note": false,
+  "context": {
+    "budget_tokens": 60000,
+    "document_tokens": 2848,
+    "document_counted": 2848,
+    "project": "intelligent-tracker",
+    "history_hits": 5,
+    "people": [
+      "Ashwini",
+      "Sreekumar",
+      "Ayush",
+      "Samuel",
+      "Johan",
+      "Sam",
+      "Shalini",
+      "Aswin",
+      "Lakshmi",
+      "Vipin"
+    ],
+    "layers": {
+      "1:company+project": {
+        "tokens": 1936,
+        "loaded": true
+      },
+      "2:open_items": {
+        "tokens": 644,
+        "loaded": true
+      },
+      "3:people": {
+        "tokens": 0,
+        "loaded": false
+      },
+      "4:history": {
+        "tokens": 1450,
+        "loaded": true
+      },
+      "5:briefs": {
+        "tokens": 312,
+        "loaded": true
+      }
+    },
+    "dropped": [],
+    "warnings": [],
+    "context_tokens": 4342
+  },
+  "chunks": 1,
+  "checks": {
+    "cards_flagged": 0,
+    "by_kind": {},
+    "flagged": []
+  },
+  "cards": 4,
+  "created": [
+    "2026-09-22-intelligent-tracker-01",
+    "2026-09-22-intelligent-tracker-02",
+    "2026-09-22-intelligent-tracker-03"
+  ],
+  "updated": [
+    "2026-09-21-intelligent-tracker-03"
+  ],
+  "decisions": [
+    "D-2026-09-22-01",
+    "D-2026-09-22-02",
+    "D-2026-09-22-03"
+  ],
+  "threads": [
+    "T-2026-09-22-01",
+    "T-2026-09-24-01"
+  ],
+  "drafts": [
+    "2026-09-22-intelligent-tracker-01",
+    "2026-09-22-intelligent-tracker-02",
+    "2026-09-21-intelligent-tracker-03"
+  ]
+}

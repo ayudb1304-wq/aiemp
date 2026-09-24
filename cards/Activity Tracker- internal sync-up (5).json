@@ -1,0 +1,149 @@
+{
+  "meeting": "Activity Tracker internal sync-up",
+  "kind": "transcript",
+  "cards": [
+    {
+      "team": "Intelligent Tracker",
+      "project": "intelligent-tracker",
+      "owner": "Laxmikant",
+      "task": "Build the checklist items and add-dependency screens in the plan tree.",
+      "due": "2026-09-24",
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "Lakshmi will be working on what is it, checklist items and add dependency, whatever his screens",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "build",
+      "next_step": null,
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "unknown",
+      "basis": null,
+      "flags": []
+    },
+    {
+      "team": "Intelligent Tracker",
+      "project": "intelligent-tracker",
+      "owner": "Johan",
+      "task": "Continue building the create functionality for the Change Request module.",
+      "due": "2026-09-24",
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "these Johan and Sam will be working on create functionality",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "build",
+      "next_step": null,
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "unknown",
+      "basis": null,
+      "flags": []
+    },
+    {
+      "team": "Intelligent Tracker",
+      "project": "intelligent-tracker",
+      "owner": "Samuel",
+      "task": "Continue building the create functionality for the Issues module.",
+      "due": "2026-09-24",
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "these Johan and Sam will be working on create functionality",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "build",
+      "next_step": null,
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "unknown",
+      "basis": null,
+      "flags": []
+    },
+    {
+      "team": "Intelligent Tracker",
+      "project": "intelligent-tracker",
+      "owner": "Ashwini",
+      "task": "Send a group mail summarizing today's roadblocks.",
+      "due": "2026-09-24",
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "The road breaks are happening, then just, I'll put that in group mail, actually.",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "communicate",
+      "next_step": null,
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "15m",
+      "basis": null,
+      "flags": []
+    },
+    {
+      "team": "Intelligent Tracker",
+      "project": "intelligent-tracker",
+      "owner": "Johan",
+      "task": "Implement CR time-block functionality once the Time Logs data structure is finalized.",
+      "due": null,
+      "priority": "P1",
+      "status": "blocked",
+      "blocked_by": "Time Logs module completion",
+      "evidence": "functionality for that will not be done until the time logs is complete",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "build",
+      "next_step": null,
+      "prerequisites": [
+        "Time Logs data structure/module completion"
+      ],
+      "unblocker": "Laxmikant",
+      "effort": "unknown",
+      "basis": null,
+      "flags": []
+    }
+  ],
+  "decisions": [],
+  "threads": [
+    {
+      "topic": "rework checkbox default logic",
+      "note": "Debate on whether the rework flag should default to yes or no when an issue is caused by another module owner's missing work.",
+      "evidence": "if an issue is raised because of the functionality that you have created, then it's obviously it will be a reward",
+      "matches_thread_id": null,
+      "flags": []
+    },
+    {
+      "topic": "task-work item conflation risk",
+      "note": "Concern that storing only tasks under work items, while keeping issues and CRs separate, could cause problems later.",
+      "evidence": "issues are separate, that will task cause a major problem later on, task can say, but this CR are different",
+      "matches_thread_id": null,
+      "flags": []
+    },
+    {
+      "topic": "CR rejected-edit workflow",
+      "note": "Team anticipates the client asking why a rejected CR request can't be edited directly instead of requiring send-back to draft.",
+      "evidence": "why can I, why can I not edit a rejected request?",
+      "matches_thread_id": null,
+      "flags": []
+    }
+  ],
+  "date": "2026-09-24",
+  "source": "Activity Tracker- internal sync-up (5).docx",
+  "project": "intelligent-tracker",
+  "people": [
+    "Ashwini Chamera Palangappa",
+    "Johan",
+    "Sam",
+    "Lakshmi"
+  ],
+  "origin": "planned",
+  "run_id": "2026-09-24T063739-activity-tracker-internal-sync-up-5",
+  "decision_ids": [],
+  "thread_ids": [
+    "T-2026-09-24-01",
+    "T-2026-09-24-02",
+    "T-2026-09-24-03"
+  ]
+}

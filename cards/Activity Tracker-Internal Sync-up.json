@@ -1,0 +1,151 @@
+{
+  "meeting": "Activity Tracker internal sync-up (2026-09-22)",
+  "kind": "transcript",
+  "cards": [
+    {
+      "team": "Intelligent Tracker",
+      "project": "intelligent-tracker",
+      "owner": "Ashwini",
+      "task": "Set and communicate the first demo date to Sreekumar.",
+      "due": "2026-09-22",
+      "priority": "P1",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "Yes, sir, we'll update you today.",
+      "matches_existing_id": "2026-09-21-intelligent-tracker-03",
+      "update_note": "Sreekumar repeated the demo-date ask after it was already 2 days overdue; Ashwini committed to share it today. Escalating to P1 per repeat-ask rule.",
+      "type": "communicate",
+      "next_step": "Confirm the demo date internally and message it to Sreekumar today.",
+      "prerequisites": null,
+      "unblocker": "Ashwini",
+      "effort": "15m",
+      "basis": "2026-09-21-intelligent-tracker-03; repeated ask in this meeting",
+      "flags": []
+    },
+    {
+      "team": "Intelligent Tracker",
+      "project": "intelligent-tracker",
+      "owner": "Ashwini",
+      "task": "Publish a weekly plan every Monday showing the team's planned activities and dates.",
+      "due": "2026-09-28",
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "I want you to publish a weekly plan going forward from every Monday.",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "communicate",
+      "next_step": "Draft and share the first weekly plan covering the week starting September 28.",
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "1h",
+      "basis": "Sreekumar's directive in this meeting",
+      "flags": []
+    },
+    {
+      "team": "Intelligent Tracker",
+      "project": "intelligent-tracker",
+      "owner": "Ashwini",
+      "task": "Share the full project plan through UAT with Sreekumar, including the date it will be available.",
+      "due": "2026-09-22",
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "I just want to go through the full plan of this application till UAT.",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "communicate",
+      "next_step": "Confirm the full-plan-through-UAT availability date and send it to Sreekumar.",
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "1h",
+      "basis": "Sreekumar's request in this meeting",
+      "flags": []
+    },
+    {
+      "team": "Intelligent Tracker",
+      "project": "intelligent-tracker",
+      "owner": "Samuel",
+      "task": "Add a rework checkbox to tasks created under an issue, defaulting to checked, editable per task by the TL or PM.",
+      "due": null,
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "By default, let it be a rework, but the TL or the project manager can make it not a rework.",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "build",
+      "next_step": "Add the rework checkbox to the task creation form in the Issues module, default checked, with TL/PM override per task.",
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "half-day",
+      "basis": "Sreekumar's rework checkbox decision in this meeting",
+      "flags": []
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "The rework checkbox on a task defaults to checked (assumed rework); the TL or project manager can uncheck it for a specific task when the issue stems from another module or external dependency.",
+      "by": "Sreekumar",
+      "evidence": "By default, let it be a rework, but the TL or the project manager can make it not a rework.",
+      "supersedes": null,
+      "flags": []
+    },
+    {
+      "decision": "An issue can be raised without a task, but a task must be created before that issue can actually be fixed or closed.",
+      "by": "Sreekumar",
+      "evidence": "Issue can be raised without any task, but ideally once you want to fix that issue, there should be some task.",
+      "supersedes": null,
+      "flags": []
+    },
+    {
+      "decision": "Going forward, PMO will publish a weekly plan every Monday showing planned activities for the week, instead of reporting only after completion.",
+      "by": "Sreekumar",
+      "evidence": "I want you to publish a weekly plan going forward from every Monday.",
+      "supersedes": null,
+      "flags": []
+    }
+  ],
+  "threads": [
+    {
+      "topic": "PMO role accountability",
+      "note": "Sreekumar questioned the value of having a PMO if the team just follows whatever it says without a plan; possible process or role review ahead.",
+      "evidence": "Otherwise, I don't need a PMO in this, right?",
+      "matches_thread_id": null,
+      "flags": []
+    },
+    {
+      "topic": "rework tracking for taskless issues",
+      "note": "Unclear how the new rework checkbox applies when an issue is raised without an underlying task, e.g. UI-only issues.",
+      "evidence": "issue is directly something maybe in UI front which doesn't require any task but she has raised an issue",
+      "matches_thread_id": "T-2026-09-24-01",
+      "flags": []
+    }
+  ],
+  "date": "2026-09-22",
+  "source": "Activity Tracker-Internal Sync-up.docx",
+  "project": "intelligent-tracker",
+  "people": [
+    "Ashwini",
+    "Sreekumar",
+    "Ayush",
+    "Samuel",
+    "Johan",
+    "Sam",
+    "Shalini",
+    "Aswin",
+    "Lakshmi",
+    "Vipin"
+  ],
+  "origin": "planned",
+  "run_id": "2026-09-24T063905-activity-tracker-internal-sync-up",
+  "decision_ids": [
+    "D-2026-09-22-01",
+    "D-2026-09-22-02",
+    "D-2026-09-22-03"
+  ],
+  "thread_ids": [
+    "T-2026-09-22-01",
+    "T-2026-09-24-01"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "run_id": "2026-09-24T063739-activity-tracker-internal-sync-up-5",
+  "source": "Activity Tracker- internal sync-up (5).docx",
+  "triage": "claude",
+  "reply": {
+    "project": "intelligent-tracker",
+    "people": [
+      "Ashwini Chamera Palangappa",
+      "Johan",
+      "Sam",
+      "Lakshmi"
+    ]
+  },
+  "project": "intelligent-tracker",
+  "people": [
+    "Ashwini Chamera Palangappa",
+    "Johan",
+    "Sam",
+    "Lakshmi"
+  ],
+  "date": "2026-09-24",
+  "note": false,
+  "context": {
+    "budget_tokens": 60000,
+    "document_tokens": 1125,
+    "document_counted": 1125,
+    "project": "intelligent-tracker",
+    "history_hits": 2,
+    "people": [
+      "Ashwini Chamera Palangappa",
+      "Johan",
+      "Sam",
+      "Lakshmi"
+    ],
+    "layers": {
+      "1:company+project": {
+        "tokens": 1936,
+        "loaded": true
+      },
+      "2:open_items": {
+        "tokens": 242,
+        "loaded": true
+      },
+      "3:people": {
+        "tokens": 0,
+        "loaded": false
+      },
+      "4:history": {
+        "tokens": 1043,
+        "loaded": true
+      },
+      "5:briefs": {
+        "tokens": 312,
+        "loaded": true
+      }
+    },
+    "dropped": [],
+    "warnings": [],
+    "context_tokens": 3533
+  },
+  "chunks": 1,
+  "checks": {
+    "cards_flagged": 0,
+    "by_kind": {},
+    "flagged": []
+  },
+  "cards": 5,
+  "created": [
+    "2026-09-24-intelligent-tracker-01",
+    "2026-09-24-intelligent-tracker-02",
+    "2026-09-24-intelligent-tracker-03",
+    "2026-09-24-intelligent-tracker-04",
+    "2026-09-24-intelligent-tracker-05"
+  ],
+  "updated": [],
+  "decisions": [],
+  "threads": [
+    "T-2026-09-24-01",
+    "T-2026-09-24-02",
+    "T-2026-09-24-03"
+  ],
+  "drafts": [
+    "2026-09-24-intelligent-tracker-04"
+  ]
+}
