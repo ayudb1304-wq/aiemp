@@ -315,7 +315,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "Now 3 days overdue with a clear next step (add date validation for inserted stages), so it should be closed out first."
+   "why": "3d overdue"
   },
   {
    "item": {
@@ -344,7 +344,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "Also 3 days overdue, and the next step (add a my-tasks filter) is still pending, so it needs immediate attention."
+   "why": "3d overdue"
   },
   {
    "item": {
@@ -373,7 +373,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-03"
    },
-   "why": "Flagged P1 and 2 days overdue, with a concrete next step to confirm and send the demo date to Sreekumar today, so it should go first."
+   "why": "Do first — it's P1, 2 days overdue, and the next step is to confirm and message the demo date to Sreekumar today."
   }
  ],
  "claude_error": "",
