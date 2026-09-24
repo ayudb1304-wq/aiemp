@@ -315,7 +315,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "3 days overdue and blocks safe stage insertion in the plan tree used for scheduling."
+   "why": "Now 3 days overdue with a clear next step (add date validation for inserted stages), so it should be closed out first."
   },
   {
    "item": {
@@ -344,7 +344,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "3d overdue"
+   "why": "Also 3 days overdue, and the next step (add a my-tasks filter) is still pending, so it needs immediate attention."
   },
   {
    "item": {
@@ -373,7 +373,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-03"
    },
-   "why": "P1, 2 days overdue, and Sreekumar is waiting on the confirmed demo date today."
+   "why": "Flagged P1 and 2 days overdue, with a concrete next step to confirm and send the demo date to Sreekumar today, so it should go first."
   }
  ],
  "claude_error": "",
