@@ -3,17 +3,17 @@
  "title": "Friday 25 Sep 2026",
  "me": "Ayush",
  "counts": {
-  "open": 15,
-  "p1": 2,
-  "overdue": 8,
+  "open": 14,
+  "p1": 1,
+  "overdue": 7,
   "due_today": 3,
-  "to_verify": 1,
+  "to_verify": 0,
   "blocked": 1
  },
  "project_counts": [
   [
    "Intelligent Tracker",
-   11
+   10
   ],
   [
    "unassigned",
@@ -128,13 +128,12 @@
     "id": "2026-09-25-unassigned-04"
    }
   ],
-  "closed": [],
-  "reported": [
+  "closed": [
    {
     "task": "Set and add the first demo date to the project plan.",
     "owner": "Ashwini",
     "priority": "P1",
-    "status": "to_verify",
+    "status": "done",
     "due": "2026-09-22",
     "project": "intelligent-tracker",
     "team": "Intelligent Tracker",
@@ -151,16 +150,26 @@
     "meeting": "Activity Tracker internal sync-up",
     "origin": "planned",
     "updated": "2026-09-25",
-    "closed": "",
+    "closed": "2026-09-25",
     "created": "2026-09-21",
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-03"
    }
   ],
+  "reported": [],
   "slipped": [],
   "reassigned": [],
   "rejected": [],
-  "edits": [],
+  "edits": [
+   {
+    "date": "2026-09-25",
+    "id": "2026-09-21-intelligent-tracker-03",
+    "field": "status",
+    "from": "to_verify",
+    "to": "done",
+    "project": "intelligent-tracker"
+   }
+  ],
   "decisions": [],
   "threads": [
    {
@@ -240,66 +249,10 @@
     ]
    }
   ],
-  "total": 10
+  "total": 11
  },
- "verify": [
-  {
-   "item": {
-    "task": "Set and add the first demo date to the project plan.",
-    "owner": "Ashwini",
-    "priority": "P1",
-    "status": "to_verify",
-    "due": "2026-09-22",
-    "project": "intelligent-tracker",
-    "team": "Intelligent Tracker",
-    "type": "communicate",
-    "next_step": "Confirm the demo date internally and message it to Sreekumar today.",
-    "unblocker": "Ashwini",
-    "effort": "15m",
-    "blocked_by": "",
-    "prerequisites": "",
-    "notes": "2026-09-22: due 2026-09-21 -> 2026-09-22 | 2026-09-22: Sreekumar repeated the demo-date ask after it was already 2 days overdue; Ashwini committed to share it today. Escalating to P1 per repeat-ask rule. | 2026-09-25: Ashwini confirmed demo dates: Issues+CR demo next Wednesday (2026-09-30), Plan Tree demo on 2026-10-05; date already shared with Sreekumar. [I have shared you, sir, like maybe it's 9th, 5th, 9th of October, I guess, sorry, 5th of October, sir.]",
-    "evidence": "No, please put the date where we can have the first demo.",
-    "basis": "2026-09-21-intelligent-tracker-03",
-    "flags": "due before meeting: 2026-09-22",
-    "meeting": "Activity Tracker internal sync-up",
-    "origin": "planned",
-    "updated": "2026-09-25",
-    "closed": "",
-    "created": "2026-09-21",
-    "source": "2026-09-21-activity-tracker-sync.docx",
-    "id": "2026-09-21-intelligent-tracker-03"
-   },
-   "quote": "I have shared you, sir, like maybe it's 9th, 5th, 9th of October, I guess, sorry, 5th of October, sir."
-  }
- ],
+ "verify": [],
  "flagged": [
-  {
-   "task": "Set and add the first demo date to the project plan.",
-   "owner": "Ashwini",
-   "priority": "P1",
-   "status": "to_verify",
-   "due": "2026-09-22",
-   "project": "intelligent-tracker",
-   "team": "Intelligent Tracker",
-   "type": "communicate",
-   "next_step": "Confirm the demo date internally and message it to Sreekumar today.",
-   "unblocker": "Ashwini",
-   "effort": "15m",
-   "blocked_by": "",
-   "prerequisites": "",
-   "notes": "2026-09-22: due 2026-09-21 -> 2026-09-22 | 2026-09-22: Sreekumar repeated the demo-date ask after it was already 2 days overdue; Ashwini committed to share it today. Escalating to P1 per repeat-ask rule. | 2026-09-25: Ashwini confirmed demo dates: Issues+CR demo next Wednesday (2026-09-30), Plan Tree demo on 2026-10-05; date already shared with Sreekumar. [I have shared you, sir, like maybe it's 9th, 5th, 9th of October, I guess, sorry, 5th of October, sir.]",
-   "evidence": "No, please put the date where we can have the first demo.",
-   "basis": "2026-09-21-intelligent-tracker-03",
-   "flags": "due before meeting: 2026-09-22",
-   "meeting": "Activity Tracker internal sync-up",
-   "origin": "planned",
-   "updated": "2026-09-25",
-   "closed": "",
-   "created": "2026-09-21",
-   "source": "2026-09-21-activity-tracker-sync.docx",
-   "id": "2026-09-21-intelligent-tracker-03"
-  },
   {
    "task": "Review the CAPA workflow document comparing Azure DevOps, Viva Vault and SAP in detail.",
    "owner": "Aswin",
@@ -433,7 +386,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "4d overdue"
+   "why": "4 days overdue on stage-date validation, so add the neighbor start/close date checks today before it slips further."
   },
   {
    "item": {
@@ -462,7 +415,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "4 days overdue with a defined next step (add my-tasks filter), but no evidence it blocks anyone or the sign-off gate."
+   "why": "4d overdue"
   },
   {
    "item": {
@@ -491,7 +444,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "3 days overdue and blocks sending Sreekumar the UAT plan date he's waiting on for review/sign-off."
+   "why": "3 days overdue and Sreekumar still lacks the UAT plan availability date, so confirm and send it today."
   }
  ],
  "claude_error": "",
@@ -540,35 +493,9 @@
     }
    ],
    "title": "Intelligent Tracker",
-   "planned": 11,
+   "planned": 10,
    "unplanned": 0,
    "due_soon": [
-    {
-     "task": "Set and add the first demo date to the project plan.",
-     "owner": "Ashwini",
-     "priority": "P1",
-     "status": "to_verify",
-     "due": "2026-09-22",
-     "project": "intelligent-tracker",
-     "team": "Intelligent Tracker",
-     "type": "communicate",
-     "next_step": "Confirm the demo date internally and message it to Sreekumar today.",
-     "unblocker": "Ashwini",
-     "effort": "15m",
-     "blocked_by": "",
-     "prerequisites": "",
-     "notes": "2026-09-22: due 2026-09-21 -> 2026-09-22 | 2026-09-22: Sreekumar repeated the demo-date ask after it was already 2 days overdue; Ashwini committed to share it today. Escalating to P1 per repeat-ask rule. | 2026-09-25: Ashwini confirmed demo dates: Issues+CR demo next Wednesday (2026-09-30), Plan Tree demo on 2026-10-05; date already shared with Sreekumar. [I have shared you, sir, like maybe it's 9th, 5th, 9th of October, I guess, sorry, 5th of October, sir.]",
-     "evidence": "No, please put the date where we can have the first demo.",
-     "basis": "2026-09-21-intelligent-tracker-03",
-     "flags": "due before meeting: 2026-09-22",
-     "meeting": "Activity Tracker internal sync-up",
-     "origin": "planned",
-     "updated": "2026-09-25",
-     "closed": "",
-     "created": "2026-09-21",
-     "source": "2026-09-21-activity-tracker-sync.docx",
-     "id": "2026-09-21-intelligent-tracker-03"
-    },
     {
      "task": "Verify and add date-based validation for inserting a new stage above or between existing stages in the plan tree.",
      "owner": "Laxmikant",
@@ -976,32 +903,6 @@
  ],
  "teams": {
   "Intelligent Tracker": [
-   {
-    "task": "Set and add the first demo date to the project plan.",
-    "owner": "Ashwini",
-    "priority": "P1",
-    "status": "to_verify",
-    "due": "2026-09-22",
-    "project": "intelligent-tracker",
-    "team": "Intelligent Tracker",
-    "type": "communicate",
-    "next_step": "Confirm the demo date internally and message it to Sreekumar today.",
-    "unblocker": "Ashwini",
-    "effort": "15m",
-    "blocked_by": "",
-    "prerequisites": "",
-    "notes": "2026-09-22: due 2026-09-21 -> 2026-09-22 | 2026-09-22: Sreekumar repeated the demo-date ask after it was already 2 days overdue; Ashwini committed to share it today. Escalating to P1 per repeat-ask rule. | 2026-09-25: Ashwini confirmed demo dates: Issues+CR demo next Wednesday (2026-09-30), Plan Tree demo on 2026-10-05; date already shared with Sreekumar. [I have shared you, sir, like maybe it's 9th, 5th, 9th of October, I guess, sorry, 5th of October, sir.]",
-    "evidence": "No, please put the date where we can have the first demo.",
-    "basis": "2026-09-21-intelligent-tracker-03",
-    "flags": "due before meeting: 2026-09-22",
-    "meeting": "Activity Tracker internal sync-up",
-    "origin": "planned",
-    "updated": "2026-09-25",
-    "closed": "",
-    "created": "2026-09-21",
-    "source": "2026-09-21-activity-tracker-sync.docx",
-    "id": "2026-09-21-intelligent-tracker-03"
-   },
    {
     "task": "Implement CR time-block functionality once the Time Logs data structure is finalized.",
     "owner": "Johan",
