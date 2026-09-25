@@ -386,7 +386,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "4 days overdue on stage-date validation, so add the neighbor start/close date checks today before it slips further."
+   "why": "4d overdue"
   },
   {
    "item": {
@@ -444,7 +444,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "3 days overdue and Sreekumar still lacks the UAT plan availability date, so confirm and send it today."
+   "why": "Do first since it's 3 days overdue and Sreekumar is waiting on the confirmed full-plan-through-UAT availability date."
   }
  ],
  "claude_error": "",
