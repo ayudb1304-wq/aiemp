@@ -1,0 +1,102 @@
+{
+  "run_id": "2026-09-25T061859-capa-discussion-on-existing-system-s",
+  "source": "CAPA - Discussion On Existing System's .docx",
+  "triage": "claude",
+  "reply": {
+    "project": "unassigned",
+    "people": [
+      "Thenappan",
+      "Aswin"
+    ]
+  },
+  "project": null,
+  "people": [
+    "Thenappan",
+    "Aswin"
+  ],
+  "date": "2026-09-25",
+  "note": false,
+  "context": {
+    "budget_tokens": 60000,
+    "document_tokens": 766,
+    "document_counted": 766,
+    "project": null,
+    "history_hits": 18,
+    "people": [
+      "Thenappan",
+      "Aswin"
+    ],
+    "layers": {
+      "1:company+project": {
+        "tokens": 1478,
+        "loaded": true
+      },
+      "2:open_items": {
+        "tokens": 960,
+        "loaded": true
+      },
+      "3:people": {
+        "tokens": 0,
+        "loaded": false
+      },
+      "4:history": {
+        "tokens": 3146,
+        "loaded": true
+      },
+      "5:briefs": {
+        "tokens": 0,
+        "loaded": false
+      }
+    },
+    "dropped": [],
+    "warnings": [],
+    "context_tokens": 5584
+  },
+  "chunks": 1,
+  "checks": {
+    "cards_flagged": 4,
+    "by_kind": {
+      "owner unknown": 4
+    },
+    "flagged": [
+      {
+        "what": "Review the CAPA workflow document comparing Azure DevOps, Viva Vault and SAP in detail.",
+        "flags": [
+          "owner unknown: Aswin"
+        ]
+      },
+      {
+        "what": "Check off items on the shared list comparing existing CAPA systems.",
+        "flags": [
+          "owner unknown: Thenappan"
+        ]
+      },
+      {
+        "what": "Add newly identified system-comparison items to the shared Excel file with Thenappan.",
+        "flags": [
+          "owner unknown: Aswin"
+        ]
+      },
+      {
+        "what": "Decide with Thenappan which existing system approach is best and report the choice to the team.",
+        "flags": [
+          "owner unknown: Aswin"
+        ]
+      }
+    ]
+  },
+  "cards": 4,
+  "created": [
+    "2026-09-25-unassigned-01",
+    "2026-09-25-unassigned-02",
+    "2026-09-25-unassigned-03",
+    "2026-09-25-unassigned-04"
+  ],
+  "updated": [],
+  "decisions": [],
+  "threads": [],
+  "drafts": [
+    "2026-09-25-unassigned-01",
+    "2026-09-25-unassigned-02"
+  ]
+}

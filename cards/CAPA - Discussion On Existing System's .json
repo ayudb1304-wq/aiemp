@@ -1,0 +1,107 @@
+{
+  "meeting": "CAPA - Discussion On Existing System's",
+  "kind": "transcript",
+  "cards": [
+    {
+      "team": "unassigned",
+      "project": "unassigned",
+      "owner": "Aswin",
+      "task": "Review the CAPA workflow document comparing Azure DevOps, Viva Vault and SAP in detail.",
+      "due": "2026-09-25",
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "even I have to go through this workflow in detail",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "review",
+      "next_step": null,
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "unknown",
+      "basis": null,
+      "flags": [
+        "owner unknown: Aswin"
+      ]
+    },
+    {
+      "team": "unassigned",
+      "project": "unassigned",
+      "owner": "Thenappan",
+      "task": "Check off items on the shared list comparing existing CAPA systems.",
+      "due": "2026-09-25",
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "So I'll just cheque it off",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "review",
+      "next_step": null,
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "unknown",
+      "basis": null,
+      "flags": [
+        "owner unknown: Thenappan"
+      ]
+    },
+    {
+      "team": "unassigned",
+      "project": "unassigned",
+      "owner": "Aswin",
+      "task": "Add newly identified system-comparison items to the shared Excel file with Thenappan.",
+      "due": "2026-09-25",
+      "priority": "P2",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "we can get a few more things, then we will add it in the same Excel",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "coordinate",
+      "next_step": null,
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "unknown",
+      "basis": null,
+      "flags": [
+        "owner unknown: Aswin"
+      ]
+    },
+    {
+      "team": "unassigned",
+      "project": "unassigned",
+      "owner": "Aswin",
+      "task": "Decide with Thenappan which existing system approach is best and report the choice to the team.",
+      "due": null,
+      "priority": "P3",
+      "status": "open",
+      "blocked_by": null,
+      "evidence": "In time, I will update, which I feel is better, OK",
+      "matches_existing_id": null,
+      "update_note": null,
+      "type": "decide",
+      "next_step": null,
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "unknown",
+      "basis": null,
+      "flags": [
+        "owner unknown: Aswin"
+      ]
+    }
+  ],
+  "decisions": [],
+  "threads": [],
+  "date": "2026-09-25",
+  "source": "CAPA - Discussion On Existing System's .docx",
+  "project": "unassigned",
+  "people": [
+    "Thenappan",
+    "Aswin"
+  ],
+  "origin": "planned",
+  "run_id": "2026-09-25T061859-capa-discussion-on-existing-system-s",
+  "decision_ids": [],
+  "thread_ids": []
+}

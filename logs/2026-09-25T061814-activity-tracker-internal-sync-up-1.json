@@ -1,0 +1,80 @@
+{
+  "run_id": "2026-09-25T061814-activity-tracker-internal-sync-up-1",
+  "source": "Activity Tracker-Internal sync-up (1).docx",
+  "triage": "claude",
+  "reply": {
+    "project": "intelligent-tracker",
+    "people": [
+      "Ashwini",
+      "Sreekumar"
+    ]
+  },
+  "project": "intelligent-tracker",
+  "people": [
+    "Ashwini",
+    "Sreekumar"
+  ],
+  "date": "2026-09-25",
+  "note": false,
+  "context": {
+    "budget_tokens": 60000,
+    "document_tokens": 462,
+    "document_counted": 462,
+    "project": "intelligent-tracker",
+    "history_hits": 9,
+    "people": [
+      "Ashwini",
+      "Sreekumar"
+    ],
+    "layers": {
+      "1:company+project": {
+        "tokens": 1936,
+        "loaded": true
+      },
+      "2:open_items": {
+        "tokens": 959,
+        "loaded": true
+      },
+      "3:people": {
+        "tokens": 0,
+        "loaded": false
+      },
+      "4:history": {
+        "tokens": 1945,
+        "loaded": true
+      },
+      "5:briefs": {
+        "tokens": 827,
+        "loaded": true
+      }
+    },
+    "dropped": [],
+    "warnings": [],
+    "context_tokens": 5667
+  },
+  "chunks": 1,
+  "checks": {
+    "cards_flagged": 1,
+    "by_kind": {
+      "due before meeting": 1
+    },
+    "flagged": [
+      {
+        "what": "Set and add the first demo date to the project plan.",
+        "flags": [
+          "due before meeting: 2026-09-22"
+        ]
+      }
+    ]
+  },
+  "cards": 1,
+  "created": [],
+  "updated": [
+    "2026-09-21-intelligent-tracker-03"
+  ],
+  "decisions": [],
+  "threads": [
+    "T-2026-09-25-01",
+    "T-2026-09-25-02"
+  ]
+}

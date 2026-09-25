@@ -1,0 +1,59 @@
+{
+  "meeting": "Activity Tracker Internal sync-up (2026-09-25)",
+  "kind": "transcript",
+  "cards": [
+    {
+      "team": "Intelligent Tracker",
+      "project": "intelligent-tracker",
+      "owner": "Ashwini",
+      "task": "Set and add the first demo date to the project plan.",
+      "due": "2026-09-22",
+      "priority": "P1",
+      "status": "to_verify",
+      "blocked_by": null,
+      "evidence": "I have shared you, sir, like maybe it's 9th, 5th, 9th of October, I guess, sorry, 5th of October, sir.",
+      "matches_existing_id": "2026-09-21-intelligent-tracker-03",
+      "update_note": "Ashwini confirmed demo dates: Issues+CR demo next Wednesday (2026-09-30), Plan Tree demo on 2026-10-05; date already shared with Sreekumar.",
+      "type": "communicate",
+      "next_step": null,
+      "prerequisites": null,
+      "unblocker": null,
+      "effort": "15m",
+      "basis": "2026-09-21-intelligent-tracker-03",
+      "flags": [
+        "due before meeting: 2026-09-22"
+      ]
+    }
+  ],
+  "decisions": [],
+  "threads": [
+    {
+      "topic": "CR approval role vs level",
+      "note": "Approval matrix is level-based with assigned people rather than named roles; may need clarifying for scalability.",
+      "evidence": "it's only a person and level 7.",
+      "matches_thread_id": null,
+      "flags": []
+    },
+    {
+      "topic": "Request module integration timing",
+      "note": "Sreekumar asked if the request module will be integrated during this phase; Ashwini confirmed yes but gave no specifics.",
+      "evidence": "we'll be integrating with the request module also right during this.",
+      "matches_thread_id": null,
+      "flags": []
+    }
+  ],
+  "date": "2026-09-25",
+  "source": "Activity Tracker-Internal sync-up (1).docx",
+  "project": "intelligent-tracker",
+  "people": [
+    "Ashwini",
+    "Sreekumar"
+  ],
+  "origin": "planned",
+  "run_id": "2026-09-25T061814-activity-tracker-internal-sync-up-1",
+  "decision_ids": [],
+  "thread_ids": [
+    "T-2026-09-25-01",
+    "T-2026-09-25-02"
+  ]
+}
