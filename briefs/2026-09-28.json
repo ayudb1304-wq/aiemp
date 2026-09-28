@@ -235,7 +235,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "7 days overdue and blocks safe stage insertion in the plan tree, so validation should be added first."
+   "why": "Now 7 days overdue, so it should be tackled first to add the missing stage-date validation before further slippage."
   },
   {
    "item": {
@@ -293,7 +293,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "6 days overdue and Sreekumar is waiting on the UAT plan date, so confirm and send it now."
+   "why": "6 days overdue and Sreekumar is still waiting on the confirmed UAT plan availability date, so it should go first."
   }
  ],
  "claude_error": "",
