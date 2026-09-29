@@ -168,7 +168,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "8d overdue"
+   "why": "8 days overdue, exceeds the 2-day threshold making it at least P2, but no one is currently blocked waiting on it."
   },
   {
    "item": {
@@ -197,7 +197,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "8 days overdue; next step is a defined filter implementation, but no evidence anyone is currently blocked waiting on it."
+   "why": "8 days overdue and past the 2-day threshold, but no evidence anyone is blocked on this filter feature right now."
   },
   {
    "item": {
@@ -226,7 +226,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "7 days overdue and Sreekumar is waiting on the UAT plan availability date, so it should go first to unblock his response."
+   "why": "7 days overdue and Sreekumar is waiting on the UAT-plan availability date, so send it to him now to unblock him."
   }
  ],
  "claude_error": "",
