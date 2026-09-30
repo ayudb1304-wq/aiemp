@@ -168,7 +168,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "9 days overdue and blocks safe stage insertion in the plan tree; do the date-validation check now."
+   "why": "9 days overdue, so it should be tackled first to close the validation gap in the plan tree before it slips further."
   },
   {
    "item": {
@@ -197,7 +197,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "9d overdue"
+   "why": "9 days overdue, making the my-tasks filter the next item Laxmikant should clear today."
   },
   {
    "item": {
@@ -226,7 +226,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "8 days overdue and Sreekumar is still waiting on the UAT-through-plan availability date."
+   "why": "8 days overdue and Sreekumar is still waiting on the UAT availability date, so it should be sent today."
   }
  ],
  "claude_error": "",
