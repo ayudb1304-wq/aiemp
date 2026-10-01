@@ -168,7 +168,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "10 days overdue, already past the 2‑day overdue threshold that triggers escalation to at least P2."
+   "why": "10 days overdue; this is part of plan tree validation blocking sign-off on the overall solution design."
   },
   {
    "item": {
@@ -197,7 +197,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "10 days overdue, likewise breaching the 2‑day overdue rule, with no blocking info to justify P1."
+   "why": "10d overdue"
   },
   {
    "item": {
@@ -226,7 +226,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "9 days overdue and the next step—confirming and sending Sreekumar the UAT‑availability date—is still outstanding, so it should be closed out today."
+   "why": "9 days overdue and Sreekumar is waiting on the UAT plan availability date, which is still unsent."
   }
  ],
  "claude_error": "",
