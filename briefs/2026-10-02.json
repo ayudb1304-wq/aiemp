@@ -168,7 +168,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "11 days overdue; next step is adding stage-date validation to the plan tree, Laxmikant's area, so it's past due for action."
+   "why": "11d overdue"
   },
   {
    "item": {
@@ -197,7 +197,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "11 days overdue; next step is adding a \"my tasks\" filter, with no unblocking or due-date evidence beyond the delay itself."
+   "why": "11d overdue"
   },
   {
    "item": {
@@ -226,7 +226,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "10 days overdue; next step is confirming and sending the full-plan-through-UAT date to Sreekumar, who is awaiting it."
+   "why": "10 days overdue and Sreekumar is waiting on the UAT availability date, so confirm and send it today."
   }
  ],
  "claude_error": "",
