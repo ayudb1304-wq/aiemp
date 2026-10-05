@@ -168,7 +168,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "14d overdue and blocks safe stage insertion in the plan tree; next step is adding the date-validation check."
+   "why": "14 days overdue and blocks safe stage insertion in the plan tree; add the date validation next step now."
   },
   {
    "item": {
@@ -226,7 +226,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "13d overdue and Sreekumar is waiting on the full plan-through-UAT date, so next step is confirming and sending it to him."
+   "why": "13 days overdue and Sreekumar is waiting on the UAT plan availability date—confirm and send it today."
   }
  ],
  "claude_error": "",
