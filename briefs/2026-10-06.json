@@ -168,7 +168,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "Overdue 15 days; next step is adding stage-date validation that the plan tree needs before further stage inserts are safe."
+   "why": "15d overdue"
   },
   {
    "item": {
@@ -197,7 +197,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "Overdue 15 days; next step is simply implementing the my-tasks filter, a quick fix left unresolved for two weeks."
+   "why": "15d overdue"
   },
   {
    "item": {
@@ -226,7 +226,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "Overdue 14 days; Ashwini still must confirm and send Sreekumar the UAT-plan availability date."
+   "why": "Do first — 14 days overdue and Sreekumar is waiting on the UAT plan availability date before he can proceed."
   }
  ],
  "claude_error": "",
