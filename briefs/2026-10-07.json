@@ -168,7 +168,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "16d overdue"
+   "why": "Overdue by 16 days with a clear next step (stage-date validation), so finishing it now stops further slippage—no stated blocker though."
   },
   {
    "item": {
@@ -226,7 +226,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "15 days overdue and Sreekumar is still waiting on the UAT availability date Ashwini committed to send him."
+   "why": "15 days overdue and Sreekumar is waiting on the UAT-plan date, so sending it now unblocks his review."
   }
  ],
  "claude_error": "",
