@@ -168,7 +168,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "18d overdue"
+   "why": "18 days overdue, and its next step (date validation on stage insert) is still outstanding."
   },
   {
    "item": {
@@ -197,7 +197,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "18d overdue"
+   "why": "18 days overdue, with the my-tasks filter still unimplemented on the plan tree."
   },
   {
    "item": {
@@ -226,7 +226,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "17 days overdue and Sreekumar is still waiting on the UAT availability date, so it should be sent to him today."
+   "why": "17 days overdue and Sreekumar is waiting on the UAT plan availability date Ashwini committed to send him."
   }
  ],
  "claude_error": "",
