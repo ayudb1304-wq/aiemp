@@ -168,7 +168,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "21d overdue"
+   "why": "21 days overdue; next step is adding stage date-validation, so it should be tackled before further overdue slippage."
   },
   {
    "item": {
@@ -197,7 +197,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "21d overdue"
+   "why": "21 days overdue with a defined next step (add my-tasks filter), making it a priority to clear today."
   },
   {
    "item": {
@@ -226,7 +226,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "20 days overdue and Sreekumar is still waiting on the UAT plan date Ashwini committed to send him."
+   "why": "20 days overdue and the next step—confirming the UAT plan date for Sreekumar—is still outstanding, so it should go first."
   }
  ],
  "claude_error": "",
