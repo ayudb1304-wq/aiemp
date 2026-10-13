@@ -168,7 +168,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "22 days overdue on stage-insert date validation, so completing the next-step check today stops further slip."
+   "why": "22 days overdue and blocks safe stage insertion in the plan tree, which the scheduling engine depends on—do first."
   },
   {
    "item": {
@@ -197,7 +197,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "22 days overdue on the plan-tree \"my tasks\" filter, with the next step (implementing the filter) still pending, demanding action today."
+   "why": "22d overdue"
   },
   {
    "item": {
@@ -226,7 +226,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "21 days overdue on sending Sreekumar the full-plan-through-UAT date, and this repeated ask should be resolved now per escalation rules."
+   "why": "21 days overdue and Sreekumar is waiting on the UAT availability date, so Ashwini should send it now."
   }
  ],
  "claude_error": "",
