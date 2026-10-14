@@ -168,7 +168,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "23d overdue"
+   "why": "23 days overdue on stage-insertion date validation; next step is adding the start/close date check, so finish it now to stop further slippage."
   },
   {
    "item": {
@@ -226,7 +226,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "22 days overdue and Sreekumar is still waiting on the UAT plan date, so send it today to unblock his review."
+   "why": "22 days overdue on giving Sreekumar the full-plan-through-UAT availability date, and he is waiting on this communication, so send it today."
   }
  ],
  "claude_error": "",
