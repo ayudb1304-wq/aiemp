@@ -168,7 +168,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "24d overdue past the 2-day threshold, escalate to at least P2, but no stated blocker on anyone right now."
+   "why": "24 days overdue, exceeding the 2-day threshold that makes it at least P2 and due now."
   },
   {
    "item": {
@@ -197,7 +197,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "24d overdue"
+   "why": "24 days overdue, past the 2-day overdue threshold, so it needs attention today."
   },
   {
    "item": {
@@ -226,7 +226,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "23d overdue and Sreekumar is waiting on the UAT-plan date, directly meeting the \"someone is blocked\" P1 criterion."
+   "why": "23 days overdue and Sreekumar is still waiting on the promised UAT plan availability date."
   }
  ],
  "claude_error": "",
