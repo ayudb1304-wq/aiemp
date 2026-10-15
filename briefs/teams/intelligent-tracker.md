@@ -1,14 +1,14 @@
-# Intelligent Tracker: 2026-10-14
+# Intelligent Tracker: 2026-10-15
 
 ## Due today / overdue
-- `2026-09-21-intelligent-tracker-01` P2 **Laxmikant**: Verify and add date-based validation for inserting a new stage above or between existing stages in the plan tree. **(23d overdue)** [draft](../drafts/2026-09-21-intelligent-tracker-01.md)
-- `2026-09-21-intelligent-tracker-02` P2 **Laxmikant**: Add a 'my tasks' filter to the plan tree so team members can see only the tasks assigned to them. **(23d overdue)**
-- `2026-09-22-intelligent-tracker-02` P2 **Ashwini**: Share the full project plan through UAT with Sreekumar, including the date it will be available. **(22d overdue)** [draft](../drafts/2026-09-22-intelligent-tracker-02.md)
-- `2026-09-24-intelligent-tracker-01` P2 **Laxmikant**: Build the checklist items and add-dependency screens in the plan tree. **(20d overdue)**
-- `2026-09-24-intelligent-tracker-02` P2 **Johan**: Continue building the create functionality for the Change Request module. **(20d overdue)**
-- `2026-09-24-intelligent-tracker-03` P2 **Samuel**: Continue building the create functionality for the Issues module. **(20d overdue)**
-- `2026-09-24-intelligent-tracker-04` P2 **Ashwini**: Send a group mail summarizing today's roadblocks. **(20d overdue)** [draft](../drafts/2026-09-24-intelligent-tracker-04.md)
-- `2026-09-22-intelligent-tracker-01` P2 **Ashwini**: Publish a weekly plan every Monday showing the team's planned activities and dates. **(16d overdue)** [draft](../drafts/2026-09-22-intelligent-tracker-01.md)
+- `2026-09-21-intelligent-tracker-01` P2 **Laxmikant**: Verify and add date-based validation for inserting a new stage above or between existing stages in the plan tree. **(24d overdue)** [draft](../drafts/2026-09-21-intelligent-tracker-01.md)
+- `2026-09-21-intelligent-tracker-02` P2 **Laxmikant**: Add a 'my tasks' filter to the plan tree so team members can see only the tasks assigned to them. **(24d overdue)**
+- `2026-09-22-intelligent-tracker-02` P2 **Ashwini**: Share the full project plan through UAT with Sreekumar, including the date it will be available. **(23d overdue)** [draft](../drafts/2026-09-22-intelligent-tracker-02.md)
+- `2026-09-24-intelligent-tracker-01` P2 **Laxmikant**: Build the checklist items and add-dependency screens in the plan tree. **(21d overdue)**
+- `2026-09-24-intelligent-tracker-02` P2 **Johan**: Continue building the create functionality for the Change Request module. **(21d overdue)**
+- `2026-09-24-intelligent-tracker-03` P2 **Samuel**: Continue building the create functionality for the Issues module. **(21d overdue)**
+- `2026-09-24-intelligent-tracker-04` P2 **Ashwini**: Send a group mail summarizing today's roadblocks. **(21d overdue)** [draft](../drafts/2026-09-24-intelligent-tracker-04.md)
+- `2026-09-22-intelligent-tracker-01` P2 **Ashwini**: Publish a weekly plan every Monday showing the team's planned activities and dates. **(17d overdue)** [draft](../drafts/2026-09-22-intelligent-tracker-01.md)
 
 ## Everything else open
 - `2026-09-24-intelligent-tracker-05` P1 **Johan**: Implement CR time-block functionality once the Time Logs data structure is finalized., blocked by Time Logs module completion
