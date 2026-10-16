@@ -168,7 +168,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-01"
    },
-   "why": "25 days overdue with a clear next step (add date validation for stage insertion), so it should finally be closed out today."
+   "why": "25d overdue"
   },
   {
    "item": {
@@ -197,7 +197,7 @@
     "source": "2026-09-21-activity-tracker-sync.docx",
     "id": "2026-09-21-intelligent-tracker-02"
    },
-   "why": "25d overdue"
+   "why": "25 days overdue but no evidence anyone is blocked waiting on the my-tasks filter today."
   },
   {
    "item": {
@@ -226,7 +226,7 @@
     "source": "Activity Tracker-Internal Sync-up.docx",
     "id": "2026-09-22-intelligent-tracker-02"
    },
-   "why": "24 days overdue and Sreekumar is waiting on the full-plan-through-UAT date, so it should be sent today."
+   "why": "24 days overdue and Sreekumar is still waiting on the UAT plan date, so send it now to unblock him."
   }
  ],
  "claude_error": "",
