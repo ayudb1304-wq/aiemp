@@ -1,9 +1,9 @@
-# unassigned: 2026-10-27
+# unassigned: 2026-10-28
 
 ## Due today / overdue
-- `2026-09-25-unassigned-01` P2 **Aswin**: Review the CAPA workflow document comparing Azure DevOps, Viva Vault and SAP in detail. **(32d overdue)** [draft](../drafts/2026-09-25-unassigned-01.md)
-- `2026-09-25-unassigned-02` P2 **Thenappan**: Check off items on the shared list comparing existing CAPA systems. **(32d overdue)** [draft](../drafts/2026-09-25-unassigned-02.md)
-- `2026-09-25-unassigned-03` P2 **Aswin**: Add newly identified system-comparison items to the shared Excel file with Thenappan. **(32d overdue)**
+- `2026-09-25-unassigned-01` P2 **Aswin**: Review the CAPA workflow document comparing Azure DevOps, Viva Vault and SAP in detail. **(33d overdue)** [draft](../drafts/2026-09-25-unassigned-01.md)
+- `2026-09-25-unassigned-02` P2 **Thenappan**: Check off items on the shared list comparing existing CAPA systems. **(33d overdue)** [draft](../drafts/2026-09-25-unassigned-02.md)
+- `2026-09-25-unassigned-03` P2 **Aswin**: Add newly identified system-comparison items to the shared Excel file with Thenappan. **(33d overdue)**
 
 ## Everything else open
 - `2026-09-25-unassigned-04` P3 **Aswin**: Decide with Thenappan which existing system approach is best and report the choice to the team.
