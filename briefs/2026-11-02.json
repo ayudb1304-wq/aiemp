@@ -229,7 +229,7 @@
    "why": "41d overdue"
   }
  ],
- "claude_error": "Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011Cgdsdi4rU3uGZrERxCGMg'}",
+ "claude_error": "Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011Cge7Rs9bJMuoox2ajNmkj'}",
  "batches": [],
  "delegate": [],
  "threads": [],
